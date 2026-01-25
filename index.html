@@ -1,0 +1,282 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="en">\
+<head>\
+    <meta charset="UTF-8">\
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+    <title>Moodswingz Media | The Ecosystem</title>\
+    <script src="https://cdn.tailwindcss.com"></script>\
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>\
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>\
+    <script src="https://unpkg.com/@babel/standalone/babel.min.min.js"></script>\
+    <script src="https://unpkg.com/lucide@latest"></script>\
+    <style>\
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');\
+        body \{ font-family: 'Inter', sans-serif; background-color: black; color: white; margin: 0; \}\
+        .blur-glow \{ filter: blur(100px); \}\
+        /* Hide scrollbar for Chrome, Safari and Opera */\
+        .no-scrollbar::-webkit-scrollbar \{ display: none; \}\
+        /* Hide scrollbar for IE, Edge and Firefox */\
+        .no-scrollbar \{ -ms-overflow-style: none; scrollbar-width: none; \}\
+    </style>\
+</head>\
+<body>\
+    <div id="root"></div>\
+\
+    <script type="text/babel">\
+        const \{ useState, useEffect \} = React;\
+\
+        // Custom Icon Component to handle Lucide icons in this environment\
+        const Icon = (\{ name, size = 24, className = "" \}) => \{\
+            useEffect(() => \{\
+                if (window.lucide) \{\
+                    window.lucide.createIcons();\
+                \}\
+            \}, [name]);\
+            return <i data-lucide=\{name\} style=\{\{ width: size, height: size \}\} className=\{className\}></i>;\
+        \};\
+\
+        const projects = [\
+            \{\
+                title: "WhatsNextRadio",\
+                url: "https://www.WhatsNextRadio.com",\
+                logoUrl: "/radio-logo.png", \
+                description: "The sound of the future. A global streaming platform bridging the gap between digital radio and the next generation of listeners.",\
+                category: "Media / SaaS",\
+                color: "bg-blue-600",\
+                iconName: "radio"\
+            \},\
+            \{\
+                title: "Stak",\
+                url: "https://www.Stak.Money",\
+                logoUrl: "/stak-logo.jpg", \
+                description: "Your financial companion. Advanced wealth tracking and management tools built for the modern investor.",\
+                category: "FinTech",\
+                color: "bg-emerald-500",\
+                iconName: "wallet"\
+            \},\
+            \{\
+                title: "Kake",\
+                url: "https://www.GetKake.com",\
+                logoUrl: "/kake-logo.png", \
+                description: "Sweetening the deal for digital commerce. Professional-grade product delivery and shop management for independent creators.",\
+                category: "E-Commerce",\
+                color: "bg-purple-600",\
+                iconName: "shopping-bag"\
+            \},\
+            \{\
+                title: "LVL UP",\
+                url: "https://lvlup.moodswingzmedia.com",\
+                logoUrl: "/lvlup-logo.png", \
+                description: "Ascend your performance. A high-octane tracking and personal growth suite designed to optimize your daily output.",\
+                category: "Performance / SaaS",\
+                color: "bg-blue-500",\
+                iconName: "trending-up"\
+            \},\
+            \{\
+                title: "CEEN Apparel",\
+                url: "https://ceenapparel.com",\
+                logoUrl: "/ceen-logo.png", \
+                description: "Modern aesthetics for the digital age. A lifestyle brand focused on the intersection of high-end tech and fashion.",\
+                category: "Fashion / E-Commerce",\
+                color: "bg-slate-700",\
+                iconName: "shopping-bag"\
+            \},\
+            \{\
+                title: "Parallel Exchange",\
+                url: "#",\
+                logoUrl: "",\
+                description: "The standard for liquidity. Advanced asset swapping protocol with institutional-grade speed and reliability.",\
+                category: "FinTech / SaaS",\
+                color: "bg-orange-600",\
+                iconName: "repeat"\
+            \},\
+            \{\
+                title: "Abyss Beats",\
+                url: "https://www.AbyssBeats.com",\
+                logoUrl: "",\
+                description: "Dive into the sound. A premier audio marketplace for high-fidelity production and exclusive beats.",\
+                category: "Audio / SaaS",\
+                color: "bg-zinc-700",\
+                iconName: "music"\
+            \},\
+            \{\
+                title: "Taurus Comb",\
+                url: "https://taurus-comb.moodswingzmedia.com/",\
+                logoUrl: "",\
+                description: "Pushing the boundaries of the browser. An experimental playground for interactive digital art and shaders.",\
+                category: "Interactive",\
+                color: "bg-orange-500",\
+                iconName: "compass"\
+            \},\
+            \{\
+                title: "Signature",\
+                url: "https://signature-app-steel.vercel.app/",\
+                logoUrl: "",\
+                description: "The final word in document utility. Clean, secure, and rapid digital signing for modern software workflows.",\
+                category: "Utility",\
+                color: "bg-indigo-600",\
+                iconName: "pen-tool"\
+            \}\
+        ];\
+\
+        const ProjectCard = (\{ project \}) => \{\
+            const [isHovered, setIsHovered] = useState(false);\
+            const [isMobileTouched, setIsMobileTouched] = useState(false);\
+            const [imgError, setImgError] = useState(false);\
+\
+            const handleInteraction = (e) => \{\
+                if (window.matchMedia("(pointer: coarse)").matches && !isMobileTouched) \{\
+                    e.preventDefault();\
+                    setIsMobileTouched(true);\
+                \}\
+            \};\
+\
+            return (\
+                <a \
+                    href=\{project.url\}\
+                    target="_blank"\
+                    rel="noopener noreferrer"\
+                    className="group relative block w-full aspect-square bg-zinc-900/40 rounded-[2.5rem] overflow-hidden border border-white/5 transition-all duration-700 hover:shadow-[0_0_60px_-12px_rgba(255,255,255,0.15)] hover:-translate-y-3 hover:bg-zinc-900/60"\
+                    onMouseEnter=\{() => setIsHovered(true)\}\
+                    onMouseLeave=\{() => \{\
+                        setIsHovered(false);\
+                        setIsMobileTouched(false);\
+                    \}\}\
+                    onClick=\{handleInteraction\}\
+                >\
+                    <div className=\{`absolute -top-24 -right-24 w-64 h-64 blur-glow opacity-0 transition-opacity duration-700 group-hover:opacity-20 $\{project.color\}`\} />\
+                    \
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center transition-all duration-700 ease-in-out group-hover:scale-90 group-hover:opacity-0 group-hover:blur-2xl">\
+                        <div className=\{`w-24 h-24 mb-6 rounded-3xl flex items-center justify-center shadow-2xl transition-transform duration-700 group-hover:rotate-12 $\{project.color\} overflow-hidden`\}>\
+                            \{project.logoUrl && !imgError ? (\
+                                <img \
+                                    src=\{project.logoUrl\} \
+                                    alt=\{project.title\} \
+                                    className="w-full h-full object-cover"\
+                                    onError=\{() => setImgError(true)\} \
+                                />\
+                            ) : (\
+                                <Icon name=\{project.iconName\} size=\{32\} className="text-white" />\
+                            )\}\
+                        </div>\
+                        <div>\
+                            <h3 className="text-2xl font-black tracking-tight text-white uppercase mb-1">\
+                                \{project.title\}\
+                            </h3>\
+                            <p className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">\
+                                \{project.category\}\
+                            </p>\
+                        </div>\
+                    </div>\
+\
+                    <div className=\{`absolute inset-0 p-10 flex flex-col justify-center items-center text-center transition-all duration-700 ease-in-out $\{isHovered || isMobileTouched ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12 pointer-events-none'\}`\}>\
+                        <div className=\{`w-12 h-12 mb-6 rounded-xl flex items-center justify-center $\{project.color\} text-white opacity-40 animate-pulse`\}>\
+                            <Icon name=\{project.iconName\} size=\{24\} />\
+                        </div>\
+                        <h3 className="text-xl font-black text-white mb-3 uppercase tracking-tight">\{project.title\}</h3>\
+                        <p className="text-sm text-zinc-400 mb-8 leading-relaxed font-medium">\
+                            \{project.description\}\
+                        </p>\
+                        <div className="flex items-center gap-3 py-3 px-6 bg-white text-black rounded-full text-xs font-bold uppercase tracking-widest transition-transform hover:scale-105 active:scale-95">\
+                            Launch App\
+                            <Icon name="arrow-right" size=\{14\} />\
+                        </div>\
+                    </div>\
+                </a>\
+            );\
+        \};\
+\
+        const App = () => \{\
+            useEffect(() => \{\
+                if (window.lucide) \{\
+                    window.lucide.createIcons();\
+                \}\
+            \}, []);\
+\
+            return (\
+                <div className="min-h-screen bg-black text-zinc-100 font-sans selection:bg-white selection:text-black no-scrollbar">\
+                    <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/80 backdrop-blur-2xl">\
+                        <div className="max-w-7xl mx-auto px-8 h-24 flex items-center justify-between">\
+                            <div className="flex items-center gap-3">\
+                                <div className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-lg">\
+                                    <div className="w-4 h-4 bg-black rounded-sm rotate-45"></div>\
+                                </div>\
+                                <span className="font-black tracking-tighter text-xl uppercase italic text-white">Moodswingz</span>\
+                            </div>\
+                            \
+                            <div className="hidden md:flex items-center gap-10 text-[11px] font-black uppercase tracking-[0.2em] text-zinc-500">\
+                                <a href="mailto:hello@moodswingzmedia.com" className="hover:text-white transition-colors text-zinc-500">Contact</a>\
+                                <a href="#" className="px-6 py-3 bg-white text-black rounded-xl hover:scale-105 transition-all active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)]">\
+                                    Portfolio\
+                                </a>\
+                            </div>\
+                        </div>\
+                    </nav>\
+\
+                    <header className="pt-52 pb-32 px-8 max-w-7xl mx-auto">\
+                        <div className="max-w-4xl">\
+                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900 rounded-lg mb-8 border border-white/5">\
+                                <Icon name="zap" size=\{14\} className="text-amber-500" />\
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">System Status: Active</span>\
+                            </div>\
+                            <h1 className="text-6xl md:text-[120px] font-black tracking-tighter mb-10 leading-[0.85] text-white">\
+                                THE <br />\
+                                <span className="text-zinc-800 tracking-[-0.07em]">ECOSYSTEM.</span>\
+                            </h1>\
+                            <p className="text-xl md:text-2xl text-zinc-500 leading-relaxed mb-12 max-w-2xl font-medium">\
+                                A digital laboratory where we build, break, and refine the next generation of SaaS and interactive media platforms.\
+                            </p>\
+                        </div>\
+                    </header>\
+\
+                    <main className="max-w-7xl mx-auto px-8 pb-48">\
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">\
+                            \{projects.map((project, index) => (\
+                                <ProjectCard key=\{index\} project=\{project\} />\
+                            ))\}\
+                            \
+                            <div className="w-full aspect-square border-2 border-dashed border-zinc-800 rounded-[2.5rem] flex flex-col items-center justify-center text-zinc-700 gap-6 hover:border-zinc-500 hover:text-zinc-500 transition-all cursor-pointer group">\
+                                <div className="w-16 h-16 rounded-full border-2 border-zinc-800 flex items-center justify-center group-hover:scale-110 group-hover:rotate-90 transition-all duration-500">\
+                                    <Icon name="code" size=\{24\} />\
+                                </div>\
+                                <span className="text-xs font-black uppercase tracking-[0.3em]">Incubating</span>\
+                            </div>\
+                        </div>\
+                    </main>\
+\
+                    <footer className="border-t border-white/5 py-20 bg-black">\
+                        <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-12">\
+                            <div className="flex flex-col items-center md:items-start gap-4">\
+                                <div className="flex items-center gap-2">\
+                                    <div className="w-6 h-6 bg-zinc-800 rounded-lg flex items-center justify-center">\
+                                        <div className="w-2 h-2 bg-black rounded-sm rotate-45"></div>\
+                                    </div>\
+                                    <span className="font-black tracking-tighter text-sm uppercase italic text-white">Moodswingz</span>\
+                                </div>\
+                                <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.3em]">\
+                                    &copy; \{new Date().getFullYear()\} Moodswingz Media & Tech.\
+                                </p>\
+                            </div>\
+                            <div className="flex gap-12 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">\
+                                <a href="#" className="hover:text-white transition-colors">Twitter</a>\
+                                <a href="#" className="hover:text-white transition-colors">GitHub</a>\
+                                <a href="#" className="hover:text-white transition-colors">LinkedIn</a>\
+                            </div>\
+                        </div>\
+                    </footer>\
+                </div>\
+            );\
+        \};\
+\
+        const root = ReactDOM.createRoot(document.getElementById('root'));\
+        root.render(<App />);\
+    </script>\
+</body>\
+</html>}
