@@ -39,7 +39,6 @@
             100% { filter: hue-rotate(360deg) drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
         }
 
-        /* Unified Header Style */
         .header-main {
             font-family: 'Syncopate', sans-serif;
             font-weight: 700;
@@ -53,7 +52,10 @@
             display: inline-block;
             color: rgba(255, 255, 255, 0.1);
             -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.4);
-            background: linear-gradient(90deg, #ff00ff, #7000ff, #00d4ff, #ff00ff);
+            background: linear-gradient(
+                90deg, 
+                #ff00ff, #7000ff, #00d4ff, #ff00ff
+            );
             background-size: 300% 300%;
             -webkit-background-clip: text;
             animation: galaxy-move 8s ease infinite;
@@ -160,15 +162,6 @@
 
         const projects = [
             {
-                title: "WhatsNextRadio",
-                url: "https://www.WhatsNextRadio.com",
-                logoUrl: "wnr-logo.PNG", 
-                description: "Community-curated music discovery platform connecting artists and listeners while multiplying streaming revenue.",
-                category: "Music / SaaS",
-                color: "bg-sky-500",
-                iconName: "radio"
-            },
-            {
                 title: "Stak",
                 url: "https://www.Stak.Money",
                 logoUrl: "stak-logo.PNG", 
@@ -176,6 +169,15 @@
                 category: "FinTech / SaaS",
                 color: "bg-emerald-400",
                 iconName: "wallet"
+            },
+            {
+                title: "WhatsNextRadio",
+                url: "https://www.WhatsNextRadio.com",
+                logoUrl: "wnr-logo.PNG", 
+                description: "Community-curated music discovery platform connecting artists and listeners while multiplying streaming revenue.",
+                category: "Music / SaaS",
+                color: "bg-sky-500",
+                iconName: "radio"
             },
             {
                 title: "Kake",
@@ -187,23 +189,13 @@
                 iconName: "shopping-bag"
             },
             {
-                title: "LVL UP",
-                url: "https://lvlup.moodswingzmedia.com",
-                logoUrl: "levelup-logo.PNG", 
-                description: "Ascend your performance. A customizable fitness tracker designed to optimize your overall health.",
-                category: "Performance / SaaS",
-                color: "bg-blue-400",
-                iconName: "trending-up"
-            },
-            {
-                title: "CEEN Apparel",
-                isInternal: true,
-                internalId: "ceen",
-                logoUrl: "ceen-apparel-logo.PNG", 
-                description: "Modern aesthetics for the digital age. A lifestyle brand focused on the intersection of tech and fashion.",
-                category: "Wearables / SaaS",
-                color: "bg-zinc-100",
-                iconName: "shopping-bag"
+                title: "Abyss Beats",
+                url: "https://abyssbeats.moodswingzmedia.com",
+                logoUrl: "abyss-beats-logo.PNG",
+                description: "Premium instrumentals produced by Abyss. A premier audio marketplace for Creators and Brands.",
+                category: "Music / SaaS",
+                color: "bg-indigo-600",
+                iconName: "music"
             },
             {
                 title: "Parallel Exchange",
@@ -212,17 +204,7 @@
                 description: "Give More than Money. Trade locally with people in your area. No cash needed.",
                 category: "FinTech / SaaS",
                 color: "bg-orange-500",
-                iconName: "repeat",
-                isLargeLogo: true 
-            },
-            {
-                title: "Abyss Beats",
-                url: "https://abyssbeats.moodswingzmedia.com",
-                logoUrl: "abyss-beats-logo.PNG",
-                description: "Premium instrumentals produced by Abyss. A premier audio marketplace for Creators and Brands.",
-                category: "Music / SaaS",
-                color: "bg-indigo-600",
-                iconName: "music"
+                iconName: "repeat"
             },
             {
                 title: "Artist Connect",
@@ -234,6 +216,15 @@
                 iconName: "users"
             },
             {
+                title: "LVL UP",
+                url: "https://levelup.moodswingzmedia.com",
+                logoUrl: "levelup-logo.PNG", 
+                description: "Ascend your performance. A customizable fitness tracker designed to optimize your overall health.",
+                category: "Performance / SaaS",
+                color: "bg-blue-400",
+                iconName: "trending-up"
+            },
+            {
                 title: "Brotherhood Network",
                 url: "https://brotherhoodnetwork.moodswingzmedia.com",
                 logoUrl: "brotherhood-network-logo.PNG",
@@ -241,6 +232,16 @@
                 category: "Networking / SaaS",
                 color: "bg-slate-400",
                 iconName: "share-2"
+            },
+            {
+                title: "CEEN Apparel",
+                isInternal: true,
+                internalId: "ceen",
+                logoUrl: "ceen-apparel-logo.PNG", 
+                description: "Modern aesthetics for the digital age. A lifestyle brand focused on the intersection of tech and fashion.",
+                category: "Wearables / SaaS",
+                color: "bg-zinc-100",
+                iconName: "shopping-bag"
             }
         ];
 
@@ -301,7 +302,7 @@
                         href={project.url || "#"}
                         onClick={handleClick}
                         target={project.isInternal ? "_self" : "_blank"}
-                        className="group relative block w-full aspect-square card-container rounded-[3rem] overflow-hidden"
+                        className="group relative block w-full aspect-square card-container rounded-[3rem] overflow-hidden transition-all duration-700 hover:shadow-[0_0_80px_-15px_rgba(255,255,255,0.2)] hover:-translate-y-6 hover:bg-white/5 backdrop-blur-md"
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
                     >
