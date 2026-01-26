@@ -20,7 +20,7 @@
             margin: 0;
             padding: 0;
             width: 100%;
-            overflow-x: hidden; /* Strict prevention of horizontal scroll */
+            overflow-x: hidden; 
             background-color: #000;
             color: #fff;
             font-family: 'Inter', sans-serif;
@@ -52,7 +52,6 @@
             line-height: 0.85;
         }
 
-        /* Glass Galaxy Typography - Adjusted for Mobile */
         .glass-galaxy {
             position: relative;
             display: inline-block;
@@ -212,7 +211,7 @@
                 logoUrl: "artist-connect-logo.PNG",
                 description: "The swiss army knife for artists and boutique labels. Direct-to-fan tools to nurture your audience.",
                 category: "Social / SaaS",
-                color: "bg-red-500",
+                color: "bg-amber-500", // Gold accent
                 iconName: "users",
                 isReduced: true
             },
@@ -231,7 +230,7 @@
                 logoUrl: "brotherhood-network-logo.PNG",
                 description: "A safe, community-driven networking infrastructure for the modern man to collaborate and grow.",
                 category: "Networking / SaaS",
-                color: "bg-slate-400",
+                color: "bg-yellow-400", // Yellow accent
                 iconName: "share-2"
             },
             {
@@ -286,7 +285,7 @@
             const getScaleClass = () => {
                 if (project.isLargeLogo) return 'scale-[1.1]';
                 if (project.isEnlarged) return 'scale-110';
-                if (project.isReduced) return 'scale-[0.75]'; // Slightly smaller scale for reduced logos
+                if (project.isReduced) return 'scale-[0.75]'; 
                 return 'scale-90';
             };
 
@@ -444,7 +443,6 @@
 
                     <header className="pt-40 md:pt-64 pb-12 md:pb-24 px-6 max-w-7xl mx-auto w-full relative z-10">
                         <div className="max-w-4xl">
-                            {/* Improved Mobile Sizing: Text will never exceed viewport width */}
                             <h1 className="header-main text-white mb-8 md:mb-12">
                                 <span className="text-[12vw] sm:text-7xl md:text-[120px]">THE</span><br />
                                 <span className="glass-galaxy text-[11vw] sm:text-8xl md:text-[145px]">
@@ -496,7 +494,7 @@
                                 <span className="brand-font text-xs md:text-sm text-white">Moodswingz</span>
                                 <p className="ui-label text-[8px]">&copy; 2026 Moodswingz Media & Tech Group.</p>
                             </div>
-                            <div className="flex gap-8 md:gap-12 text-[10px] font-black uppercase tracking-[0.5em] text-zinc-500">
+                            <div className="flex gap-8 md:gap-12 text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">
                                 <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="hover:text-white transition-all">Instagram</a>
                                 <a href="#" className="hover:text-white transition-all">Twitter</a>
                             </div>
