@@ -59,7 +59,7 @@
 
         .glass-blur-overlay {
             position: absolute;
-            inset: -10px -20px;
+            inset: -5px -10px;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             z-index: -1;
@@ -327,9 +327,7 @@
                             </div>
                         </div>
 
-                        {/* Back View of Card (Hover state) */}
                         <div className={`absolute inset-0 p-10 flex flex-col justify-center items-center text-center transition-all duration-700 ease-in-out ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20 pointer-events-none'}`}>
-                            {/* Icon Container with Square Colored Border aesthetic - shrink-0 ensures it stays square */}
                             <div className={`w-14 h-14 shrink-0 flex-none aspect-square mb-8 rounded-xl flex items-center justify-center ${project.color} border border-white/20 text-white shadow-2xl`}>
                                 <Icon name={project.iconName} size={28} />
                             </div>
@@ -427,7 +425,7 @@
             }
 
             return (
-                <div className="min-h-screen text-zinc-100 font-sans selection:bg-white selection:text-black">
+                <div className="min-h-screen text-zinc-100 font-sans selection:bg-white selection:text-black overflow-x-hidden">
                     <nav className="fixed top-0 w-full z-50 glass-nav">
                         <div className="max-w-7xl mx-auto px-8 h-28 flex items-center justify-between">
                             <span className="brand-font text-xl md:text-2xl cursor-default select-none">
@@ -441,16 +439,17 @@
                         </div>
                     </nav>
 
-                    <header className="pt-72 pb-32 px-8 max-w-7xl mx-auto relative z-10">
+                    <header className="pt-72 pb-32 px-8 max-w-7xl mx-auto relative z-10 overflow-x-hidden">
                         <div className="max-w-5xl">
-                            <h1 className="header-main text-6xl md:text-[140px] leading-[0.8] text-white">
+                            {/* Updated Header with Fluid Typography for Mobile Responsiveness */}
+                            <h1 className="header-main text-[11.5vw] sm:text-7xl md:text-[140px] leading-[0.8] text-white">
                                 THE <br />
                                 <span className="glass-galaxy">
                                     ECOSYSTEM.
                                     <div className="glass-blur-overlay">ECOSYSTEM.</div>
                                 </span>
                             </h1>
-                            <p className="readable-body text-xl md:text-2xl mt-12 mb-16 max-w-2xl font-medium tracking-tight text-zinc-400">
+                            <p className="readable-body text-lg md:text-2xl mt-12 mb-16 max-w-2xl font-medium tracking-tight text-zinc-400">
                                 A digital repository of the next generation of SaaS, Fintech and high-fidelity media platforms.
                             </p>
                         </div>
