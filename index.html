@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Moodswingz Media | The Ecosystem</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -12,12 +12,19 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Orbitron:wght@400;700;900&family=Syncopate:wght@400;700&display=swap');
         
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #000; 
-            color: #fff; 
-            margin: 0; 
-            overflow-x: hidden; 
+        :root {
+            --glass-glow: rgba(112, 0, 255, 0.3);
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden; /* Strict prevention of horizontal scroll */
+            background-color: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
         .brand-font {
@@ -28,14 +35,13 @@
             background: linear-gradient(180deg, #fff 0%, #666 50%, #fff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
             animation: chrome-shine 10s linear infinite;
         }
 
         @keyframes chrome-shine {
             0% { filter: hue-rotate(0deg) drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
-            50% { filter: hue-rotate(180deg) drop-shadow(0 0 20px rgba(255,255,255,0.6)); }
-            100% { filter: hue-rotate(360deg) drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
+            50% { filter: hue-rotate(180deg) drop-shadow(0 0 20px rgba(255,255,255,0.4)); }
+            100% { filter: hue-rotate(300deg) drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
         }
 
         .header-main {
@@ -43,25 +49,30 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: -0.04em;
+            line-height: 0.85;
         }
 
+        /* Glass Galaxy Typography - Adjusted for Mobile */
         .glass-galaxy {
             position: relative;
             display: inline-block;
             color: rgba(255, 255, 255, 0.1);
-            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.4);
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
             background: linear-gradient(90deg, #ff00ff, #7000ff, #00d4ff, #ff00ff);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             animation: galaxy-move 8s ease infinite;
-            filter: drop-shadow(0 0 25px rgba(112, 0, 255, 0.3));
+        }
+
+        @media (min-width: 768px) {
+            .glass-galaxy { -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.4); }
         }
 
         .glass-blur-overlay {
             position: absolute;
-            inset: -5px -10px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            inset: -4px -8px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             z-index: -1;
             mask-image: linear-gradient(black, black);
             -webkit-mask-clip: text;
@@ -76,7 +87,7 @@
 
         @keyframes drift {
             0% { transform: translate(0px, 0px); }
-            50% { transform: translate(-5px, -15px); }
+            50% { transform: translate(-4px, -10px); }
             100% { transform: translate(0px, 0px); }
         }
 
@@ -96,48 +107,41 @@
 
         .ui-label {
             font-weight: 800;
-            letter-spacing: 0.5em;
+            letter-spacing: 0.4em;
             color: rgba(255, 255, 255, 0.4);
-            text-shadow: 0 0 20px rgba(0,0,0,1);
-        }
-
-        .readable-body {
-            color: rgba(255, 255, 255, 0.6);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-transform: uppercase;
         }
 
         .glass-nav {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .card-container {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .card-container:hover {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.07);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
         }
 
-        /* CEEN Soon Styles */
         .ceen-soon-text {
             font-family: 'Orbitron', sans-serif;
-            letter-spacing: 0.8em;
+            letter-spacing: 0.6em;
             text-transform: uppercase;
             animation: breathe 4s ease-in-out infinite alternate;
-            text-shadow: 0 0 30px rgba(255,255,255,0.4);
         }
 
         @keyframes breathe {
-            from { opacity: 0.3; transform: scale(0.98); letter-spacing: 0.7em; }
-            to { opacity: 0.8; transform: scale(1); letter-spacing: 1em; }
+            from { opacity: 0.3; transform: scale(0.98); }
+            to { opacity: 0.8; transform: scale(1.02); }
         }
     </style>
 </head>
@@ -279,9 +283,9 @@
             const [imgError, setImgError] = useState(false);
 
             const getScaleClass = () => {
-                if (project.isLargeLogo) return 'scale-[1.15]';
-                if (project.isEnlarged) return 'scale-120';
-                if (project.isReduced) return 'scale-75';
+                if (project.isLargeLogo) return 'scale-[1.1]';
+                if (project.isEnlarged) return 'scale-110';
+                if (project.isReduced) return 'scale-[0.8]';
                 return 'scale-90';
             };
 
@@ -293,19 +297,19 @@
             };
 
             return (
-                <div className="drift-card">
+                <div className="drift-card relative">
                     <a 
                         href={project.url || "#"}
                         onClick={handleClick}
                         target={project.isInternal ? "_self" : "_blank"}
-                        className="group relative block w-full aspect-square card-container rounded-[3rem] overflow-hidden transition-all duration-700 hover:shadow-[0_0_80px_-15px_rgba(255,255,255,0.2)] hover:-translate-y-6 hover:bg-white/5 backdrop-blur-md"
+                        className="group relative block w-full aspect-square card-container rounded-[2rem] md:rounded-[3rem] overflow-hidden"
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
                     >
-                        <div className={`absolute inset-0 blur-[120px] opacity-0 transition-opacity duration-700 group-hover:opacity-40 ${project.color}`} />
+                        <div className={`absolute inset-0 blur-[100px] opacity-0 transition-opacity duration-700 group-hover:opacity-30 ${project.color}`} />
                         
-                        <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center transition-all duration-700 ease-in-out group-hover:scale-90 group-hover:opacity-0 group-hover:blur-3xl">
-                            <div className="w-full h-[70%] flex items-center justify-center transition-all duration-700 group-hover:scale-110">
+                        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 md:p-8 text-center transition-all duration-700 ease-in-out group-hover:scale-90 group-hover:opacity-0 group-hover:blur-3xl">
+                            <div className="w-full h-[65%] flex items-center justify-center transition-all duration-700 group-hover:scale-110">
                                 {project.logoUrl && !imgError ? (
                                     <img 
                                         src={project.logoUrl} 
@@ -314,30 +318,30 @@
                                         onError={() => setImgError(true)} 
                                     />
                                 ) : (
-                                    <div className="text-white opacity-20"><Icon name={project.iconName} size={80} /></div>
+                                    <div className="text-white opacity-20"><Icon name={project.iconName} size={64} /></div>
                                 )}
                             </div>
-                            <div className="mt-auto">
-                                <h3 className="text-2xl font-black tracking-tighter text-white uppercase leading-none drop-shadow-lg">
+                            <div className="mt-4">
+                                <h3 className="text-xl md:text-2xl font-black tracking-tighter text-white uppercase leading-none drop-shadow-lg">
                                     {project.title}
                                 </h3>
-                                <p className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em] mt-3 opacity-60">
+                                <p className="text-[8px] md:text-[10px] font-black text-zinc-500 uppercase tracking-[0.3em] mt-2 opacity-60">
                                     {project.category}
                                 </p>
                             </div>
                         </div>
 
-                        <div className={`absolute inset-0 p-10 flex flex-col justify-center items-center text-center transition-all duration-700 ease-in-out ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20 pointer-events-none'}`}>
-                            <div className={`w-14 h-14 shrink-0 flex-none aspect-square mb-8 rounded-xl flex items-center justify-center ${project.color} border border-white/20 text-white shadow-2xl`}>
-                                <Icon name={project.iconName} size={28} />
+                        <div className={`absolute inset-0 p-8 flex flex-col justify-center items-center text-center transition-all duration-700 ease-in-out ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12 pointer-events-none'}`}>
+                            <div className={`w-12 h-12 shrink-0 aspect-square mb-6 rounded-xl flex items-center justify-center ${project.color} border border-white/20 text-white shadow-2xl`}>
+                                <Icon name={project.iconName} size={24} />
                             </div>
-                            <h3 className="text-2xl font-black text-white mb-4 uppercase tracking-tighter">{project.title}</h3>
-                            <p className="text-sm text-zinc-300 mb-10 leading-relaxed font-medium max-w-xs">
+                            <h3 className="text-xl font-black text-white mb-3 uppercase tracking-tighter">{project.title}</h3>
+                            <p className="text-xs text-zinc-400 mb-8 leading-relaxed font-medium max-w-[200px]">
                                 {project.description}
                             </p>
-                            <div className="flex items-center gap-3 py-4 px-8 bg-white text-black rounded-full text-xs font-black uppercase tracking-widest transition-all hover:scale-110 active:scale-95 shadow-xl">
-                                Launch App
-                                <Icon name="arrow-right" size={16} />
+                            <div className="flex items-center gap-2 py-3 px-6 bg-white text-black rounded-full text-[10px] font-black uppercase tracking-widest transition-all hover:scale-110 shadow-xl">
+                                Launch
+                                <Icon name="arrow-right" size={14} />
                             </div>
                         </div>
                     </a>
@@ -361,15 +365,15 @@
 
                 const createStars = () => {
                     stars = [];
-                    const count = Math.floor((w * h) / 2000);
+                    const count = Math.floor((w * h) / 2500);
                     for(let i = 0; i < count; i++) {
                         stars.push({
                             x: Math.random() * w,
                             y: Math.random() * h,
-                            size: Math.random() * 2.2,
-                            depth: Math.random() * 3.5,
-                            opacity: Math.random() * 0.8 + 0.2,
-                            vel: (Math.random() * 0.08) + 0.02
+                            size: Math.random() * 2,
+                            depth: Math.random() * 3,
+                            opacity: Math.random() * 0.7 + 0.1,
+                            vel: (Math.random() * 0.06) + 0.02
                         });
                     }
                 };
@@ -380,8 +384,8 @@
                         stars.forEach(star => {
                             star.y -= star.vel;
                             if(star.y < 0) star.y = h;
-                            const offsetX = (mouse.x - w/2) * (star.depth * 0.015);
-                            const offsetY = (mouse.y - h/2) * (star.depth * 0.015);
+                            const offsetX = (mouse.x - w/2) * (star.depth * 0.012);
+                            const offsetY = (mouse.y - h/2) * (star.depth * 0.012);
                             ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
                             ctx.beginPath();
                             ctx.arc(star.x + offsetX, star.y + offsetY, star.size, 0, Math.PI * 2);
@@ -401,16 +405,16 @@
 
             if (currentView === 'ceen') {
                 return (
-                    <div className="relative w-screen h-screen overflow-hidden bg-black">
+                    <div className="fixed inset-0 w-full h-full overflow-hidden bg-black z-[1000]">
                         <div 
                             className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
                             style={{ backgroundImage: "url('ceen-apparel-background.PNG')" }}
                         >
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
                         </div>
                         
                         <div className="relative z-10 w-full h-full flex flex-col items-center justify-end pb-24 px-8">
-                            <h1 className="ceen-soon-text text-white text-base md:text-xl font-black tracking-[1em] mb-12">
+                            <h1 className="ceen-soon-text text-white text-lg md:text-xl font-black tracking-[1em] mb-12">
                                 soon...
                             </h1>
                             <button 
@@ -425,69 +429,73 @@
             }
 
             return (
-                <div className="min-h-screen text-zinc-100 font-sans selection:bg-white selection:text-black overflow-x-hidden">
-                    <nav className="fixed top-0 w-full z-50 glass-nav">
-                        <div className="max-w-7xl mx-auto px-8 h-28 flex items-center justify-between">
-                            <span className="brand-font text-xl md:text-2xl cursor-default select-none">
+                <div className="relative min-h-screen w-full flex flex-col bg-black overflow-x-hidden">
+                    <nav className="fixed top-0 w-full z-[100] glass-nav">
+                        <div className="max-w-7xl mx-auto px-6 h-20 md:h-24 flex items-center justify-between">
+                            <span className="brand-font text-base md:text-xl cursor-default select-none">
                                 Moodswingz Media
                             </span>
-                            <div className="hidden md:flex items-center gap-10">
-                                <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="ui-label text-[11px] hover:text-white transition-all uppercase">
-                                    Contact
-                                </a>
-                            </div>
+                            <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="ui-label text-[9px] md:text-[11px] hover:text-white transition-all">
+                                Contact
+                            </a>
                         </div>
                     </nav>
 
-                    <header className="pt-72 pb-32 px-8 max-w-7xl mx-auto relative z-10 overflow-x-hidden">
-                        <div className="max-w-5xl">
-                            {/* Updated Header with Fluid Typography for Mobile Responsiveness */}
-                            <h1 className="header-main text-[11.5vw] sm:text-7xl md:text-[140px] leading-[0.8] text-white">
-                                THE <br />
-                                <span className="glass-galaxy">
+                    <header className="pt-40 md:pt-64 pb-12 md:pb-24 px-6 max-w-7xl mx-auto w-full relative z-10">
+                        <div className="max-w-4xl">
+                            {/* Improved Mobile Sizing: Text will never exceed viewport width */}
+                            <h1 className="header-main text-white mb-8 md:mb-12">
+                                <span className="text-[12vw] sm:text-7xl md:text-[120px]">THE</span><br />
+                                <span className="glass-galaxy text-[11vw] sm:text-8xl md:text-[145px]">
                                     ECOSYSTEM.
                                     <div className="glass-blur-overlay">ECOSYSTEM.</div>
                                 </span>
                             </h1>
-                            <p className="readable-body text-lg md:text-2xl mt-12 mb-16 max-w-2xl font-medium tracking-tight text-zinc-400">
+                            <p className="readable-body text-base md:text-2xl max-w-2xl font-medium tracking-tight text-zinc-400 leading-relaxed">
                                 A digital repository of the next generation of SaaS, Fintech and high-fidelity media platforms.
                             </p>
                         </div>
                     </header>
 
-                    <main className="max-w-7xl mx-auto px-8 pb-64 relative z-10">
-                        <section className="mb-48">
-                            <h2 className="ui-label text-sm mb-24 italic border-l border-white/20 pl-6">Primary Products</h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14">
+                    <main className="max-w-7xl mx-auto px-6 pb-40 w-full relative z-10">
+                        <section className="mb-32 md:mb-48">
+                            <div className="flex items-center gap-4 mb-16 md:mb-24">
+                                <div className="h-[1px] w-8 bg-white/20"></div>
+                                <h2 className="ui-label text-[11px] md:text-sm italic">Primary Products</h2>
+                            </div>
+                            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10">
                                 {projects.map((project, index) => (
                                     <ProjectCard key={index} project={project} onNavigate={setCurrentView} />
                                 ))}
                             </div>
                         </section>
 
-                        <section className="mb-48">
-                            <h2 className="ui-label text-sm mb-24 italic border-l border-white/20 pl-6">Interactive Labs</h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14">
+                        <section className="mb-32">
+                            <div className="flex items-center gap-4 mb-16 md:mb-24">
+                                <div className="h-[1px] w-8 bg-white/20"></div>
+                                <h2 className="ui-label text-[11px] md:text-sm italic">Interactive Labs</h2>
+                            </div>
+                            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10">
                                 {interactiveProjects.map((project, index) => (
                                     <ProjectCard key={index} project={project} onNavigate={setCurrentView} />
                                 ))}
-                                <div className="drift-card w-full aspect-square border border-dashed border-zinc-700 rounded-[3rem] flex flex-col items-center justify-center text-zinc-800 gap-8 hover:border-zinc-500 hover:text-zinc-500 transition-all duration-500 cursor-pointer group backdrop-blur-md bg-white/5">
-                                    <div className="w-20 h-20 rounded-full border border-zinc-800 flex items-center justify-center group-hover:scale-125 group-hover:rotate-90 transition-all duration-700">
-                                        <Icon name="code" size={32} />
+                                <div className="drift-card w-full aspect-square border border-dashed border-zinc-800 rounded-[2rem] md:rounded-[3rem] flex flex-col items-center justify-center text-zinc-800 gap-4 md:gap-8 hover:border-zinc-500 hover:text-zinc-500 transition-all duration-500 cursor-pointer group backdrop-blur-md bg-white/5">
+                                    <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border border-zinc-800 flex items-center justify-center group-hover:scale-110 transition-all">
+                                        <Icon name="code" size={24} className="md:w-8 md:h-8" />
                                     </div>
-                                    <span className="ui-label text-[11px]">Incubating</span>
+                                    <span className="ui-label text-[7px] md:text-[10px]">Incubating</span>
                                 </div>
                             </div>
                         </section>
                     </main>
 
-                    <footer className="border-t border-white/10 py-32 bg-black relative z-10 backdrop-blur-xl">
-                        <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-16">
-                            <div className="flex flex-col items-center md:items-start gap-6">
-                                <span className="brand-font text-sm text-white">Moodswingz</span>
+                    <footer className="mt-auto border-t border-white/5 py-16 md:py-32 bg-black/50 backdrop-blur-xl relative z-10">
+                        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12">
+                            <div className="flex flex-col items-center md:items-start gap-4">
+                                <span className="brand-font text-xs md:text-sm text-white">Moodswingz</span>
                                 <p className="ui-label text-[8px]">&copy; 2026 Moodswingz Media & Tech Group.</p>
                             </div>
-                            <div className="flex gap-16 text-[10px] font-black uppercase tracking-[0.5em] text-zinc-600">
+                            <div className="flex gap-8 md:gap-12 text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">
                                 <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="hover:text-white transition-all">Instagram</a>
                                 <a href="#" className="hover:text-white transition-all">Twitter</a>
                             </div>
