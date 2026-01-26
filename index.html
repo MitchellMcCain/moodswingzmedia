@@ -41,7 +41,7 @@
                 logoUrl: "wnr-logo.PNG", 
                 description: "Community-curated music discovery platform connecting artists and listeners while multiplying streaming revenue",
                 category: "Music / SaaS",
-                color: "bg-blue-600",
+                color: "bg-sky-500",
                 iconName: "radio",
                 sizeClass: "scale-100 max-w-[90%] max-h-[90%]"
             },
@@ -50,8 +50,8 @@
                 url: "https://www.Stak.Money",
                 logoUrl: "stak-logo.PNG", 
                 description: "Your financial companion. Know what's Safe to Spend. See what your money is already doing. No spreadsheets. No shame. No stress.",
-                category: "FinTech",
-                color: "bg-emerald-500",
+                category: "FinTech / SaaS",
+                color: "bg-emerald-400",
                 iconName: "wallet",
                 sizeClass: "scale-125 max-w-full max-h-full"
             },
@@ -60,9 +60,9 @@
                 url: "https://www.GetKake.com",
                 logoUrl: "kake-logo.PNG", 
                 description: "The daily sweepstakes game where your birthday could be your lucky number!",
-                category: "Sweepstakes",
-                color: "bg-purple-600",
-                iconName: "shopping-bag",
+                category: "Sweepstakes / SaaS",
+                color: "bg-fuchsia-500",
+                iconName: "ticket",
                 sizeClass: "scale-125 max-w-full max-h-full"
             },
             {
@@ -71,7 +71,7 @@
                 logoUrl: "levelup-logo.PNG", 
                 description: "Ascend your performance. Level up your fitness with a customizable fitness tracker with built-in bodybuilder endorsed workouts designed to optimize your overall health.",
                 category: "Performance / SaaS",
-                color: "bg-blue-500",
+                color: "bg-blue-400",
                 iconName: "trending-up",
                 sizeClass: "scale-100 max-w-[90%] max-h-[90%]"
             },
@@ -80,9 +80,9 @@
                 url: "https://ceenapparel.com",
                 logoUrl: "ceen-apparel-logo.PNG", 
                 description: "Modern aesthetics for the digital age. A lifestyle brand focused on the intersection of high-end tech and fashion.",
-                category: "Fashion / E-Commerce",
-                color: "bg-slate-700",
-                iconName: "shopping-bag",
+                category: "Wearables / SaaS",
+                color: "bg-zinc-100",
+                iconName: "shirt",
                 sizeClass: "scale-125 max-w-full max-h-full"
             },
             {
@@ -91,7 +91,7 @@
                 logoUrl: "parallel-exchange-logo.PNG",
                 description: "Give More than Money. Trade locally with people in your area. No cash needed",
                 category: "FinTech / SaaS",
-                color: "bg-orange-600",
+                color: "bg-orange-500",
                 iconName: "repeat",
                 sizeClass: "scale-40 max-w-[35%] max-h-[35%]"
             },
@@ -100,8 +100,8 @@
                 url: "https://www.AbyssBeats.com",
                 logoUrl: "abyss-beats-logo.PNG",
                 description: "Premium instrumentals produced by Abyss. A premier audio marketplace for Artists, Content Creators, and Brands.",
-                category: "Audio / SaaS",
-                color: "bg-zinc-700",
+                category: "Music / SaaS",
+                color: "bg-indigo-600",
                 iconName: "music",
                 sizeClass: "scale-125 max-w-full max-h-full"
             },
@@ -111,7 +111,7 @@
                 logoUrl: "artist-connect-logo.PNG",
                 description: "The swiss army knife for artists and boutique labels. All the direct-to-fan tools you need to nurture your audience.",
                 category: "Social / SaaS",
-                color: "bg-red-600",
+                color: "bg-red-500",
                 iconName: "users",
                 sizeClass: "scale-100 max-w-[90%] max-h-[90%]"
             },
@@ -120,8 +120,8 @@
                 url: "#",
                 logoUrl: "brotherhood-network-logo.PNG",
                 description: "A safe, community-driven networking infrastructure for the modern man to collaborate, grow and succeed.",
-                category: "Network / SaaS",
-                color: "bg-zinc-800",
+                category: "Networking / SaaS",
+                color: "bg-slate-400",
                 iconName: "share-2",
                 sizeClass: "scale-125 max-w-full max-h-full"
             }
@@ -133,8 +133,8 @@
                 url: "https://signature-app-steel.vercel.app/",
                 logoUrl: "signature-logo.PNG",
                 description: "A real time key signature finder/tuner for vocalists. Vocal Session Pro - Find Your Key Signature in Real Time",
-                category: "Utility",
-                color: "bg-indigo-600",
+                category: "Utility / SaaS",
+                color: "bg-violet-500",
                 iconName: "pen-tool",
                 sizeClass: "scale-100 max-w-[90%] max-h-[90%]"
             },
@@ -143,8 +143,8 @@
                 url: "#",
                 logoUrl: "math-punk-logo.PNG",
                 description: "Cyberpunk-themed mental math challenge. Speed, precision, and high-fidelity aesthetics.",
-                category: "Game",
-                color: "bg-yellow-500",
+                category: "Gaming / SaaS",
+                color: "bg-yellow-400",
                 iconName: "calculator",
                 sizeClass: "scale-100 max-w-[90%] max-h-[90%]"
             },
@@ -153,10 +153,10 @@
                 url: "#",
                 logoUrl: "tic-tac-glow-logo.PNG",
                 description: "A neon-infused, minimalist reimagining of the classic strategy game.",
-                category: "Game",
-                color: "bg-pink-500",
+                category: "Gaming / SaaS",
+                color: "bg-violet-400", // Updated to match the neon violet logo aesthetic
                 iconName: "grid",
-                sizeClass: "scale-100 max-w-[90%] max-h-[90%]"
+                sizeClass: "scale-110 max-w-[95%] max-h-[95%]" // Slightly enlarged for impact
             }
         ];
 
@@ -185,7 +185,7 @@
                     }}
                     onClick={handleInteraction}
                 >
-                    <div className={`absolute inset-0 blur-[100px] opacity-0 transition-opacity duration-700 group-hover:opacity-30 ${project.color}`} />
+                    <div className={`absolute inset-0 blur-[120px] opacity-0 transition-opacity duration-700 group-hover:opacity-40 ${project.color}`} />
                     
                     <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center transition-all duration-700 ease-in-out group-hover:scale-90 group-hover:opacity-0 group-hover:blur-3xl">
                         <div className="w-full h-[80%] flex items-center justify-center transition-all duration-700 group-hover:scale-110">
@@ -233,20 +233,9 @@
                     <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/80 backdrop-blur-3xl">
                         <div className="max-w-7xl mx-auto px-8 h-24 flex items-center justify-between">
                             <div className="flex items-center h-full">
-                                <div className="h-20 overflow-hidden flex items-center justify-center">
-                                    <img 
-                                        src="moodswingz-media-logo.PNG" 
-                                        alt="Moodswingz Media" 
-                                        className="h-full w-auto object-contain" 
-                                        onError={(e) => {
-                                            e.target.style.display = 'none';
-                                            e.target.nextSibling.style.display = 'flex';
-                                        }} 
-                                    />
-                                    <div className="hidden h-14 w-14 bg-white rounded-xl items-center justify-center">
-                                        <div className="w-5 h-5 bg-black rotate-45"></div>
-                                    </div>
-                                </div>
+                                <span className="font-black tracking-tighter text-2xl md:text-3xl uppercase italic text-white cursor-default select-none">
+                                    Moodswingz Media
+                                </span>
                             </div>
                             <div className="hidden md:flex items-center gap-10 text-[11px] font-black uppercase tracking-[0.2em] text-zinc-500">
                                 <a 
