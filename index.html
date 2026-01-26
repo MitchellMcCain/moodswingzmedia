@@ -57,13 +57,14 @@
             position: relative;
             display: inline-block;
             background: linear-gradient(90deg, #ff00ff, #7000ff, #00d4ff, #ff00ff);
-            background-size: 200% auto;
+            background-size: 300% 100%; /* Increased size for full coverage */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35);
-            animation: galaxy-move 6s linear infinite;
+            animation: galaxy-move 8s linear infinite;
             white-space: nowrap;
+            padding-right: 0.1em; /* Prevents the last characters from being clipped */
         }
 
         @media (min-width: 768px) {
@@ -83,7 +84,7 @@
 
         @keyframes galaxy-move {
             0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
+            100% { background-position: 300% 50%; }
         }
 
         @keyframes drift {
