@@ -18,6 +18,7 @@
         ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
         .section-divider { position: relative; }
         .section-divider::after { content: ''; position: absolute; bottom: -1.5rem; left: 0; width: 4rem; height: 2px; background: #fff; }
+        .outline-text { -webkit-text-stroke: 1px #222; color: transparent; }
     </style>
 </head>
 <body>
@@ -33,7 +34,6 @@
             return <i data-lucide={name} style={{ width: size, height: size }} className={`inline-block ${className}`}></i>;
         };
 
-        // Edit these arrays to update links and descriptions
         const projects = [
             {
                 title: "WhatsNextRadio",
@@ -42,7 +42,8 @@
                 description: "Community-curated music discovery platform connecting artists and listeners while multiplying streaming revenue",
                 category: "Music / SaaS",
                 color: "bg-blue-600",
-                iconName: "radio"
+                iconName: "radio",
+                sizeClass: "scale-100 max-w-[90%] max-h-[90%]"
             },
             {
                 title: "Stak",
@@ -51,16 +52,18 @@
                 description: "Your financial companion. Know what's Safe to Spend. See what your money is already doing. No spreadsheets. No shame. No stress.",
                 category: "FinTech",
                 color: "bg-emerald-500",
-                iconName: "wallet"
+                iconName: "wallet",
+                sizeClass: "scale-125 max-w-full max-h-full"
             },
             {
                 title: "Kake",
                 url: "https://www.GetKake.com",
                 logoUrl: "kake-logo.PNG", 
                 description: "The daily sweepstakes game where your birthday could be your lucky number!",
-                category: "E-Commerce",
+                category: "Sweepstakes",
                 color: "bg-purple-600",
-                iconName: "shopping-bag"
+                iconName: "shopping-bag",
+                sizeClass: "scale-125 max-w-full max-h-full"
             },
             {
                 title: "LVL UP",
@@ -69,7 +72,8 @@
                 description: "Ascend your performance. Level up your fitness with a customizable fitness tracker with built-in bodybuilder endorsed workouts designed to optimize your overall health.",
                 category: "Performance / SaaS",
                 color: "bg-blue-500",
-                iconName: "trending-up"
+                iconName: "trending-up",
+                sizeClass: "scale-100 max-w-[90%] max-h-[90%]"
             },
             {
                 title: "CEEN Apparel",
@@ -78,7 +82,8 @@
                 description: "Modern aesthetics for the digital age. A lifestyle brand focused on the intersection of high-end tech and fashion.",
                 category: "Fashion / E-Commerce",
                 color: "bg-slate-700",
-                iconName: "shopping-bag"
+                iconName: "shopping-bag",
+                sizeClass: "scale-125 max-w-full max-h-full"
             },
             {
                 title: "Parallel Exchange",
@@ -87,7 +92,8 @@
                 description: "Give More than Money. Trade locally with people in your area. No cash needed",
                 category: "FinTech / SaaS",
                 color: "bg-orange-600",
-                iconName: "repeat"
+                iconName: "repeat",
+                sizeClass: "scale-40 max-w-[35%] max-h-[35%]"
             },
             {
                 title: "Abyss Beats",
@@ -96,7 +102,8 @@
                 description: "Premium instrumentals produced by Abyss. A premier audio marketplace for Artists, Content Creators, and Brands.",
                 category: "Audio / SaaS",
                 color: "bg-zinc-700",
-                iconName: "music"
+                iconName: "music",
+                sizeClass: "scale-125 max-w-full max-h-full"
             },
             {
                 title: "Artist Connect",
@@ -105,7 +112,8 @@
                 description: "The swiss army knife for artists and boutique labels. All the direct-to-fan tools you need to nurture your audience.",
                 category: "Social / SaaS",
                 color: "bg-red-600",
-                iconName: "users"
+                iconName: "users",
+                sizeClass: "scale-100 max-w-[90%] max-h-[90%]"
             },
             {
                 title: "Brotherhood Network",
@@ -114,7 +122,8 @@
                 description: "A safe, community-driven networking infrastructure for the modern man to collaborate, grow and succeed.",
                 category: "Network / SaaS",
                 color: "bg-zinc-800",
-                iconName: "share-2"
+                iconName: "share-2",
+                sizeClass: "scale-125 max-w-full max-h-full"
             }
         ];
 
@@ -126,7 +135,8 @@
                 description: "A real time key signature finder/tuner for vocalists. Vocal Session Pro - Find Your Key Signature in Real Time",
                 category: "Utility",
                 color: "bg-indigo-600",
-                iconName: "pen-tool"
+                iconName: "pen-tool",
+                sizeClass: "scale-100 max-w-[90%] max-h-[90%]"
             },
             {
                 title: "Math Punk",
@@ -135,7 +145,8 @@
                 description: "Cyberpunk-themed mental math challenge. Speed, precision, and high-fidelity aesthetics.",
                 category: "Game",
                 color: "bg-yellow-500",
-                iconName: "calculator"
+                iconName: "calculator",
+                sizeClass: "scale-100 max-w-[90%] max-h-[90%]"
             },
             {
                 title: "Tic Tac Glow",
@@ -144,7 +155,8 @@
                 description: "A neon-infused, minimalist reimagining of the classic strategy game.",
                 category: "Game",
                 color: "bg-pink-500",
-                iconName: "grid"
+                iconName: "grid",
+                sizeClass: "scale-100 max-w-[90%] max-h-[90%]"
             }
         ];
 
@@ -165,7 +177,7 @@
                     href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group relative block w-full aspect-square bg-zinc-900/40 rounded-[2.5rem] overflow-hidden border border-white/5 transition-all duration-700 hover:shadow-[0_0_60px_-12px_rgba(255,255,255,0.15)] hover:-translate-y-3 hover:bg-zinc-900/60"
+                    className="group relative block w-full aspect-square bg-zinc-900/30 rounded-[3rem] overflow-hidden border border-white/5 transition-all duration-700 hover:shadow-[0_0_80px_-15px_rgba(255,255,255,0.1)] hover:-translate-y-4 hover:bg-zinc-900/50"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => {
                         setIsHovered(false);
@@ -173,45 +185,42 @@
                     }}
                     onClick={handleInteraction}
                 >
-                    {/* Brand glow behind the transparent logo */}
-                    <div className={`absolute inset-0 blur-[60px] opacity-0 transition-opacity duration-700 group-hover:opacity-20 ${project.color}`} />
+                    <div className={`absolute inset-0 blur-[100px] opacity-0 transition-opacity duration-700 group-hover:opacity-30 ${project.color}`} />
                     
-                    {/* Front State */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center transition-all duration-700 ease-in-out group-hover:scale-90 group-hover:opacity-0 group-hover:blur-2xl">
-                        <div className="w-40 h-40 mb-4 flex items-center justify-center transition-transform duration-700 group-hover:rotate-6">
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center transition-all duration-700 ease-in-out group-hover:scale-90 group-hover:opacity-0 group-hover:blur-3xl">
+                        <div className="w-full h-[80%] flex items-center justify-center transition-all duration-700 group-hover:scale-110">
                             {project.logoUrl && !imgError ? (
                                 <img 
                                     src={project.logoUrl} 
                                     alt={project.title} 
-                                    className="w-full h-full object-contain"
+                                    className={`${project.sizeClass || 'max-w-[90%] max-h-[90%]'} object-contain pointer-events-none`}
                                     onError={() => setImgError(true)} 
                                 />
                             ) : (
-                                <Icon name={project.iconName} size={64} className="text-white opacity-50" />
+                                <Icon name={project.iconName} size={80} className="text-white opacity-20" />
                             )}
                         </div>
-                        <div>
-                            <h3 className="text-2xl font-black tracking-tight text-white uppercase mb-1">
+                        <div className="mt-auto pb-2">
+                            <h3 className="text-2xl font-black tracking-tighter text-white uppercase leading-none">
                                 {project.title}
                             </h3>
-                            <p className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em]">
+                            <p className="text-[9px] font-black text-zinc-500 uppercase tracking-[0.5em] mt-2">
                                 {project.category}
                             </p>
                         </div>
                     </div>
 
-                    {/* Back State (Hover Details) */}
-                    <div className={`absolute inset-0 p-10 flex flex-col justify-center items-center text-center transition-all duration-700 ease-in-out ${isHovered || isMobileTouched ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12 pointer-events-none'}`}>
-                        <div className={`w-12 h-12 mb-6 rounded-xl flex items-center justify-center ${project.color} text-white opacity-40 animate-pulse`}>
-                            <Icon name={project.iconName} size={24} />
+                    <div className={`absolute inset-0 p-10 flex flex-col justify-center items-center text-center transition-all duration-700 ease-in-out ${isHovered || isMobileTouched ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20 pointer-events-none'}`}>
+                        <div className={`w-14 h-14 mb-8 rounded-2xl flex items-center justify-center ${project.color} text-white shadow-lg`}>
+                            <Icon name={project.iconName} size={28} />
                         </div>
-                        <h3 className="text-xl font-black text-white mb-3 uppercase tracking-tight">{project.title}</h3>
-                        <p className="text-sm text-zinc-400 mb-8 leading-relaxed font-medium">
+                        <h3 className="text-2xl font-black text-white mb-4 uppercase tracking-tighter">{project.title}</h3>
+                        <p className="text-sm text-zinc-300 mb-10 leading-relaxed font-medium max-w-xs">
                             {project.description}
                         </p>
-                        <div className="flex items-center gap-3 py-3 px-6 bg-white text-black rounded-full text-xs font-bold uppercase tracking-widest transition-transform hover:scale-105 active:scale-95">
+                        <div className="flex items-center gap-3 py-4 px-8 bg-white text-black rounded-full text-xs font-black uppercase tracking-widest transition-all hover:scale-110 active:scale-95 shadow-xl">
                             Launch App
-                            <Icon name="arrow-right" size={14} />
+                            <Icon name="arrow-right" size={16} />
                         </div>
                     </div>
                 </a>
@@ -221,86 +230,93 @@
         const App = () => {
             return (
                 <div className="min-h-screen bg-black text-zinc-100 font-sans selection:bg-white selection:text-black">
-                    <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/80 backdrop-blur-2xl">
+                    <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/80 backdrop-blur-3xl">
                         <div className="max-w-7xl mx-auto px-8 h-24 flex items-center justify-between">
-                            <div className="flex items-center gap-3 h-full">
-                                <div className="h-12 overflow-hidden flex items-center justify-center">
-                                    <img src="moodswingz-media-logo.PNG" alt="Moodswingz Media" className="h-full w-auto object-contain" onError={(e) => {
-                                        e.target.style.display = 'none';
-                                        e.target.nextSibling.style.display = 'flex';
-                                    }} />
-                                    <div className="hidden h-8 w-8 bg-white rounded-lg items-center justify-center">
-                                        <div className="w-3 h-3 bg-black rotate-45"></div>
+                            <div className="flex items-center h-full">
+                                <div className="h-20 overflow-hidden flex items-center justify-center">
+                                    <img 
+                                        src="moodswingz-media-logo.PNG" 
+                                        alt="Moodswingz Media" 
+                                        className="h-full w-auto object-contain" 
+                                        onError={(e) => {
+                                            e.target.style.display = 'none';
+                                            e.target.nextSibling.style.display = 'flex';
+                                        }} 
+                                    />
+                                    <div className="hidden h-14 w-14 bg-white rounded-xl items-center justify-center">
+                                        <div className="w-5 h-5 bg-black rotate-45"></div>
                                     </div>
                                 </div>
-                                <span className="font-black tracking-tighter text-xl uppercase italic text-white">Moodswingz</span>
                             </div>
                             <div className="hidden md:flex items-center gap-10 text-[11px] font-black uppercase tracking-[0.2em] text-zinc-500">
-                                <a href="mailto:hello@moodswingzmedia.com" className="hover:text-white transition-colors">Contact</a>
-                                <div className="px-6 py-3 bg-white text-black rounded-xl font-bold">Portfolio</div>
+                                <a 
+                                    href="https://www.instagram.com/moodswingzmedia" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="hover:text-white transition-colors"
+                                >
+                                    Contact
+                                </a>
                             </div>
                         </div>
                     </nav>
 
-                    <header className="pt-52 pb-32 px-8 max-w-7xl mx-auto">
+                    <header className="pt-64 pb-32 px-8 max-w-7xl mx-auto">
                         <div className="max-w-4xl">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900 rounded-lg mb-8 border border-white/5">
-                                <Icon name="zap" size={14} className="text-amber-500" fill="currentColor" />
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">System Status: Active</span>
-                            </div>
-                            <h1 className="text-6xl md:text-[120px] font-black tracking-tighter mb-10 leading-[0.85] text-white">
+                            <h1 className="text-6xl md:text-[140px] font-black tracking-tighter mb-10 leading-[0.85] text-white">
                                 THE <br />
-                                <span className="text-zinc-800 tracking-[-0.07em]">ECOSYSTEM.</span>
+                                <span className="text-zinc-800 tracking-[-0.08em] outline-text">ECOSYSTEM.</span>
                             </h1>
-                            <p className="text-xl md:text-2xl text-zinc-500 leading-relaxed mb-12 max-w-2xl font-medium">
-                                A digital laboratory where we build, break, and refine the next generation of SaaS and interactive media platforms.
+                            <p className="text-2xl md:text-3xl text-zinc-500 leading-tight mb-16 max-w-2xl font-medium tracking-tight">
+                                A digital repository of the next generation of SaaS, Fintech and high-fidelity media platforms.
                             </p>
                         </div>
                     </header>
 
-                    <main className="max-w-7xl mx-auto px-8 pb-48">
-                        <section className="mb-40">
-                            <h2 className="text-xs font-black uppercase tracking-[0.5em] text-zinc-600 mb-20 section-divider italic">Primary Products</h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+                    <main className="max-w-7xl mx-auto px-8 pb-64">
+                        <section className="mb-48">
+                            <h2 className="text-sm font-black uppercase tracking-[0.6em] text-zinc-700 mb-24 section-divider italic">Primary Products</h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14">
                                 {projects.map((project, index) => (
                                     <ProjectCard key={index} project={project} />
                                 ))}
                             </div>
                         </section>
 
-                        <section className="mb-32">
-                            <h2 className="text-xs font-black uppercase tracking-[0.5em] text-zinc-600 mb-20 section-divider italic">Interactive Labs</h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+                        <section className="mb-48">
+                            <h2 className="text-sm font-black uppercase tracking-[0.6em] text-zinc-700 mb-24 section-divider italic">Interactive Labs</h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14">
                                 {interactiveProjects.map((project, index) => (
                                     <ProjectCard key={index} project={project} />
                                 ))}
-                                <div className="w-full aspect-square border-2 border-dashed border-zinc-800 rounded-[2.5rem] flex flex-col items-center justify-center text-zinc-700 gap-6 hover:border-zinc-500 hover:text-zinc-500 transition-all cursor-pointer group">
-                                    <div className="w-16 h-16 rounded-full border-2 border-zinc-800 flex items-center justify-center group-hover:scale-110 group-hover:rotate-90 transition-all duration-500">
-                                        <Icon name="code" size={24} />
+                                <div className="w-full aspect-square border-2 border-dashed border-zinc-900 rounded-[3rem] flex flex-col items-center justify-center text-zinc-800 gap-8 hover:border-zinc-700 hover:text-zinc-500 transition-all duration-500 cursor-pointer group">
+                                    <div className="w-20 h-20 rounded-full border-2 border-zinc-900 flex items-center justify-center group-hover:scale-125 group-hover:rotate-90 transition-all duration-700">
+                                        <Icon name="code" size={32} />
                                     </div>
-                                    <span className="text-xs font-black uppercase tracking-[0.3em]">Incubating</span>
+                                    <span className="text-sm font-black uppercase tracking-[0.4em]">Incubating</span>
                                 </div>
                             </div>
                         </section>
                     </main>
 
-                    <footer className="border-t border-white/5 py-20 bg-black">
-                        <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-12">
-                            <div className="flex flex-col items-center md:items-start gap-4">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-6 h-6 bg-zinc-800 rounded-lg flex items-center justify-center">
-                                        <div className="w-2 h-2 bg-black rounded-sm rotate-45"></div>
+                    <footer className="border-t border-white/5 py-32 bg-black">
+                        <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-16">
+                            <div className="flex flex-col items-center md:items-start gap-6">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-8 h-8 bg-zinc-900 rounded-xl flex items-center justify-center border border-white/10">
+                                        <div className="w-3 h-3 bg-white rotate-45"></div>
                                     </div>
-                                    <span className="font-black tracking-tighter text-sm uppercase italic text-white">Moodswingz</span>
+                                    <span className="font-black tracking-tighter text-lg uppercase italic text-white">Moodswingz</span>
                                 </div>
-                                <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.3em]">
-                                    &copy; {new Date().getFullYear()} Moodswingz Media & Tech.
+                                <p className="text-xs font-bold text-zinc-700 uppercase tracking-[0.4em]">
+                                    &copy; {new Date().getFullYear()} Moodswingz Media & Tech Group.
                                 </p>
                             </div>
-                            <div className="flex gap-12 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">
-                                <a href="#" className="hover:text-white transition-colors">Twitter</a>
-                                <a href="#" className="hover:text-white transition-colors">GitHub</a>
-                                <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
+                            <div className="flex gap-16 text-xs font-black uppercase tracking-[0.4em] text-zinc-500">
+                                <a href="https://www.instagram.com/moodswingzmedia" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all hover:tracking-[0.6em]">Instagram</a>
+                                <a href="#" className="hover:text-white transition-all hover:tracking-[0.6em]">Twitter</a>
+                                <a href="#" className="hover:text-white transition-all hover:tracking-[0.6em]">GitHub</a>
+                                <a href="#" className="hover:text-white transition-all hover:tracking-[0.6em]">LinkedIn</a>
                             </div>
                         </div>
                     </footer>
