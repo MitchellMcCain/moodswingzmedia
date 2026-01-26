@@ -33,14 +33,14 @@
             return <i data-lucide={name} style={{ width: size, height: size }} className={`inline-block ${className}`}></i>;
         };
 
-        // Matches filenames in GitHub exactly (Case-Sensitive)
+        // Edit these arrays to update links and descriptions
         const projects = [
             {
                 title: "WhatsNextRadio",
                 url: "https://www.WhatsNextRadio.com",
                 logoUrl: "wnr-logo.PNG", 
-                description: "The sound of the future. A global streaming platform bridging the gap between digital radio and the next generation of listeners.",
-                category: "Media / SaaS",
+                description: "Community-curated music discovery platform connecting artists and listeners while multiplying streaming revenue",
+                category: "Music / SaaS",
                 color: "bg-blue-600",
                 iconName: "radio"
             },
@@ -48,7 +48,7 @@
                 title: "Stak",
                 url: "https://www.Stak.Money",
                 logoUrl: "stak-logo.PNG", 
-                description: "Your financial companion. Advanced wealth tracking and management tools built for the modern investor.",
+                description: "Your financial companion. Know what's Safe to Spend. See what your money is already doing. No spreadsheets. No shame. No stress.",
                 category: "FinTech",
                 color: "bg-emerald-500",
                 iconName: "wallet"
@@ -57,7 +57,7 @@
                 title: "Kake",
                 url: "https://www.GetKake.com",
                 logoUrl: "kake-logo.PNG", 
-                description: "Sweetening the deal for digital commerce. Professional-grade product delivery and shop management for independent creators.",
+                description: "The daily sweepstakes game where your birthday could be your lucky number!",
                 category: "E-Commerce",
                 color: "bg-purple-600",
                 iconName: "shopping-bag"
@@ -66,7 +66,7 @@
                 title: "LVL UP",
                 url: "https://lvlup.moodswingzmedia.com",
                 logoUrl: "levelup-logo.PNG", 
-                description: "Ascend your performance. A high-octane tracking and personal growth suite designed to optimize your daily output.",
+                description: "Ascend your performance. Level up your fitness with a customizable fitness tracker with built-in bodybuilder endorsed workouts designed to optimize your overall health.",
                 category: "Performance / SaaS",
                 color: "bg-blue-500",
                 iconName: "trending-up"
@@ -84,7 +84,7 @@
                 title: "Parallel Exchange",
                 url: "#",
                 logoUrl: "parallel-exchange-logo.PNG",
-                description: "The standard for liquidity. Advanced asset swapping protocol with institutional-grade speed and reliability.",
+                description: "Give More than Money. Trade locally with people in your area. No cash needed",
                 category: "FinTech / SaaS",
                 color: "bg-orange-600",
                 iconName: "repeat"
@@ -93,7 +93,7 @@
                 title: "Abyss Beats",
                 url: "https://www.AbyssBeats.com",
                 logoUrl: "abyss-beats-logo.PNG",
-                description: "Dive into the sound. A premier audio marketplace for high-fidelity production and exclusive beats.",
+                description: "Premium instrumentals produced by Abyss. A premier audio marketplace for Artists, Content Creators, and Brands.",
                 category: "Audio / SaaS",
                 color: "bg-zinc-700",
                 iconName: "music"
@@ -102,7 +102,7 @@
                 title: "Artist Connect",
                 url: "#",
                 logoUrl: "artist-connect-logo.PNG",
-                description: "The bridge between vision and audience. A professional networking suite for digital creators and brands.",
+                description: "The swiss army knife for artists and boutique labels. All the direct-to-fan tools you need to nurture your audience.",
                 category: "Social / SaaS",
                 color: "bg-red-600",
                 iconName: "users"
@@ -111,7 +111,7 @@
                 title: "Brotherhood Network",
                 url: "#",
                 logoUrl: "brotherhood-network-logo.PNG",
-                description: "Community-driven networking and infrastructure for collaborative growth and impact.",
+                description: "A safe, community-driven networking infrastructure for the modern man to collaborate, grow and succeed.",
                 category: "Network / SaaS",
                 color: "bg-zinc-800",
                 iconName: "share-2"
@@ -123,7 +123,7 @@
                 title: "Signature",
                 url: "https://signature-app-steel.vercel.app/",
                 logoUrl: "signature-logo.PNG",
-                description: "The final word in document utility. Clean, secure, and rapid digital signing for modern software workflows.",
+                description: "A real time key signature finder/tuner for vocalists. Vocal Session Pro - Find Your Key Signature in Real Time",
                 category: "Utility",
                 color: "bg-indigo-600",
                 iconName: "pen-tool"
@@ -173,19 +173,21 @@
                     }}
                     onClick={handleInteraction}
                 >
-                    <div className={`absolute -top-24 -right-24 w-64 h-64 blur-glow opacity-0 transition-opacity duration-700 group-hover:opacity-20 ${project.color}`} />
+                    {/* Brand glow behind the transparent logo */}
+                    <div className={`absolute inset-0 blur-[60px] opacity-0 transition-opacity duration-700 group-hover:opacity-20 ${project.color}`} />
                     
-                    <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center transition-all duration-700 ease-in-out group-hover:scale-90 group-hover:opacity-0 group-hover:blur-2xl">
-                        <div className={`w-28 h-28 mb-6 rounded-3xl flex items-center justify-center shadow-2xl transition-transform duration-700 group-hover:rotate-12 ${project.color} overflow-hidden bg-black/20`}>
+                    {/* Front State */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center transition-all duration-700 ease-in-out group-hover:scale-90 group-hover:opacity-0 group-hover:blur-2xl">
+                        <div className="w-40 h-40 mb-4 flex items-center justify-center transition-transform duration-700 group-hover:rotate-6">
                             {project.logoUrl && !imgError ? (
                                 <img 
                                     src={project.logoUrl} 
                                     alt={project.title} 
-                                    className="w-full h-full object-contain p-3"
+                                    className="w-full h-full object-contain"
                                     onError={() => setImgError(true)} 
                                 />
                             ) : (
-                                <Icon name={project.iconName} size={40} className="text-white" />
+                                <Icon name={project.iconName} size={64} className="text-white opacity-50" />
                             )}
                         </div>
                         <div>
@@ -198,6 +200,7 @@
                         </div>
                     </div>
 
+                    {/* Back State (Hover Details) */}
                     <div className={`absolute inset-0 p-10 flex flex-col justify-center items-center text-center transition-all duration-700 ease-in-out ${isHovered || isMobileTouched ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12 pointer-events-none'}`}>
                         <div className={`w-12 h-12 mb-6 rounded-xl flex items-center justify-center ${project.color} text-white opacity-40 animate-pulse`}>
                             <Icon name={project.iconName} size={24} />
@@ -221,8 +224,8 @@
                     <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/80 backdrop-blur-2xl">
                         <div className="max-w-7xl mx-auto px-8 h-24 flex items-center justify-between">
                             <div className="flex items-center gap-3 h-full">
-                                <div className="h-10 w-10 overflow-hidden flex items-center justify-center bg-zinc-900 rounded-lg">
-                                    <img src="moodswingz-media-logo.PNG" alt="Moodswingz Media" className="h-full w-full object-contain" onError={(e) => {
+                                <div className="h-12 overflow-hidden flex items-center justify-center">
+                                    <img src="moodswingz-media-logo.PNG" alt="Moodswingz Media" className="h-full w-auto object-contain" onError={(e) => {
                                         e.target.style.display = 'none';
                                         e.target.nextSibling.style.display = 'flex';
                                     }} />
@@ -294,7 +297,7 @@
                                     &copy; {new Date().getFullYear()} Moodswingz Media & Tech.
                                 </p>
                             </div>
-                            <div className="flex gap-12 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">
+                            <div className="flex gap-12 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">
                                 <a href="#" className="hover:text-white transition-colors">Twitter</a>
                                 <a href="#" className="hover:text-white transition-colors">GitHub</a>
                                 <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
