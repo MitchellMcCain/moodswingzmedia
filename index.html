@@ -140,6 +140,18 @@
             margin-bottom: 2rem;
             transition: border-color 0.3s ease;
         }
+        
+        .collectible-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            transition: all 0.4s ease;
+        }
+        .collectible-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+        }
     </style>
 </head>
 <body>
@@ -186,7 +198,9 @@
             },
             {
                 title: "Abyss Beats",
-                url: "https://abyssbeats.moodswingzmedia.com",
+                url: "#",
+                isInternal: true,
+                internalId: "music",
                 logoUrl: "abyss-beats-logo.PNG",
                 description: "Premium instrumentals produced by Abyss. A premier audio marketplace for Creators and Brands.",
                 category: "Music / SaaS",
@@ -326,7 +340,7 @@
                                 <h3 className="text-lg md:text-2xl font-black tracking-tighter text-white uppercase leading-none drop-shadow-lg">
                                     {project.title}
                                 </h3>
-                                <p className="text-[8px] md:text-[10px] font-black text-zinc-500 uppercase tracking-[0.3em] mt-2 opacity-60">
+                                <p className="text-[8px] md:text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em] mt-2 opacity-60">
                                     {project.category}
                                 </p>
                             </div>
@@ -431,11 +445,17 @@
 
             if (currentView === 'music') {
                 const audioPlayers = [
-                    { id: 1, title: "Abyss Main Player", embedCode: `<iframe src="https://player.beatstars.com/?store=abyss" width="100%" height="600" frameborder="0" scrolling="no"></iframe>` }
+                    { id: 1, title: "Marketplace Main", embedCode: `<iframe src="https://player.beatstars.com/?store=abyss" width="100%" height="600" frameborder="0" scrolling="no"></iframe>` }
+                ];
+
+                const collectibles = [
+                    { id: 1, title: "Action Packed", img: "Action-Packed-Abyss.jpeg", url: "https://newm.io/abyss-action-packed/" },
+                    { id: 2, title: "Goddess", img: "Goddess-Cover.jpg", url: "https://newm.io/abyss-goddess/" },
+                    { id: 3, title: "Tomorrowland", img: "Tomorrowland-Abyss.png", url: "https://newm.io/abyss-tomorrowland/" }
                 ];
 
                 return (
-                    <div className="relative min-h-screen w-full flex flex-col bg-[#050505] overflow-x-hidden">
+                    <div className="relative min-h-screen w-full flex flex-col bg-[#050505] overflow-x-hidden pb-32">
                         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-900/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
                         
                         <nav className="fixed top-0 w-full z-[1000] glass-nav">
@@ -447,37 +467,56 @@
                             </div>
                         </nav>
 
-                        <header className="pt-40 pb-12 px-6 max-w-5xl mx-auto w-full relative z-10">
+                        <header className="pt-32 pb-12 px-6 max-w-5xl mx-auto w-full relative z-10">
                             <div className="flex flex-col md:flex-row items-center gap-12 mb-20">
                                 <div className="w-48 h-48 md:w-64 md:h-64 bg-zinc-900 rounded-[2rem] overflow-hidden shadow-2xl relative group border border-white/5">
                                     <div className="absolute inset-0 bg-indigo-600/10 group-hover:opacity-0 transition-opacity"></div>
                                     <img src="abyss-beats-logo.PNG" alt="Abyss" className="w-full h-full object-contain p-4 grayscale hover:grayscale-0 transition-all duration-700" />
                                 </div>
-                                <div className="text-center md:text-left">
-                                    <h1 className="header-main text-6xl md:text-8xl italic mb-4 italic">ABYSS.</h1>
-                                    <p className="ui-label text-[11px] mb-8 text-indigo-400">High-Fidelity Production Marketplace</p>
+                                <div className="text-center md:text-left flex-1">
+                                    <h1 className="header-main text-5xl md:text-8xl italic mb-4 italic">ABYSS.</h1>
+                                    <p className="ui-label text-[11px] mb-6 text-indigo-400">Mitchell “Abyss” McCain</p>
+                                    <p className="text-zinc-400 text-xs md:text-sm leading-relaxed mb-8 max-w-xl">
+                                        Mitchell “Abyss” McCain, a Northern California native, has dedicated his life to the realms of Hip Hop and Technology. As a recording artist, producer, and founder of Moodswingz, he is pioneering the integration of culture with digital ecosystems.
+                                    </p>
                                     <div className="flex items-center gap-4 justify-center md:justify-start">
-                                        <button className="px-8 py-3 bg-white text-black text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg">Follow</button>
-                                        <button className="px-8 py-3 border border-white/20 text-white text-[9px] font-black uppercase tracking-widest rounded-full hover:bg-white/5 transition-colors">Contact</button>
+                                        <button className="px-6 py-2 bg-white text-black text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg">Follow</button>
+                                        <button className="px-6 py-2 border border-white/20 text-white text-[9px] font-black uppercase tracking-widest rounded-full hover:bg-white/5 transition-colors">Bio Full</button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="space-y-12">
+                            <section className="mb-20">
                                 <div className="flex items-center gap-4 mb-8">
                                     <div className="h-[1px] w-8 bg-indigo-500"></div>
-                                    <h2 className="ui-label text-[11px] italic">Marketplace Players</h2>
+                                    <h2 className="ui-label text-[11px] italic">Collectibles</h2>
                                 </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                    {collectibles.map(item => (
+                                        <a key={item.id} href={item.url} target="_blank" className="collectible-card p-4 block text-center">
+                                            <div className="aspect-square bg-zinc-900 rounded-xl mb-4 overflow-hidden shadow-xl border border-white/5">
+                                                <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
+                                            </div>
+                                            <span className="ui-label text-[9px] opacity-60">{item.title}</span>
+                                        </a>
+                                    ))}
+                                </div>
+                            </section>
 
+                            <section>
+                                <div className="flex items-center gap-4 mb-8">
+                                    <div className="h-[1px] w-8 bg-indigo-500"></div>
+                                    <h2 className="ui-label text-[11px] italic">Marketplace</h2>
+                                </div>
                                 {audioPlayers.map(player => (
                                     <div key={player.id} className="player-embed-wrapper">
                                         <div 
-                                            className="w-full"
+                                            className="w-full min-h-[600px]"
                                             dangerouslySetInnerHTML={{ __html: player.embedCode }} 
                                         />
                                     </div>
                                 ))}
-                            </div>
+                            </section>
                         </header>
                     </div>
                 );
@@ -487,13 +526,12 @@
                 <div className="relative min-h-screen w-full flex flex-col bg-black overflow-x-hidden">
                     <nav className="fixed top-0 w-full z-[100] glass-nav">
                         <div className="max-w-7xl mx-auto px-6 h-20 md:h-24 flex items-center justify-between">
-                            {/* Updated Logo: Increased max-w to 140px and added pr-4 to prevent character cutoff from letter-spacing */}
                             <span className="brand-font text-[10px] sm:text-base md:text-xl cursor-default select-none whitespace-normal leading-tight max-w-[140px] sm:max-w-none block sm:inline pr-4">
                                 Moodswingz Media
                             </span>
                             <div className="flex items-center gap-6 md:gap-12">
                                 <button onClick={() => setCurrentView('music')} className="ui-label text-[9px] md:text-[11px] hover:text-white transition-all">
-                                    Music
+                                    Muzik
                                 </button>
                                 <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="ui-label text-[9px] md:text-[11px] hover:text-white transition-all">
                                     Contact
@@ -557,7 +595,7 @@
                             </div>
                             <div className="flex gap-8 md:gap-12 text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">
                                 <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="hover:text-white transition-all">Instagram</a>
-                                <a href="#" className="hover:text-white transition-all">Twitter</a>
+                                <a href="https://www.tiktok.com/@moodswingzmedia" target="_blank" className="hover:text-white transition-all">TikTok</a>
                             </div>
                         </div>
                     </footer>
