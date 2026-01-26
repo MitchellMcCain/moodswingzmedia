@@ -152,7 +152,7 @@
             useEffect(() => {
                 if (window.lucide) window.lucide.createIcons();
             }, [name]);
-            return <i data-lucide={name} style={{ width: size, height: size }} className={`inline-block ${className}`}></i>;
+            return <span data-lucide={name} style={{ width: size, height: size }} className={`flex items-center justify-center shrink-0 ${className}`}></span>;
         };
 
         const projects = [
@@ -200,7 +200,7 @@
                 category: "FinTech / SaaS",
                 color: "bg-orange-500",
                 iconName: "repeat",
-                isReduced: true // Keeping logo small as requested
+                isReduced: true 
             },
             {
                 title: "Artist Connect",
@@ -327,8 +327,10 @@
                             </div>
                         </div>
 
+                        {/* Back View of Card (Hover state) */}
                         <div className={`absolute inset-0 p-10 flex flex-col justify-center items-center text-center transition-all duration-700 ease-in-out ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20 pointer-events-none'}`}>
-                            <div className={`w-14 h-14 mb-8 rounded-2xl flex items-center justify-center ${project.color} text-white shadow-lg`}>
+                            {/* Icon Container with Square Colored Border aesthetic - shrink-0 ensures it stays square */}
+                            <div className={`w-14 h-14 shrink-0 flex-none aspect-square mb-8 rounded-xl flex items-center justify-center ${project.color} border border-white/20 text-white shadow-2xl`}>
                                 <Icon name={project.iconName} size={28} />
                             </div>
                             <h3 className="text-2xl font-black text-white mb-4 uppercase tracking-tighter">{project.title}</h3>
