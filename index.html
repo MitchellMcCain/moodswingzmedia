@@ -137,18 +137,10 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 1.5rem;
             overflow: hidden;
-            margin-bottom: 2rem;
-            transition: border-color 0.3s ease;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
         }
-        
-        .collectible-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 1.5rem;
-            transition: all 0.4s ease;
-        }
-        .collectible-card:hover {
-            transform: translateY(-8px);
+        .player-embed-wrapper:hover {
             border-color: rgba(255, 255, 255, 0.2);
             background: rgba(255, 255, 255, 0.06);
         }
@@ -444,14 +436,24 @@
             }
 
             if (currentView === 'music') {
-                const audioPlayers = [
-                    { id: 1, title: "Marketplace Main", embedCode: `<iframe src="https://player.beatstars.com/?store=abyss" width="100%" height="600" frameborder="0" scrolling="no"></iframe>` }
+                const audiusPlayers = [
+                    "https://audius.co/embed/album/rb54Paz?flavor=card",
+                    "https://audius.co/embed/playlist/1B4zbRW?flavor=card",
+                    "https://audius.co/embed/playlist/lWod82w?flavor=card",
+                    "https://audius.co/embed/album/v7OAp?flavor=card",
+                    "https://audius.co/embed/album/Lwxp5?flavor=card",
+                    "https://audius.co/embed/album/7AV2lqr?flavor=card",
+                    "https://audius.co/embed/album/D9gW2?flavor=card",
+                    "https://audius.co/embed/album/Lw8Y5?flavor=card",
+                    "https://audius.co/embed/album/nd4AP?flavor=card",
+                    "https://audius.co/embed/album/BybN7WP?flavor=card"
                 ];
 
-                const collectibles = [
-                    { id: 1, title: "Action Packed", img: "Action-Packed-Abyss.jpeg", url: "https://newm.io/abyss-action-packed/" },
-                    { id: 2, title: "Goddess", img: "Goddess-Cover.jpg", url: "https://newm.io/abyss-goddess/" },
-                    { id: 3, title: "Tomorrowland", img: "Tomorrowland-Abyss.png", url: "https://newm.io/abyss-tomorrowland/" }
+                const streamingPlayers = [
+                    { id: 1, type: 'apple music', url: "https://embed.music.apple.com/us/song/good-enough-feat-the-ancient-future/1867178218?theme=dark" },
+                    { id: 2, type: 'apple music', url: "https://embed.music.apple.com/us/song/you-are-enough/1825737777?theme=dark" },
+                    { id: 3, type: 'apple music', url: "https://embed.music.apple.com/us/song/u-a-god-feat-dap-daniel-mikey-mo-the-mc/1790414314?theme=dark" },
+                    { id: 4, type: 'apple music', url: "https://embed.music.apple.com/us/song/metaverse-maneuvers-feat-mikey-mo-the-mc/1789936966?theme=dark" }
                 ];
 
                 return (
@@ -480,42 +482,53 @@
                                         Mitchell “Abyss” McCain, a Northern California native, has dedicated his life to the realms of Hip Hop and Technology. As a recording artist, producer, and founder of Moodswingz, he is pioneering the integration of culture with digital ecosystems.
                                     </p>
                                     <div className="flex items-center gap-4 justify-center md:justify-start">
-                                        <button className="px-6 py-2 bg-white text-black text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg">Follow</button>
-                                        <button className="px-6 py-2 border border-white/20 text-white text-[9px] font-black uppercase tracking-widest rounded-full hover:bg-white/5 transition-colors">Bio Full</button>
+                                        <a href="https://www.instagram.com/officialabyssbeats/" target="_blank" className="px-6 py-2 bg-white text-black text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg">Instagram</a>
+                                        <a href="https://audius.co/abyss" target="_blank" className="px-6 py-2 border border-white/20 text-white text-[9px] font-black uppercase tracking-widest rounded-full hover:bg-white/5 transition-colors">Audius</a>
                                     </div>
                                 </div>
                             </div>
 
-                            <section className="mb-20">
-                                <div className="flex items-center gap-4 mb-8">
+                            <section className="mb-24">
+                                <div className="flex items-center gap-4 mb-12">
                                     <div className="h-[1px] w-8 bg-indigo-500"></div>
-                                    <h2 className="ui-label text-[11px] italic">Collectibles</h2>
+                                    <h2 className="ui-label text-[11px] italic">Now Streaming</h2>
                                 </div>
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                                    {collectibles.map(item => (
-                                        <a key={item.id} href={item.url} target="_blank" className="collectible-card p-4 block text-center">
-                                            <div className="aspect-square bg-zinc-900 rounded-xl mb-4 overflow-hidden shadow-xl border border-white/5">
-                                                <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
-                                            </div>
-                                            <span className="ui-label text-[9px] opacity-60">{item.title}</span>
-                                        </a>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    {streamingPlayers.map(player => (
+                                        <div key={player.id} className="player-embed-wrapper shadow-2xl">
+                                            <iframe 
+                                                src={player.url} 
+                                                width="100%" 
+                                                height="175" 
+                                                frameBorder="0" 
+                                                allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" 
+                                                style={{ width: '100%', maxWidth: '660px', overflow: 'hidden', background: 'transparent' }}
+                                                className="w-full"
+                                            />
+                                        </div>
                                     ))}
                                 </div>
                             </section>
 
-                            <section>
-                                <div className="flex items-center gap-4 mb-8">
+                            <section className="mb-24">
+                                <div className="flex items-center gap-4 mb-12">
                                     <div className="h-[1px] w-8 bg-indigo-500"></div>
-                                    <h2 className="ui-label text-[11px] italic">Marketplace</h2>
+                                    <h2 className="ui-label text-[11px] italic">Audius Catalog</h2>
                                 </div>
-                                {audioPlayers.map(player => (
-                                    <div key={player.id} className="player-embed-wrapper">
-                                        <div 
-                                            className="w-full min-h-[600px]"
-                                            dangerouslySetInnerHTML={{ __html: player.embedCode }} 
-                                        />
-                                    </div>
-                                ))}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    {audiusPlayers.map((src, idx) => (
+                                        <div key={idx} className="player-embed-wrapper shadow-2xl">
+                                            <iframe 
+                                                src={src} 
+                                                width="100%" 
+                                                height="480" 
+                                                allow="encrypted-media" 
+                                                style={{ border: 'none' }}
+                                                className="w-full rounded-2xl"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
                             </section>
                         </header>
                     </div>
