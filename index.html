@@ -7,23 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Moodswingz Media | The Ecosystem</title>
     
-    <!-- Hard Canonical & WWW Redirect Logic -->
     <link rel="canonical" href="https://www.moodswingzmedia.com/">
-    <script type="text/javascript">
-        // 1. Force out of registrar iframes
-        if (top !== self) {
-            top.location.replace(self.location.href);
-        }
-        // 2. Force WWW redirect if DNS is flapping (Fixes Chrome 422/TXT issue)
-        if (window.location.hostname === 'moodswingzmedia.com') {
-            window.location.replace('https://www.moodswingzmedia.com' + window.location.pathname);
-        }
-    </script>
 
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAAAABcl79IAAAAAnElEQVQYV2P4z8DAwMCwHgX8ZwAifgPAnA8Ax9YDAA==">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -47,6 +32,18 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Fixed Background Starfield */
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; 
+            pointer-events: none;
+            background: #000;
+        }
+
         .brand-font {
             font-family: 'Orbitron', sans-serif;
             font-weight: 900;
@@ -59,9 +56,8 @@
         }
 
         @keyframes chrome-shine {
-            0% { filter: hue-rotate(0deg) drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
-            50% { filter: hue-rotate(180deg) drop-shadow(0 0 20px rgba(255,255,255,0.4)); }
-            100% { filter: hue-rotate(300deg) drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
         }
 
         .header-main {
@@ -72,7 +68,7 @@
             line-height: 0.85;
         }
 
-        /* HARD-LOCKED: Ecosystem Typography Logic */
+        /* ECOSYSTEM Header: Coloring + Prominent Wireframe */
         .glass-galaxy {
             position: relative;
             display: table; 
@@ -90,7 +86,7 @@
             z-index: 10;
         }
 
-        /* High-Prominence Wireframe Layer (Locked depth 1.8px) */
+        /* Layered Offset Wireframe (1.8px Locked) */
         .glass-galaxy::before {
             content: 'ECOSYSTEM.';
             position: absolute;
@@ -117,24 +113,10 @@
             100% { background-position: 400% 50%; }
         }
 
+        .drift-card { animation: drift 8s ease-in-out infinite; }
         @keyframes drift {
-            0% { transform: translate(0px, 0px); }
+            0%, 100% { transform: translate(0px, 0px); }
             50% { transform: translate(-4px, -10px); }
-            100% { transform: translate(0px, 0px); }
-        }
-
-        .drift-card {
-            animation: drift 8s ease-in-out infinite;
-        }
-
-        #starfield {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
         }
 
         .ui-label {
@@ -164,44 +146,35 @@
             box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
         }
 
+        /* Player Embed Stabilizers */
         .player-embed-wrapper {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 1.5rem;
             margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-            display: block; 
-            width: 100%;
-            max-width: 100%;
             overflow: hidden;
-            line-height: 0;
-            padding: 0;
+            display: block;
+            width: 100%;
         }
         
         .player-embed-wrapper iframe {
             display: block;
             width: 100% !important;
-            margin: 0 !important;
-            padding: 0 !important;
             border: none !important;
-            background: transparent;
         }
 
-        /* Music Grid Cap Fix */
         @media (min-width: 1024px) {
             .music-grid-item {
-                max-width: 540px; 
+                max-width: 500px; 
                 width: 100%;
-                margin-left: auto;
-                margin-right: auto;
+                margin: 0 auto; 
             }
         }
     </style>
 </head>
 <body>
     <canvas id="starfield"></canvas>
-    <div id="root"></div>
+    <div id="root" style="position: relative; z-index: 10;"></div>
 
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
@@ -214,206 +187,41 @@
         };
 
         const projects = [
-            {
-                title: "Stak",
-                url: "https://www.Stak.Money",
-                logoUrl: "stak-logo.PNG", 
-                description: "Your financial companion. Know what's Safe to Spend. See what your money is already doing. No spreadsheets. No shame.",
-                category: "FinTech / SaaS",
-                color: "bg-emerald-400",
-                iconName: "wallet"
-            },
-            {
-                title: "WhatsNextRadio",
-                url: "https://www.WhatsNextRadio.com",
-                logoUrl: "wnr-logo.PNG", 
-                description: "Community-curated music discovery platform connecting artists and listeners while multiplying streaming revenue.",
-                category: "Music / SaaS",
-                color: "bg-sky-500",
-                iconName: "radio"
-            },
-            {
-                title: "Kake",
-                url: "https://www.GetKake.com",
-                logoUrl: "kake-logo.PNG", 
-                description: "The daily sweepstakes game where your birthday could be your lucky number!",
-                category: "Sweepstakes / SaaS",
-                color: "bg-fuchsia-500",
-                iconName: "shopping-bag"
-            },
-            {
-                title: "Abyss Beats",
-                url: "#",
-                isInternal: true,
-                internalId: "music",
-                logoUrl: "abyss-beats-logo.PNG",
-                description: "Premium instrumentals produced by Abyss. A premier audio marketplace for Creators and Brands.",
-                category: "Music / SaaS",
-                color: "bg-indigo-600",
-                iconName: "music",
-                isEnlarged: true 
-            },
-            {
-                title: "Parallel Exchange",
-                url: "https://parallelexchange.moodswingzmedia.com",
-                logoUrl: "parallel-exchange-logo.PNG",
-                description: "Give More than Money. Trade locally with people in your area. No cash needed.",
-                category: "FinTech / SaaS",
-                color: "bg-cyan-400",
-                iconName: "repeat",
-                isReduced: true 
-            },
-            {
-                title: "Artist Connect",
-                url: "https://freshyard-MoodswingzMedia.replit.app",
-                logoUrl: "artist-connect-logo.PNG",
-                description: "The swiss army knife for artists and boutique labels. Direct-to-fan tools to nurture your audience.",
-                category: "Social / SaaS",
-                color: "bg-amber-500",
-                iconName: "users",
-                isReduced: true
-            },
-            {
-                title: "LVL UP",
-                url: "https://levelup.moodswingzmedia.com",
-                logoUrl: "levelup-logo.PNG", 
-                description: "Ascend your performance. A customizable fitness tracker designed to optimize your overall health.",
-                category: "Performance / SaaS",
-                color: "bg-blue-400",
-                iconName: "trending-up"
-            },
-            {
-                title: "Brotherhood Network",
-                url: "https://brotherhoodnetwork.moodswingzmedia.com",
-                logoUrl: "brotherhood-network-logo.PNG",
-                description: "A safe, community-driven networking infrastructure for the modern man to collaborate and grow.",
-                category: "Networking / SaaS",
-                color: "bg-yellow-400",
-                iconName: "share-2",
-                isEnlarged: true 
-            },
-            {
-                title: "CEEN Apparel",
-                isInternal: true,
-                internalId: "ceen",
-                logoUrl: "ceen-apparel-logo.PNG", 
-                description: "Modern aesthetics for the digital age. A lifestyle brand focused on the intersection of tech and fashion.",
-                category: "Wearables / SaaS",
-                color: "bg-zinc-100",
-                iconName: "shopping-bag",
-                isEnlarged: true 
-            }
+            { title: "Stak", url: "https://www.Stak.Money", logoUrl: "stak-logo.PNG", description: "Your financial companion. Know what's Safe to Spend. See what your money is already doing. No spreadsheets. No shame.", category: "FinTech / SaaS", color: "bg-emerald-400", iconName: "wallet" },
+            { title: "WhatsNextRadio", url: "https://www.WhatsNextRadio.com", logoUrl: "wnr-logo.PNG", description: "Community-curated music discovery platform connecting artists and listeners.", category: "Music / SaaS", color: "bg-sky-500", iconName: "radio" },
+            { title: "Kake", url: "https://www.GetKake.com", logoUrl: "kake-logo.PNG", description: "The daily sweepstakes game where your birthday could be your lucky number!", category: "Sweepstakes / SaaS", color: "bg-fuchsia-500", iconName: "shopping-bag" },
+            { title: "Abyss Beats", isInternal: true, internalId: "music", logoUrl: "abyss-beats-logo.PNG", description: "Premium instrumentals produced by Abyss. A premier audio marketplace.", category: "Music / SaaS", color: "bg-indigo-600", iconName: "music", isEnlarged: true },
+            { title: "Parallel Exchange", url: "https://parallelexchange.moodswingzmedia.com", logoUrl: "parallel-exchange-logo.PNG", description: "Give More than Money. Trade locally with people in your area. No cash needed.", category: "FinTech / SaaS", color: "bg-cyan-400", iconName: "repeat", isReduced: true },
+            { title: "Artist Connect", url: "https://freshyard-MoodswingzMedia.replit.app", logoUrl: "artist-connect-logo.PNG", description: "The swiss army knife for artists and boutique labels.", category: "Social / SaaS", color: "bg-amber-500", iconName: "users", isReduced: true },
+            { title: "LVL UP", url: "https://levelup.moodswingzmedia.com", logoUrl: "levelup-logo.PNG", description: "Ascend your performance. A customizable fitness tracker designed to optimize your health.", category: "Performance / SaaS", color: "bg-blue-400", iconName: "trending-up" },
+            { title: "Brotherhood Network", url: "https://brotherhoodnetwork.moodswingzmedia.com", logoUrl: "brotherhood-network-logo.PNG", description: "A safe infrastructure for the modern man to collaborate and grow.", category: "Networking / SaaS", color: "bg-yellow-400", iconName: "share-2", isEnlarged: true },
+            { title: "CEEN Apparel", isInternal: true, internalId: "ceen", logoUrl: "ceen-apparel-logo.PNG", description: "Modern aesthetics for the digital age. Fashion meeting technology.", category: "Wearables / SaaS", color: "bg-zinc-100", iconName: "shopping-bag", isEnlarged: true }
         ];
 
         const interactiveProjects = [
-            {
-                title: "Signature",
-                url: "https://signatureapp.moodswingzmedia.com/",
-                logoUrl: "signature-logo.PNG",
-                description: "Vocal Session Pro - Find Your Key Signature in Real Time. A real-time key finder/tuner for vocalists.",
-                category: "Utility / SaaS",
-                color: "bg-violet-500",
-                iconName: "users",
-                isEnlarged: true
-            },
-            {
-                title: "Retina Reader",
-                url: "https://retinareader.moodswingzmedia.com",
-                logoUrl: "retina-logo.png",
-                description: "Retina is an RSVP speed-reader that flashes text word-by-word at a fixed focal point to eliminate eye movement and maximize your reading pace.",
-                category: "Productivity / SaaS",
-                color: "bg-red-600",
-                iconName: "eye",
-                isStandardLogo: true 
-            },
-            {
-                title: "Math Punk",
-                url: "https://mathpunk.moodswingzmedia.com",
-                logoUrl: "math-punk-logo.PNG",
-                description: "Cyberpunk-themed mental math challenge. Speed, precision, and high-fidelity aesthetics.",
-                category: "Gaming / SaaS",
-                color: "bg-yellow-400",
-                iconName: "code",
-                isReduced: true
-            },
-            {
-                title: "Tic Tac Glow",
-                url: "https://tic-tac-glow.moodswingzmedia.com",
-                logoUrl: "tic-tac-glow-logo.PNG",
-                description: "A neon-infused, minimalist reimagining of the classic strategy game.",
-                category: "Gaming / SaaS",
-                color: "bg-violet-400",
-                iconName: "code",
-                isReduced: true
-            }
+            { title: "Signature", url: "https://signatureapp.moodswingzmedia.com/", logoUrl: "signature-logo.PNG", description: "Find Your Key Signature in Real Time. A real-time key finder/tuner.", category: "Utility / SaaS", color: "bg-violet-500", iconName: "users", isEnlarged: true },
+            { title: "Retina Reader", url: "https://retinareader.moodswingzmedia.com", logoUrl: "retina-logo.png", description: "RSVP speed-reader that flashes text word-by-word to eliminate eye movement.", category: "Productivity / SaaS", color: "bg-red-600", iconName: "eye", isStandardLogo: true },
+            { title: "Math Punk", url: "https://mathpunk.moodswingzmedia.com", logoUrl: "math-punk-logo.PNG", description: "Cyberpunk-themed mental math challenge.", category: "Gaming / SaaS", color: "bg-yellow-400", iconName: "code", isReduced: true },
+            { title: "Tic Tac Glow", url: "https://tic-tac-glow.moodswingzmedia.com", logoUrl: "tic-tac-glow-logo.PNG", description: "A neon-infused reimagining of the classic strategy game.", category: "Gaming / SaaS", color: "bg-violet-400", iconName: "code", isReduced: true }
         ];
 
         const ProjectCard = ({ project, onNavigate }) => {
             const [isHovered, setIsHovered] = useState(false);
-            const [imgError, setImgError] = useState(false);
-
-            const getScaleClass = () => {
-                if (project.isLargeLogo) return 'scale-[1.1]';
-                if (project.isEnlarged) return 'scale-110';
-                if (project.isStandardLogo) return 'scale-100';
-                if (project.isReduced) return 'scale-[0.75]'; 
-                return 'scale-90';
-            };
-
-            const handleClick = (e) => {
-                if (project.isInternal) {
-                    e.preventDefault();
-                    onNavigate(project.internalId);
-                }
-            };
-
+            const getScale = () => project.isEnlarged ? 'scale-110' : project.isStandardLogo ? 'scale-100' : project.isReduced ? 'scale-75' : 'scale-90';
             return (
                 <div className="drift-card relative">
-                    <a 
-                        href={project.url || "#"}
-                        onClick={handleClick}
-                        target={project.isInternal ? "_self" : "_blank"}
-                        className="group relative block w-full aspect-square card-container rounded-[2rem] md:rounded-[3rem] overflow-hidden"
-                        onMouseEnter={() => setIsHovered(true)}
-                        onMouseLeave={() => setIsHovered(false)}
-                    >
+                    <a href={project.url || "#"} onClick={(e) => { if(project.isInternal) { e.preventDefault(); onNavigate(project.internalId); } }} target={project.isInternal ? "_self" : "_blank"}
+                       className="group relative block w-full aspect-square card-container rounded-[2rem] md:rounded-[3rem] overflow-hidden"
+                       onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
                         <div className={`absolute inset-0 blur-[100px] opacity-0 transition-opacity duration-700 group-hover:opacity-30 ${project.color}`} />
-                        
-                        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 md:p-8 text-center transition-all duration-700 ease-in-out group-hover:scale-90 group-hover:opacity-0 group-hover:blur-3xl">
-                            <div className="w-full h-[65%] flex items-center justify-center transition-all duration-700 group-hover:scale-110">
-                                {project.logoUrl && !imgError ? (
-                                    <img 
-                                        src={project.logoUrl} 
-                                        alt={project.title} 
-                                        className={`w-full h-full object-contain pointer-events-none drop-shadow-2xl ${getScaleClass()}`}
-                                        onError={() => setImgError(true)} 
-                                    />
-                                ) : (
-                                    <div className="text-white opacity-20"><Icon name={project.iconName} size={64} /></div>
-                                )}
-                            </div>
-                            <div className="mt-4">
-                                <h3 className="text-lg md:text-2xl font-black tracking-tighter text-white uppercase leading-none drop-shadow-lg">
-                                    {project.title}
-                                </h3>
-                                <p className="text-[8px] md:text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em] mt-2 opacity-60">
-                                    {project.category}
-                                </p>
-                            </div>
+                        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center transition-all duration-700 group-hover:opacity-0">
+                            <img src={project.logoUrl} className={`w-full h-[60%] object-contain pointer-events-none drop-shadow-2xl ${getScale()}`} onError={(e) => e.target.style.display='none'} />
+                            <div className="mt-4"><h3 className="text-lg font-black tracking-tighter text-white uppercase">{project.title}</h3><p className="text-[8px] font-black text-zinc-500 uppercase tracking-widest mt-1">{project.category}</p></div>
                         </div>
-
-                        <div className={`absolute inset-0 p-8 flex flex-col justify-center items-center text-center transition-all duration-700 ease-in-out ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12 pointer-events-none'}`}>
-                            <div className={`w-12 h-12 shrink-0 aspect-square mb-6 rounded-xl flex items-center justify-center ${project.color} border border-white/20 text-white shadow-2xl`}>
-                                <Icon name={project.iconName} size={24} />
-                            </div>
-                            <h3 className="text-lg md:text-xl font-black text-white mb-3 uppercase tracking-tighter">{project.title}</h3>
-                            <p className="text-[10px] md:text-sm text-zinc-300 mb-8 leading-relaxed font-medium max-w-[200px]">
-                                {project.description}
-                            </p>
-                            <div className="flex items-center gap-3 py-3 px-6 bg-white text-black rounded-full text-[10px] font-black uppercase tracking-widest transition-all hover:scale-110 shadow-xl">
-                                Launch
-                                <Icon name="arrow-right" size={14} />
-                            </div>
+                        <div className={`absolute inset-0 p-8 flex flex-col justify-center items-center text-center transition-all duration-700 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+                            <h3 className="text-lg font-black text-white mb-2 uppercase">{project.title}</h3>
+                            <p className="text-[10px] text-zinc-400 leading-relaxed mb-6">{project.description}</p>
+                            <div className="py-2 px-4 bg-white text-black rounded-full text-[9px] font-black uppercase tracking-widest">Launch</div>
                         </div>
                     </a>
                 </div>
@@ -426,250 +234,121 @@
             useEffect(() => {
                 const canvas = document.getElementById('starfield');
                 const ctx = canvas.getContext('2d');
-                let w, h, stars = [];
-                let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+                let w, h, stars = [], mouse = { x: 0, y: 0 }, targetMouse = { x: 0, y: 0 };
 
-                const setCanvasSize = () => {
-                    w = canvas.width = window.innerWidth;
-                    h = canvas.height = window.innerHeight;
+                const resize = () => { 
+                    w = canvas.width = window.innerWidth; 
+                    h = canvas.height = window.innerHeight; 
+                    mouse.x = targetMouse.x = w/2;
+                    mouse.y = targetMouse.y = h/2;
                 };
 
-                const createStars = () => {
-                    stars = [];
-                    const count = Math.floor((w * h) / 2500);
-                    for(let i = 0; i < count; i++) {
-                        stars.push({
-                            x: Math.random() * w,
-                            y: Math.random() * h,
-                            size: Math.random() * 2,
-                            depth: Math.random() * 3,
-                            opacity: Math.random() * 0.7 + 0.1,
-                            vel: (Math.random() * 0.06) + 0.02
-                        });
-                    }
+                const initStars = () => { 
+                    // REFINED: Smaller star sizes for higher realism
+                    stars = Array.from({ length: 450 }, () => ({ 
+                        x: Math.random()*w, 
+                        y: Math.random()*h, 
+                        size: Math.random()*1.2, // Max size reduced from 2.0 to 1.2
+                        depth: Math.random()*3.5, 
+                        opacity: Math.random()*0.7+0.3, 
+                        vel: Math.random()*0.05+0.02 
+                    })); 
                 };
-
+                
                 const animate = () => {
-                    ctx.clearRect(0, 0, w, h);
-                    if (currentView === 'ecosystem') {
-                        stars.forEach(star => {
-                            star.y -= star.vel;
-                            if(star.y < 0) star.y = h;
-                            const offsetX = (mouse.x - w/2) * (star.depth * 0.012);
-                            const offsetY = (mouse.y - h/2) * (star.depth * 0.012);
-                            ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-                            ctx.beginPath();
-                            ctx.arc(star.x + offsetX, star.y + offsetY, star.size, 0, Math.PI * 2);
-                            ctx.fill();
-                        });
-                    }
+                    ctx.clearRect(0,0,w,h);
+                    mouse.x += (targetMouse.x - mouse.x) * 0.08;
+                    mouse.y += (targetMouse.y - mouse.y) * 0.08;
+                    
+                    stars.forEach(s => {
+                        s.y -= s.vel; if(s.y < 0) s.y = h;
+                        const ox = (mouse.x - w/2) * (s.depth * 0.015);
+                        const oy = (mouse.y - h/2) * (s.depth * 0.015);
+                        ctx.fillStyle = `rgba(255,255,255,${s.opacity})`;
+                        ctx.beginPath(); ctx.arc(s.x+ox, s.y+oy, s.size, 0, Math.PI*2); ctx.fill();
+                    });
                     requestAnimationFrame(animate);
                 };
 
-                window.addEventListener('resize', () => { setCanvasSize(); createStars(); });
-                window.addEventListener('mousemove', (e) => {
-                    mouse.x = e.clientX;
-                    mouse.y = e.clientY;
-                });
-                setCanvasSize(); createStars(); animate();
-            }, [currentView]);
+                const handleMouseMove = e => { targetMouse.x = e.clientX; targetMouse.y = e.clientY; };
+                const handleTouchMove = e => { targetMouse.x = e.touches[0].clientX; targetMouse.y = e.touches[0].clientY; };
+                const handleTouchEnd = () => { targetMouse.x = w/2; targetMouse.y = h/2; };
 
-            if (currentView === 'ceen') {
-                return (
-                    <div className="fixed inset-0 w-full h-full overflow-hidden bg-black z-[1000]">
-                        <div 
-                            className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
-                            style={{ backgroundImage: "url('ceen-apparel-background.PNG')" }}
-                        >
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
-                        </div>
-                        
-                        <div className="relative z-10 w-full h-full flex flex-col items-center justify-end pb-24 px-8">
-                            <h1 className="brand-font text-white text-lg md:text-xl font-black tracking-[1em] mb-12">
-                                soon...
-                            </h1>
-                            <button 
-                                onClick={() => setCurrentView('ecosystem')}
-                                className="text-zinc-500 hover:text-white transition-colors text-[10px] font-black uppercase tracking-[0.4em] mb-4"
-                            >
-                                [ Back to Ecosystem ]
-                            </button>
-                        </div>
-                    </div>
-                );
-            }
-
-            if (currentView === 'music') {
-                const audiusPlayers = [
-                    "https://audius.co/embed/album/rb54Paz?flavor=card",
-                    "https://audius.co/embed/playlist/1B4zbRW?flavor=card",
-                    "https://audius.co/embed/playlist/lWod82w?flavor=card",
-                    "https://audius.co/embed/album/v7OAp?flavor=card",
-                    "https://audius.co/embed/album/Lwxp5?flavor=card",
-                    "https://audius.co/embed/album/7AV2lqr?flavor=card",
-                    "https://audius.co/embed/album/D9gW2?flavor=card",
-                    "https://audius.co/embed/album/Lw8Y5?flavor=card",
-                    "https://audius.co/embed/album/nd4AP?flavor=card",
-                    "https://audius.co/embed/album/BybN7WP?flavor=card"
-                ];
-
-                const streamingPlayers = [
-                    { id: 1, type: 'apple music', url: "https://embed.music.apple.com/us/song/good-enough-feat-the-ancient-future/1867178218?theme=dark" },
-                    { id: 2, type: 'apple music', url: "https://embed.music.apple.com/us/song/you-are-enough/1825737777?theme=dark" },
-                    { id: 3, type: 'apple music', url: "https://embed.music.apple.com/us/song/u-a-god-feat-dap-daniel-mikey-mo-the-mc/1790414314?theme=dark" },
-                    { id: 4, type: 'apple music', url: "https://embed.music.apple.com/us/song/metaverse-maneuvers-feat-mikey-mo-the-mc/1789936966?theme=dark" }
-                ];
-
-                return (
-                    <div className="relative min-h-screen w-full flex flex-col bg-[#050505] overflow-x-hidden pb-32">
-                        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-900/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
-                        
-                        <nav className="fixed top-0 w-full z-[1000] glass-nav">
-                            <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                                <span className="brand-font text-sm">Abyss / Muzik</span>
-                                <button onClick={() => setCurrentView('ecosystem')} className="ui-label text-[10px] hover:text-white transition-all">
-                                    [ Return ]
-                                </button>
-                            </div>
-                        </nav>
-
-                        <header className="pt-32 pb-12 px-6 max-w-5xl mx-auto w-full relative z-10">
-                            <div className="flex flex-col md:flex-row items-center gap-12 mb-20">
-                                <div className="w-48 h-48 md:w-64 md:h-64 bg-zinc-900 rounded-[2rem] overflow-hidden shadow-2xl relative group border border-white/5">
-                                    <div className="absolute inset-0 bg-indigo-600/10 group-hover:opacity-0 transition-opacity"></div>
-                                    <img src="abyss-beats-logo.PNG" alt="Abyss" className="w-full h-full object-contain p-4 grayscale hover:grayscale-0 transition-all duration-700" />
-                                </div>
-                                <div className="text-center md:text-left flex-1">
-                                    <h1 className="header-main text-5xl md:text-8xl italic mb-4 italic italic">ABYSS.</h1>
-                                    <p className="ui-label text-[11px] mb-6 text-indigo-400">Mitchell “Abyss” McCain</p>
-                                    <p className="text-zinc-400 text-xs md:text-sm leading-relaxed mb-8 max-w-xl">
-                                        Mitchell “Abyss” McCain, a Northern California native, has dedicated his life to the realms of Hip Hop and Technology. As a recording artist, producer, and founder of Moodswingz, he is pioneering the integration of culture with digital ecosystems.
-                                    </p>
-                                    <div className="flex items-center gap-4 justify-center md:justify-start">
-                                        <a href="https://www.instagram.com/officialabyssbeats" target="_blank" className="px-6 py-2 bg-white text-black text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg">Instagram</a>
-                                        <a href="https://audius.co/abyss" target="_blank" className="px-6 py-2 border border-white/20 text-white text-[9px] font-black uppercase tracking-widest rounded-full hover:bg-white/5 transition-colors">Audius</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <section className="mb-24">
-                                <div className="flex items-center gap-4 mb-12">
-                                    <div className="h-[1px] w-8 bg-indigo-500"></div>
-                                    <h2 className="ui-label text-[11px] italic">Now Streaming</h2>
-                                </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    {streamingPlayers.map(player => (
-                                        <div key={player.id} className="music-grid-item">
-                                            <div className="player-embed-wrapper shadow-2xl">
-                                                <iframe 
-                                                    src={player.url} 
-                                                    width="100%" 
-                                                    height="150" 
-                                                    frameBorder="0" 
-                                                    allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" 
-                                                    style={{ width: '100%', background: 'transparent', display: 'block' }}
-                                                    className="w-full"
-                                                />
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </section>
-
-                            <section className="mb-24">
-                                <div className="flex items-center gap-4 mb-12">
-                                    <div className="h-[1px] w-8 bg-indigo-500"></div>
-                                    <h2 className="ui-label text-[11px] italic">Audius Catalog</h2>
-                                </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                                    {audiusPlayers.map((src, idx) => (
-                                        <div key={idx} className="music-grid-item">
-                                            <div className="player-embed-wrapper shadow-2xl">
-                                                <iframe 
-                                                    src={src} 
-                                                    width="100%" 
-                                                    height="480" 
-                                                    allow="autoplay; encrypted-media" 
-                                                    style={{ border: 'none', display: 'block', width: '100%' }}
-                                                    className="w-full"
-                                                    loading="lazy"
-                                                    scrolling="no"
-                                                />
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </section>
-                        </header>
-                    </div>
-                );
-            }
+                window.addEventListener('resize', () => { resize(); initStars(); });
+                window.addEventListener('mousemove', handleMouseMove);
+                window.addEventListener('touchmove', handleTouchMove, { passive: true });
+                window.addEventListener('touchend', handleTouchEnd);
+                
+                resize(); initStars(); animate();
+                
+                return () => {
+                    window.removeEventListener('mousemove', handleMouseMove);
+                    window.removeEventListener('touchmove', handleTouchMove);
+                    window.removeEventListener('touchend', handleTouchEnd);
+                };
+            }, []);
 
             return (
-                <div className="relative min-h-screen w-full flex flex-col bg-black overflow-x-hidden">
-                    <nav className="fixed top-0 w-full z-[100] glass-nav">
+                <div className="relative min-h-screen w-full flex flex-col bg-transparent">
+                    {/* Navigation - Locked to top */}
+                    <nav className="fixed top-0 w-full z-[1000] glass-nav">
                         <div className="max-w-7xl mx-auto px-6 h-20 md:h-24 flex items-center justify-between">
-                            <span className="brand-font text-[10px] sm:text-base md:text-xl cursor-default select-none whitespace-normal leading-tight max-w-[140px] sm:max-w-none block sm:inline pr-4">
-                                Moodswingz Media
-                            </span>
-                            <div className="flex items-center gap-6 md:gap-12">
-                                <button onClick={() => setCurrentView('music')} className="ui-label text-[9px] md:text-[11px] hover:text-white transition-all">
-                                    Muzik
-                                </button>
-                                <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="ui-label text-[9px] md:text-[11px] hover:text-white transition-all">
-                                    Contact
-                                </a>
+                            <span className="brand-font text-[10px] md:text-xl">Moodswingz Media</span>
+                            <div className="flex gap-6">
+                                <button onClick={() => setCurrentView('music')} className="ui-label text-[9px] md:text-[11px] hover:text-white transition-all">Muzik</button>
+                                <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="ui-label text-[9px] md:text-[11px] hover:text-white transition-all">Contact</a>
                             </div>
                         </div>
                     </nav>
 
-                    <header className="pt-40 md:pt-64 pb-12 md:pb-24 px-6 max-w-7xl mx-auto w-full relative z-10 overflow-x-hidden">
-                        <div className="max-w-4xl">
-                            <h1 className="header-main text-white mb-8 md:mb-12">
-                                <span className="text-[8.2vw] sm:text-7xl md:text-[120px] inline-block max-w-full">THE</span><br />
-                                <span className="glass-galaxy text-[8.2vw] sm:text-8xl md:text-[145px] inline-block">
-                                    ECOSYSTEM.
-                                </span>
-                            </h1>
-                            <p className="readable-body text-base md:text-2xl max-w-2xl font-medium tracking-tight text-zinc-400 leading-relaxed">
-                                A digital repository of the next generation of SaaS, Fintech and high-fidelity media platforms.
-                            </p>
-                        </div>
-                    </header>
-
-                    <main className="max-w-7xl mx-auto px-6 pb-40 w-full relative z-10">
-                        <section className="mb-32 md:mb-48">
-                            <div className="flex items-center gap-4 mb-16 md:mb-24">
-                                <div className="h-[1px] w-8 bg-white/20"></div>
-                                <h2 className="ui-label text-[11px] md:text-sm italic">Primary Products</h2>
-                            </div>
-                            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10">
-                                {projects.map((project, index) => (
-                                    <ProjectCard key={index} project={project} onNavigate={setCurrentView} />
-                                ))}
-                            </div>
-                        </section>
-
-                        <section className="mb-32">
-                            <div className="flex items-center gap-4 mb-16 md:mb-24">
-                                <div className="h-[1px] w-8 bg-white/20"></div>
-                                <h2 className="ui-label text-[11px] md:text-sm italic">Interactive Labs</h2>
-                            </div>
-                            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10">
-                                {interactiveProjects.map((project, index) => (
-                                    <ProjectCard key={index} project={project} onNavigate={setCurrentView} />
-                                ))}
-                                <div className="drift-card w-full aspect-square card-container border border-dashed border-zinc-700 rounded-[2rem] md:rounded-[3rem] flex flex-col items-center justify-center text-zinc-800 gap-4 md:gap-8 hover:border-zinc-500 hover:text-zinc-500 transition-all duration-500 cursor-pointer group backdrop-blur-md bg-white/5">
-                                    <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border border-zinc-800 flex items-center justify-center group-hover:scale-110 transition-all">
-                                        <Icon name="code" size={24} className="md:w-8 md:h-8" />
+                    {/* Content Section */}
+                    <div className="flex-1">
+                        {currentView === 'music' ? (
+                            <div className="pt-32 pb-12 px-6 max-w-5xl mx-auto w-full">
+                                <div className="flex flex-col md:flex-row items-center gap-12 mb-20">
+                                    <div className="w-48 h-48 md:w-64 md:h-64 bg-zinc-900 rounded-[2rem] overflow-hidden border border-white/5">
+                                        <img src="abyss-beats-logo.PNG" className="w-full h-full object-contain p-4 grayscale hover:grayscale-0 transition-all duration-700" />
                                     </div>
-                                    <span className="ui-label text-[7px] md:text-[10px]">Incubating</span>
+                                    <div className="text-center md:text-left flex-1">
+                                        <h1 className="header-main text-5xl md:text-8xl italic mb-4">ABYSS.</h1>
+                                        <p className="ui-label text-[11px] mb-6 text-indigo-400">Mitchell “Abyss” McCain</p>
+                                        <p className="text-zinc-400 text-xs md:text-sm leading-relaxed mb-8 max-w-xl"> Northern California native dedicated to Hip Hop and Technology. </p>
+                                        <div className="flex gap-4 justify-center md:justify-start">
+                                            <a href="https://www.instagram.com/officialabyssbeats" target="_blank" className="px-6 py-2 bg-white text-black text-[9px] font-black uppercase rounded-full">Instagram</a>
+                                            <a href="https://audius.co/abyss" target="_blank" className="px-6 py-2 border border-white/20 text-white text-[9px] font-black uppercase rounded-full">Audius</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    {["https://embed.music.apple.com/us/song/good-enough-feat-the-ancient-future/1867178218?theme=dark", "https://embed.music.apple.com/us/song/you-are-enough/1825737777?theme=dark", "https://embed.music.apple.com/us/song/u-a-god-feat-dap-daniel-mikey-mo-the-mc/1790414314?theme=dark", "https://embed.music.apple.com/us/song/metaverse-maneuvers-feat-mikey-mo-the-mc/1789936966?theme=dark"].map((u, i) => (
+                                        <div key={i} className="music-grid-item"><div className="player-embed-wrapper"><iframe src={u} height="150" /></div></div>
+                                    ))}
+                                    {[ "https://audius.co/embed/album/rb54Paz?flavor=card", "https://audius.co/embed/playlist/1B4zbRW?flavor=card", "https://audius.co/embed/playlist/lWod82w?flavor=card", "https://audius.co/embed/album/v7OAp?flavor=card", "https://audius.co/embed/album/Lwxp5?flavor=card", "https://audius.co/embed/album/7AV2lqr?flavor=card", "https://audius.co/embed/album/D9gW2?flavor=card", "https://audius.co/embed/album/Lw8Y5?flavor=card", "https://audius.co/embed/album/nd4AP?flavor=card", "https://audius.co/embed/album/BybN7WP?flavor=card"].map((u, i) => (
+                                        <div key={i} className="music-grid-item"><div className="player-embed-wrapper"><iframe src={u} height="480" /></div></div>
+                                    ))}
                                 </div>
                             </div>
-                        </section>
-                    </main>
+                        ) : (
+                            <div>
+                                <header className="pt-40 md:pt-64 pb-24 px-6 max-w-7xl mx-auto w-full">
+                                    <h1 className="header-main text-white mb-12">
+                                        <span className="text-[8.2vw] md:text-[120px] block">THE</span>
+                                        <span className="glass-galaxy text-[8.2vw] md:text-[145px] block">ECOSYSTEM.</span>
+                                    </h1>
+                                    <p className="text-base md:text-2xl max-w-2xl text-zinc-400 font-medium">A digital repository of SaaS, Fintech and high-fidelity media platforms.</p>
+                                </header>
+                                <main className="max-w-7xl mx-auto px-6 pb-40 w-full">
+                                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+                                        {projects.map((p, i) => <ProjectCard key={i} project={p} onNavigate={setCurrentView} />)}
+                                        {interactiveProjects.map((p, i) => <ProjectCard key={i} project={p} onNavigate={setCurrentView} />)}
+                                    </div>
+                                </main>
+                            </div>
+                        )}
+                    </div>
 
-                    <footer className="mt-auto border-t border-white/5 py-16 md:py-32 bg-black/50 backdrop-blur-xl relative z-10">
+                    {/* Footer - Shared across all views */}
+                    <footer className="mt-auto border-t border-white/5 py-16 md:py-32 bg-transparent relative z-10 backdrop-blur-xl">
                         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12">
                             <div className="flex flex-col items-center md:items-start gap-4">
                                 <span className="brand-font text-xs md:text-sm text-white">Moodswingz</span>
@@ -690,3 +369,4 @@
     </script>
 </body>
 </html>
+
