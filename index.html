@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Moodswingz Media | The Ecosystem</title>
+    
+    <!-- Frame Buster: Breaks site out of domain masking if registrar is using an iframe -->
+    <script type="text/javascript">
+        if (top !== self) {
+            top.location.replace(self.location.href);
+        }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -52,12 +60,13 @@
             line-height: 0.85;
         }
 
-        /* DEFINITIVE FIX: Background-Clip Logic for ECOSYSTEM (LOCKED) */
+        /* HARD-FIXED: Ecosystem Typography Layering */
         .glass-galaxy {
             position: relative;
-            display: table; 
+            display: table; /* Crucial for background-clip area calculation on mobile */
             background: linear-gradient(90deg, #ff00ff, #7000ff, #00d4ff, #7000ff, #ff00ff, #00d4ff);
             background-size: 400% 100%;
+            background-repeat: repeat;
             -webkit-background-clip: text !important;
             background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
@@ -65,25 +74,31 @@
             -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
             animation: galaxy-move 12s linear infinite;
             white-space: nowrap;
-            padding-right: 0.6em; 
-            margin-right: -0.6em;
+            padding-right: 0.5em; /* Prevents "EM." cutoff */
+            z-index: 10;
         }
 
-        @media (min-width: 768px) {
-            .glass-galaxy { 
-                -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.3); 
-            }
-        }
-
-        .glass-blur-overlay {
+        /* The Wireframe Offset Layer - PROMINENCE ADJUSTED */
+        .glass-galaxy::before {
+            content: 'ECOSYSTEM.';
             position: absolute;
-            inset: -10px -25px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            left: -12px; 
+            top: -10px;  
             z-index: -1;
-            mask-image: linear-gradient(black, black);
-            -webkit-mask-clip: text;
+            /* Increased weight and opacity for visibility */
+            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.4); 
+            -webkit-text-fill-color: transparent;
+            white-space: nowrap;
             pointer-events: none;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .glass-galaxy::before {
+                left: -6px;
+                top: -4px;
+                -webkit-text-stroke: 1px rgba(255, 255, 255, 0.45);
+            }
         }
 
         @keyframes galaxy-move {
@@ -159,11 +174,6 @@
             padding: 0 !important;
             border: none !important;
             background: transparent;
-        }
-
-        .player-embed-wrapper:hover {
-            border-color: rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.04);
         }
     </style>
 </head>
@@ -592,7 +602,6 @@
                                 <span className="text-[8.2vw] sm:text-7xl md:text-[120px] inline-block max-w-full">THE</span><br />
                                 <span className="glass-galaxy text-[8.2vw] sm:text-8xl md:text-[145px] inline-block">
                                     ECOSYSTEM.
-                                    <div className="glass-blur-overlay">ECOSYSTEM.</div>
                                 </span>
                             </h1>
                             <p className="readable-body text-base md:text-2xl max-w-2xl font-medium tracking-tight text-zinc-400 leading-relaxed">
