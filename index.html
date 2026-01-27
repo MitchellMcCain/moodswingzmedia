@@ -78,14 +78,14 @@
             z-index: 10;
         }
 
-        /* The Prominent Wireframe Layer (Matched to depth request) */
+        /* The Prominent Wireframe Layer (Depth Layering Locked) */
         .glass-galaxy::before {
             content: 'ECOSYSTEM.';
             position: absolute;
             left: -12px; 
             top: -10px;  
             z-index: -1;
-            -webkit-text-stroke: 1.8px rgba(255, 255, 255, 0.5); /* Enhanced weight for prominence */
+            -webkit-text-stroke: 1.8px rgba(255, 255, 255, 0.5); 
             -webkit-text-fill-color: transparent;
             white-space: nowrap;
             pointer-events: none;
@@ -312,7 +312,7 @@
                 category: "Productivity / SaaS",
                 color: "bg-red-600",
                 iconName: "eye",
-                isEnlarged: true
+                isStandardLogo: true // Changed from isEnlarged to Standardize size (100% scale)
             },
             {
                 title: "Math Punk",
@@ -343,6 +343,7 @@
             const getScaleClass = () => {
                 if (project.isLargeLogo) return 'scale-[1.1]';
                 if (project.isEnlarged) return 'scale-110';
+                if (project.isStandardLogo) return 'scale-100'; // Precise 1:1 scaling
                 if (project.isReduced) return 'scale-[0.75]'; 
                 return 'scale-90';
             };
