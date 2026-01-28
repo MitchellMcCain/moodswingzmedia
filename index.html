@@ -205,9 +205,8 @@
                 };
 
                 window.addEventListener('hashchange', handleHash);
-                handleHash(); // Run on initial load
+                handleHash(); 
                 
-                // Starfield logic
                 const canvas = document.getElementById('starfield');
                 const ctx = canvas.getContext('2d');
                 let w, h, stars = [];
@@ -236,14 +235,14 @@
                 return () => window.removeEventListener('hashchange', handleHash);
             }, []);
 
-            /* DIRECT URL STRUCTURES AS REQUESTED */
+            /* URL SUITE MAINTAINED + ARTIST CONNECT REPLIT UPDATE */
             const projects = [
                 { title: "Stak", url: "https://www.stak.money", logoUrl: "stak-logo.PNG", description: "Financial companion for the next generation. Know what's Safe to Spend.", category: "FinTech", color: "bg-emerald-400", iconName: "wallet" },
                 { title: "WhatsNextRadio", url: "https://www.whatsnextradio.com", logoUrl: "wnr-logo.PNG", description: "Community-curated music discovery connecting artists and listeners.", category: "Music", color: "bg-sky-500", iconName: "radio" },
                 { title: "Kake", url: "https://www.getkake.com", logoUrl: "kake-logo.PNG", description: "The daily sweepstakes game where your birthday could be your lucky number!", category: "Sweepstakes", color: "bg-fuchsia-500", iconName: "cake" },
                 { title: "Abyss Beats", url: "https://abyssbeats.moodswingzmedia.com", isInternal: false, logoUrl: "abyss-beats-logo.PNG", description: "Premium instrumentals produced by Abyss. Premier audio marketplace.", category: "Music", color: "bg-indigo-600", iconName: "music", isEnlarged: true },
                 { title: "Parallel Exchange", url: "https://parallelexchange.moodswingzmedia.com", logoUrl: "parallel-exchange-logo.PNG", description: "Trade locally with people in your area. No cash needed.", category: "FinTech", color: "bg-cyan-400", iconName: "repeat", isReduced: true },
-                { title: "Artist Connect", url: "https://freshyard.moodswingzmedia.com", logoUrl: "artist-connect-logo.PNG", description: "The swiss army knife for artists and boutique labels.", category: "Social", color: "bg-amber-500", iconName: "users", isReduced: true },
+                { title: "Artist Connect", url: "https://freshyard-MoodswingzMedia.replit.app", logoUrl: "artist-connect-logo.PNG", description: "The swiss army knife for artists and boutique labels.", category: "Social", color: "bg-amber-500", iconName: "users", isReduced: true },
                 { title: "LVL UP", url: "https://levelup.moodswingzmedia.com", logoUrl: "levelup-logo.PNG", description: "Customizable fitness tracker designed to optimize your overall health.", category: "Performance", color: "bg-blue-400", iconName: "trending-up" },
                 { title: "Brotherhood Network", url: "https://brotherhoodnetwork.moodswingzmedia.com", logoUrl: "brotherhood-network-logo.PNG", description: "Infrastructure for the modern man to collaborate and grow.", category: "Networking", color: "bg-purple-800", iconName: "share-2", isEnlarged: true },
                 { title: "CEEN Apparel", url: "#ceen", isInternal: true, internalId: "ceen", logoUrl: "ceen-apparel-logo.PNG", description: "Modern aesthetics at the intersection of tech and fashion.", category: "Wearables", color: "bg-zinc-100", iconName: "shirt", isEnlarged: true }
@@ -263,7 +262,6 @@
                 return (
                     <div className="fixed inset-0 w-full h-full bg-black z-[200]">
                         <div className="absolute inset-0 bg-cover bg-center opacity-60" style={{ backgroundImage: "url('ceen-apparel-background.PNG')" }}></div>
-                        {/* LEGIBILITY FIX: Moved text to the bottom to pop against darker BG areas */}
                         <div className="relative z-10 w-full h-full flex flex-col items-center justify-end pb-24 px-8">
                             <h1 className="brand-font text-white text-lg md:text-2xl tracking-[1em] mb-12 opacity-80">soon...</h1>
                             <button onClick={() => window.location.hash = ''} className="ui-label text-[10px] hover:text-white transition-all underline underline-offset-8 decoration-white/20">[ Back to Ecosystem ]</button>
@@ -273,7 +271,7 @@
             }
 
             if (currentView === 'music') {
-                /* STRICT AUDIUS CATALOG ORDER */
+                /* AUDIUS ORDER LOCKED */
                 const audiusPlayers = [
                     { title: "Action Packed", url: "https://audius.co/embed/album/7AV2lqr?flavor=card" },
                     { title: "Genesis Block", url: "https://audius.co/embed/album/D9gW2?flavor=card" },
@@ -286,7 +284,6 @@
                     { title: "Westbound", url: "https://audius.co/embed/album/Lwxp5?flavor=card" },
                     { title: "From Now On", url: "https://audius.co/embed/album/rb54Paz?flavor=card" }
                 ];
-
                 const applePlayers = [
                     "https://embed.music.apple.com/us/song/good-enough-feat-the-ancient-future/1867178218?theme=dark",
                     "https://embed.music.apple.com/us/song/you-are-enough/1825737777?theme=dark",
@@ -305,65 +302,22 @@
                         <div className="pt-32 px-6 max-w-7xl mx-auto">
                             <div className="flex flex-col md:flex-row items-center gap-12 mb-24 text-center md:text-left">
                                 <div className="w-48 h-48 md:w-64 bg-white rounded-[2rem] overflow-hidden shadow-2xl flex-shrink-0">
-                                    {/* MUZIK PROFILE PIC: abyss.png with fallback logic */}
-                                    <img 
-                                        src="abyss.png" 
-                                        alt="Abyss Muzik" 
-                                        className="w-full h-full object-cover transition-all duration-700" 
-                                        onError={(e) => { e.target.src = e.target.src.includes('.png') ? "abyss.PNG" : "abyss.jpg"; }}
-                                    />
+                                    <img src="abyss.png" alt="Abyss Muzik" className="w-full h-full object-cover transition-all duration-700" onError={(e) => { e.target.src = e.target.src.includes('.png') ? "abyss.PNG" : "abyss.jpg"; }} />
                                 </div>
                                 <div className="flex-1">
                                     <h1 className="header-main text-5xl md:text-8xl mb-4 italic text-white">ABYSS.</h1>
                                     <p className="ui-label text-indigo-400 mb-6">Mitchell “Abyss” McCain</p>
                                     <p className="text-zinc-400 text-sm leading-relaxed mb-8 max-w-xl mx-auto md:mx-0">Pioneering the integration of Hip Hop culture with high-fidelity digital ecosystems. Northern California native dedicated to the intersection of sound and technology.</p>
-                                    
-                                    {/* ICON-ONLY LOGO BUTTONS */}
                                     <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-                                        <a href="https://www.instagram.com/officialabyssbeats" target="_blank" className="w-12 h-12 flex items-center justify-center bg-white text-black rounded-xl hover:scale-110 active:scale-95 transition-all shadow-lg">
-                                            <Icon name="instagram" size={24} />
-                                        </a>
-                                        <a href="https://open.spotify.com/artist/6zK92olKppt0kz0WbUsG2H" target="_blank" className="w-12 h-12 flex items-center justify-center bg-white text-black rounded-xl hover:scale-110 active:scale-95 transition-all shadow-lg p-3">
-                                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.508 17.302c-.216.354-.675.467-1.028.249-2.815-1.721-6.357-2.109-10.531-1.154-.403.092-.81-.161-.902-.564-.092-.403.161-.81.564-.902 4.567-1.044 8.468-.598 11.648 1.347.353.217.466.677.249 1.024zm1.472-3.259c-.272.441-.849.581-1.288.31-3.224-1.98-8.136-2.556-11.948-1.398-.498.151-1.03-.129-1.181-.627-.151-.498.129-1.03.627-1.181 4.364-1.325 9.771-.678 13.483 1.599.44.271.58.847.309 1.297zm.126-3.39c-3.865-2.295-10.245-2.507-13.914-1.393-.593.18-1.222-.163-1.402-.754-.18-.592.163-1.222.754-1.402 4.221-1.281 11.272-1.034 15.719 1.605.534.317.708 1.005.392 1.538-.316.533-1.004.707-1.538.391l-.011.009z"/></svg>
-                                        </a>
-                                        <a href="https://music.apple.com/us/artist/abyss/978414937" target="_blank" className="w-12 h-12 flex items-center justify-center bg-white text-black rounded-xl hover:scale-110 active:scale-95 transition-all shadow-lg p-3">
-                                            {/* APPLE MUSIC LOGO SVG */}
-                                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
-                                                <path d="M19.002 5.043l-9.002 1.341v10.116c-.538-.309-1.24-.5-2-.5-2.209 0-4 1.343-4 3s1.791 3 4 3 4-1.343 4-3v-8.859l7.001-1.042v5.401c-.538-.309-1.24-.5-2-.5-2.209 0-4 1.343-4 3s1.791 3 4 3 4-1.343 4-3v-10.957z"/>
-                                            </svg>
-                                        </a>
-                                        <a href="https://abyssbeats.bandcamp.com/" target="_blank" className="w-12 h-12 flex items-center justify-center bg-white text-black rounded-xl hover:scale-110 active:scale-95 transition-all shadow-lg p-2.5">
-                                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full"><path d="M0 18.97L9.28 5.03H24L14.72 18.97H0z"/></svg>
-                                        </a>
+                                        <a href="https://www.instagram.com/officialabyssbeats" target="_blank" className="w-12 h-12 flex items-center justify-center bg-white text-black rounded-xl hover:scale-110 active:scale-95 transition-all shadow-lg"><Icon name="instagram" size={24} /></a>
+                                        <a href="https://open.spotify.com/artist/6zK92olKppt0kz0WbUsG2H" target="_blank" className="w-12 h-12 flex items-center justify-center bg-white text-black rounded-xl hover:scale-110 active:scale-95 transition-all shadow-lg p-3"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.508 17.302c-.216.354-.675.467-1.028.249-2.815-1.721-6.357-2.109-10.531-1.154-.403.092-.81-.161-.902-.564-.092-.403.161-.81.564-.902 4.567-1.044 8.468-.598 11.648 1.347.353.217.466.677.249 1.024zm1.472-3.259c-.272.441-.849.581-1.288.31-3.224-1.98-8.136-2.556-11.948-1.398-.498.151-1.03-.129-1.181-.627-.151-.498.129-1.03.627-1.181 4.364-1.325 9.771-.678 13.483 1.599.44.271.58.847.309 1.297zm.126-3.39c-3.865-2.295-10.245-2.507-13.914-1.393-.593.18-1.222-.163-1.402-.754-.18-.592.163-1.222.754-1.402 4.221-1.281 11.272-1.034 15.719 1.605.534.317.708 1.005.392 1.538-.316.533-1.004.707-1.538.391l-.011.009z"/></svg></a>
+                                        <a href="https://music.apple.com/us/artist/abyss/978414937" target="_blank" className="w-12 h-12 flex items-center justify-center bg-white text-black rounded-xl hover:scale-110 active:scale-95 transition-all shadow-lg p-3"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.002 5.043l-9.002 1.341v10.116c-.538-.309-1.24-.5-2-.5-2.209 0-4 1.343-4 3s1.791 3 4 3 4-1.343 4-3v-8.859l7.001-1.042v5.401c-.538-.309-1.24-.5-2-.5-2.209 0-4 1.343-4 3s1.791 3 4 3 4-1.343 4-3v-10.957z"/></svg></a>
+                                        <a href="https://abyssbeats.bandcamp.com/" target="_blank" className="w-12 h-12 flex items-center justify-center bg-white text-black rounded-xl hover:scale-110 active:scale-95 transition-all shadow-lg p-2.5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 18.97L9.28 5.03H24L14.72 18.97H0z"/></svg></a>
                                     </div>
                                 </div>
                             </div>
-
-                            <section className="mb-24">
-                                <h2 className="ui-label text-[11px] mb-12 italic border-l border-indigo-500 pl-4">Now Streaming</h2>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
-                                    {applePlayers.map((url, i) => (
-                                        <div key={i} className="music-grid-item apple-grid-item">
-                                            <div className="player-embed-wrapper shadow-2xl">
-                                                <iframe src={url} width="100%" height="150" frameBorder="0" allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" style={{ border: 'none', display: 'block', background: 'transparent' }} />
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </section>
-
-                            <section>
-                                <h2 className="ui-label text-[11px] mb-12 italic border-l border-indigo-500 pl-4">Audius Catalog</h2>
-                                <div className="flex flex-col gap-12 w-full">
-                                    {audiusPlayers.map((player, i) => (
-                                        <div key={i} className="music-grid-item audius-grid-item">
-                                            <div className="player-embed-wrapper">
-                                                <iframe src={player.url} width="100%" height="480" allow="encrypted-media" style={{ border: 'none', display: 'block' }} />
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </section>
+                            <section className="mb-24"><h2 className="ui-label text-[11px] mb-12 italic border-l border-indigo-500 pl-4">Now Streaming</h2><div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">{applePlayers.map((url, i) => (<div key={i} className="music-grid-item apple-grid-item"><div className="player-embed-wrapper shadow-2xl"><iframe src={url} width="100%" height="150" frameBorder="0" allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" style={{ border: 'none', display: 'block', background: 'transparent' }} /></div></div>))}</div></section>
+                            <section><h2 className="ui-label text-[11px] mb-12 italic border-l border-indigo-500 pl-4">Audius Catalog</h2><div className="flex flex-col gap-12 w-full">{audiusPlayers.map((player, i) => (<div key={i} className="music-grid-item audius-grid-item"><div className="player-embed-wrapper"><iframe src={player.url} width="100%" height="480" allow="encrypted-media" style={{ border: 'none', display: 'block' }} /></div></div>))}</div></section>
                         </div>
                     </div>
                 );
@@ -395,7 +349,7 @@
 
                     <header className="pt-48 md:pt-72 pb-24 px-8 max-w-7xl mx-auto relative z-10">
                         <div className="max-w-5xl">
-                            {/* ALIGNMENT LOCK: iPhone 16 Pro Max */}
+                            {/* ALIGNMENT LOCK: iPhone 16 Pro Max Snapped to Grid */}
                             <h1 className="header-main text-white -ml-2 md:-ml-6">
                                 <span className="text-[10.5vw] sm:text-7xl md:text-[125px] block mb-2 leading-none">THE</span>
                                 <span className="glass-galaxy text-[10.5vw] sm:text-7xl md:text-[125px]">ECOSYSTEM.</span>
