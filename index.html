@@ -7,10 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Moodswingz Media | The Ecosystem</title>
     
-    <!-- Hard Canonical & WWW Redirect Logic -->
+    <!-- Hard Canonical & WWW Redirect Logic with Security Guardrails -->
     <link rel="canonical" href="https://www.moodswingzmedia.com/">
     <script type="text/javascript">
-        if (top !== self) { top.location.replace(self.location.href); }
+        // Safe Frame Buster for restricted environments
+        try {
+            if (window.top !== window.self) {
+                // Attempt to break out of masking/iframes, ignore if restricted by browser security
+                window.top.location.replace(window.self.location.href);
+            }
+        } catch (e) {
+            console.warn("Cross-origin navigation restricted; operating in sandbox mode.");
+        }
+
+        // Domain flattening redirect
         if (window.location.hostname === 'moodswingzmedia.com') {
             window.location.replace('https://www.moodswingzmedia.com' + window.location.pathname);
         }
@@ -37,6 +47,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Fixed Starfield Canvas Layer */
         #starfield {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0; pointer-events: none;
@@ -60,7 +71,7 @@
             text-transform: uppercase; letter-spacing: -0.04em; line-height: 0.85;
         }
 
-        /* LATEST LOCKED TYPOGRAPHY DESIGN */
+        /* ECOSYSTEM TYPOGRAPHY DESIGN */
         .glass-galaxy {
             position: relative; display: table; 
             background: linear-gradient(90deg, #ff00ff, #7000ff, #00d4ff, #7000ff, #ff00ff, #00d4ff);
@@ -71,7 +82,7 @@
             padding-right: 0.6em; z-index: 10;
         }
 
-        /* 1.8px prominent wireframe offset */
+        /* 1.8px wireframe depth offset */
         .glass-galaxy::before {
             content: 'ECOSYSTEM.'; position: absolute; left: -12px; top: -10px; z-index: -1;
             -webkit-text-stroke: 1.8px rgba(255, 255, 255, 0.5); 
@@ -91,13 +102,21 @@
         .card-container { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
         .card-container:hover { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 0 40px rgba(255, 255, 255, 0.05); }
 
+        /* PRODUCTION STABILITY FIX: Music Card Width Locks */
         .player-embed-wrapper {
             background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 1.5rem; overflow: hidden; line-height: 0;
         }
-        /* Fix for desktop stretching and shifting */
+        
+        .music-grid-item {
+            width: 100%;
+            margin: 0 auto;
+        }
+
         @media (min-width: 1024px) {
-            .music-grid-item { max-width: 540px; width: 100%; margin: 0 auto; }
+            .music-grid-item { 
+                max-width: 540px; /* Prevents card-flavor distortion on desktop */
+            }
         }
     </style>
 </head>
@@ -158,7 +177,7 @@
                             <h3 className="text-lg md:text-xl font-black text-white mb-3 uppercase tracking-tighter">{project.title}</h3>
                             <p className="text-[10px] md:text-sm text-zinc-300 mb-8 leading-relaxed font-medium max-w-[200px]">{project.description}</p>
                             <div className="flex items-center gap-2 py-3 px-6 bg-white text-black rounded-full text-[10px] font-black uppercase tracking-widest transition-all hover:scale-110 shadow-xl">
-                                {project.isInternal ? '[ View ]' : 'Launch'} <Icon name="arrow-right" size={14} />
+                                {project.isInternal ? '[ View Profile ]' : 'Launch'} <Icon name="arrow-right" size={14} />
                             </div>
                         </div>
                     </a>
@@ -235,16 +254,11 @@
 
             if (currentView === 'music') {
                 const audiusPlayers = [
-                    "https://audius.co/embed/album/rb54Paz?flavor=card",
-                    "https://audius.co/embed/playlist/1B4zbRW?flavor=card",
-                    "https://audius.co/embed/playlist/lWod82w?flavor=card",
-                    "https://audius.co/embed/album/v7OAp?flavor=card",
-                    "https://audius.co/embed/album/Lwxp5?flavor=card",
-                    "https://audius.co/embed/album/7AV2lqr?flavor=card",
-                    "https://audius.co/embed/album/D9gW2?flavor=card",
-                    "https://audius.co/embed/album/Lw8Y5?flavor=card",
-                    "https://audius.co/embed/album/nd4AP?flavor=card",
-                    "https://audius.co/embed/album/BybN7WP?flavor=card"
+                    { title: "Produced by Abyss", url: "https://audius.co/embed/playlist/1B4zbRW?flavor=card" },
+                    { title: "Singles and Features", url: "https://audius.co/embed/playlist/lWod82w?flavor=card" },
+                    { title: "The Brain Storm", url: "https://audius.co/embed/album/v7OAp?flavor=card" },
+                    { title: "Westbound", url: "https://audius.co/embed/album/Lwxp5?flavor=card" },
+                    { title: "From now on and we're done", url: "https://audius.co/embed/album/rb54Paz?flavor=card" }
                 ];
 
                 const applePlayers = [
@@ -262,15 +276,15 @@
                                 <button onClick={() => setCurrentView('ecosystem')} className="ui-label text-[10px] hover:text-white transition-all">[ Return ]</button>
                             </div>
                         </nav>
-                        <div className="pt-32 px-6 max-w-5xl mx-auto">
+                        <div className="pt-32 px-6 max-w-6xl mx-auto">
                             <div className="flex flex-col md:flex-row items-center gap-12 mb-24 text-center md:text-left">
                                 <div className="w-48 h-48 md:w-64 bg-zinc-900 rounded-[2rem] overflow-hidden border border-white/5 flex-shrink-0">
                                     <img src="abyss-beats-logo.PNG" className="w-full h-full object-contain p-4 grayscale hover:grayscale-0 transition-all duration-700" />
                                 </div>
                                 <div className="flex-1">
-                                    <h1 className="header-main text-5xl md:text-8xl mb-4">ABYSS.</h1>
+                                    <h1 className="header-main text-5xl md:text-8xl mb-4 italic">ABYSS.</h1>
                                     <p className="ui-label text-indigo-400 mb-6">Mitchell “Abyss” McCain</p>
-                                    <p className="text-zinc-400 text-sm leading-relaxed mb-8 max-w-xl mx-auto md:mx-0">Pioneering the integration of Hip Hop culture with high-fidelity digital ecosystems.</p>
+                                    <p className="text-zinc-400 text-sm leading-relaxed mb-8 max-w-xl mx-auto md:mx-0">Pioneering the integration of Hip Hop culture with high-fidelity digital ecosystems. Northern California native dedicated to the intersection of sound and technology.</p>
                                     <div className="flex gap-4 justify-center md:justify-start">
                                         <a href="https://www.instagram.com/officialabyssbeats" target="_blank" className="px-6 py-2 bg-white text-black text-[9px] font-black uppercase rounded-full hover:scale-105 transition-transform">Instagram</a>
                                     </div>
@@ -279,7 +293,7 @@
 
                             <section className="mb-24">
                                 <h2 className="ui-label text-[11px] mb-12 italic border-l border-indigo-500 pl-4">Now Streaming</h2>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
                                     {applePlayers.map((url, i) => (
                                         <div key={i} className="music-grid-item">
                                             <div className="player-embed-wrapper shadow-2xl">
@@ -293,10 +307,10 @@
                             <section>
                                 <h2 className="ui-label text-[11px] mb-12 italic border-l border-indigo-500 pl-4">Audius Catalog</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                                    {audiusPlayers.map((url, i) => (
+                                    {audiusPlayers.map((player, i) => (
                                         <div key={i} className="music-grid-item">
                                             <div className="player-embed-wrapper shadow-2xl">
-                                                <iframe src={url} width="100%" height="480" frameBorder="0" allow="autoplay; encrypted-media" style={{ display: 'block' }} loading="lazy" />
+                                                <iframe src={player.url} width="100%" height="480" frameBorder="0" allow="autoplay; encrypted-media" style={{ display: 'block' }} loading="lazy" />
                                             </div>
                                         </div>
                                     ))}
@@ -366,3 +380,4 @@
     </script>
 </body>
 </html>
+
