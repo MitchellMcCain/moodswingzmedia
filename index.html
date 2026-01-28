@@ -44,7 +44,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Fixed Starfield Canvas Layer */
         #starfield {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0; pointer-events: none;
@@ -68,7 +67,6 @@
             text-transform: uppercase; letter-spacing: -0.04em; line-height: 0.85;
         }
 
-        /* ECOSYSTEM TYPOGRAPHY DESIGN */
         .glass-galaxy {
             position: relative; display: table; 
             background: linear-gradient(90deg, #ff00ff, #7000ff, #00d4ff, #7000ff, #ff00ff, #00d4ff);
@@ -79,7 +77,6 @@
             padding-right: 0.6em; z-index: 10;
         }
 
-        /* 1.8px wireframe depth offset */
         .glass-galaxy::before {
             content: 'ECOSYSTEM.'; position: absolute; left: -12px; top: -10px; z-index: -1;
             -webkit-text-stroke: 1.8px rgba(255, 255, 255, 0.5); 
@@ -115,7 +112,7 @@
 
         @media (min-width: 1024px) {
             .music-grid-item, .player-embed-wrapper { 
-                max-width: 540px; /* Locked to consistent width for production stability */
+                max-width: 540px; /* Locked to consistent Action Packed width */
             }
         }
     </style>
@@ -302,7 +299,14 @@
                                     {applePlayers.map((url, i) => (
                                         <div key={i} className="music-grid-item">
                                             <div className="player-embed-wrapper shadow-2xl">
-                                                <iframe src={url} width="100%" height="150" frameBorder="0" allow="autoplay *; encrypted-media *;" style={{ display: 'block', background: 'transparent' }} />
+                                                <iframe 
+                                                    src={url} 
+                                                    width="100%" 
+                                                    height="150" 
+                                                    frameBorder="0" 
+                                                    allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" 
+                                                    style={{ border: 'none', display: 'block', background: 'transparent' }} 
+                                                />
                                             </div>
                                         </div>
                                     ))}
@@ -315,7 +319,14 @@
                                     {audiusPlayers.map((player, i) => (
                                         <div key={i} className="music-grid-item">
                                             <div className="player-embed-wrapper shadow-2xl">
-                                                <iframe src={player.url} width="100%" height="480" frameBorder="0" allow="autoplay; encrypted-media" style={{ display: 'block' }} loading="lazy" />
+                                                <iframe 
+                                                    src={player.url} 
+                                                    width="100%" 
+                                                    height="480" 
+                                                    allow="encrypted-media" 
+                                                    style={{ border: 'none', display: 'block' }} 
+                                                    loading="lazy" 
+                                                />
                                             </div>
                                         </div>
                                     ))}
