@@ -76,9 +76,9 @@
             background-clip: text !important; -webkit-text-fill-color: transparent !important;
             color: transparent !important; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
             animation: galaxy-move 12s linear infinite; white-space: nowrap;
-            /* ALIGNMENT FIX: Negative margin to align with "THE" above it */
+            /* ALIGNMENT FIX: Snaps "E" to the left content edge */
             padding-right: 0; 
-            margin-left: -0.08em; 
+            margin-left: -0.15em; 
             z-index: 10;
         }
 
@@ -118,14 +118,14 @@
             justify-content: center;
         }
 
-        /* Differentiated Width Logic */
+        /* Responsive Grid Spacing */
         @media (min-width: 1024px) {
             .apple-grid-item { 
                 width: 100%;
-                max-width: 480px; /* Locked to Action Packed standard */
+                max-width: 480px; /* Action Packed width standard */
             }
             .audius-grid-item {
-                /* NO MAX WIDTH: Fully responsive/filling container per instructions */
+                /* NO MAX WIDTH: Fully responsive/filling container */
                 width: 100%; 
             }
         }
@@ -366,13 +366,14 @@
 
                     <header className="pt-48 md:pt-72 pb-24 px-8 max-w-7xl mx-auto relative z-10">
                         <div className="max-w-5xl">
-                            <h1 className="header-main text-white">
+                            {/* ALIGNMENT FIX: Snapped content to the left margin to match Navbar grid */}
+                            <h1 className="header-main text-white -ml-2 md:-ml-5">
                                 <span className="text-6xl md:text-[120px] block mb-4">THE</span>
                                 <span className="glass-galaxy text-7xl md:text-[145px]">
                                     ECOSYSTEM.
                                 </span>
                             </h1>
-                            <p className="text-base md:text-2xl mt-12 mb-16 max-w-2xl font-medium tracking-tight text-zinc-400 leading-relaxed">
+                            <p className="text-base md:text-2xl mt-12 mb-16 max-w-2xl font-medium tracking-tight text-zinc-400 leading-relaxed -ml-1">
                                 A digital repository of the next generation of SaaS, Fintech and high-fidelity media platforms.
                             </p>
                         </div>
