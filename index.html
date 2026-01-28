@@ -10,17 +10,14 @@
     <!-- Hard Canonical & WWW Redirect Logic with Security Guardrails -->
     <link rel="canonical" href="https://www.moodswingzmedia.com/">
     <script type="text/javascript">
-        // Safe Frame Buster for restricted environments
         try {
             if (window.top !== window.self) {
-                // Attempt to break out of masking/iframes, ignore if restricted by browser security
                 window.top.location.replace(window.self.location.href);
             }
         } catch (e) {
             console.warn("Cross-origin navigation restricted; operating in sandbox mode.");
         }
 
-        // Domain flattening redirect
         if (window.location.hostname === 'moodswingzmedia.com') {
             window.location.replace('https://www.moodswingzmedia.com' + window.location.pathname);
         }
@@ -102,20 +99,23 @@
         .card-container { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
         .card-container:hover { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 0 40px rgba(255, 255, 255, 0.05); }
 
-        /* PRODUCTION STABILITY FIX: Music Card Width Locks */
+        /* PRODUCTION STABILITY FIX: Unified Music Width */
         .player-embed-wrapper {
             background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 1.5rem; overflow: hidden; line-height: 0;
+            border-radius: 1.5rem; overflow: hidden; line-height: 0; width: 100%;
+            margin: 0 auto;
         }
         
         .music-grid-item {
             width: 100%;
             margin: 0 auto;
+            display: flex;
+            justify-content: center;
         }
 
         @media (min-width: 1024px) {
-            .music-grid-item { 
-                max-width: 540px; /* Prevents card-flavor distortion on desktop */
+            .music-grid-item, .player-embed-wrapper { 
+                max-width: 540px; /* Locked to consistent width for production stability */
             }
         }
     </style>
@@ -258,7 +258,12 @@
                     { title: "Singles and Features", url: "https://audius.co/embed/playlist/lWod82w?flavor=card" },
                     { title: "The Brain Storm", url: "https://audius.co/embed/album/v7OAp?flavor=card" },
                     { title: "Westbound", url: "https://audius.co/embed/album/Lwxp5?flavor=card" },
-                    { title: "From now on and we're done", url: "https://audius.co/embed/album/rb54Paz?flavor=card" }
+                    { title: "From now on and we're done", url: "https://audius.co/embed/album/rb54Paz?flavor=card" },
+                    { title: "Vault Sessions", url: "https://audius.co/embed/album/7AV2lqr?flavor=card" },
+                    { title: "Instrumentals Vol. 1", url: "https://audius.co/embed/album/D9gW2?flavor=card" },
+                    { title: "Sonic Architecture", url: "https://audius.co/embed/album/Lw8Y5?flavor=card" },
+                    { title: "Digital Drift", url: "https://audius.co/embed/album/nd4AP?flavor=card" },
+                    { title: "Ecosystem Audio", url: "https://audius.co/embed/album/BybN7WP?flavor=card" }
                 ];
 
                 const applePlayers = [
@@ -380,4 +385,3 @@
     </script>
 </body>
 </html>
-
