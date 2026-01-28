@@ -75,12 +75,13 @@
             background-clip: text !important; -webkit-text-fill-color: transparent !important;
             color: transparent !important; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
             animation: galaxy-move 12s linear infinite; white-space: nowrap;
-            /* ALIGNMENT LOCK: Snaps the text precisely to the left grid boundary and prevents "EM" clipping */
+            /* ALIGNMENT LOCK: Snaps the text precisely to the left grid boundary */
             padding-right: 0.35em; 
             margin-left: -0.15em; 
             z-index: 10;
         }
 
+        /* 1.8px wireframe depth offset */
         .glass-galaxy::before {
             content: 'ECOSYSTEM.'; position: absolute; left: -12px; top: -10px; z-index: -1;
             -webkit-text-stroke: 1.8px rgba(255, 255, 255, 0.5); 
@@ -260,7 +261,7 @@
             }
 
             if (currentView === 'music') {
-                /* STRICT ORDER AS REQUESTED: Top to Bottom */
+                /* STRICT ORDER: Action Packed -> Genesis Block -> Singles -> Produced -> Royalty -> Tough Love -> Brain Storm -> Palm Trees -> Westbound -> From Now On */
                 const audiusPlayers = [
                     { title: "Action Packed", url: "https://audius.co/embed/album/7AV2lqr?flavor=card" },
                     { title: "Genesis Block", url: "https://audius.co/embed/album/D9gW2?flavor=card" },
@@ -292,7 +293,8 @@
                         <div className="pt-32 px-6 max-w-7xl mx-auto">
                             <div className="flex flex-col md:flex-row items-center gap-12 mb-24 text-center md:text-left">
                                 <div className="w-48 h-48 md:w-64 bg-zinc-900 rounded-[2rem] overflow-hidden border border-white/5 flex-shrink-0">
-                                    <img src="abyss-beats-logo.PNG" alt="Abyss Beats" className="w-full h-full object-contain p-4 grayscale hover:grayscale-0 transition-all duration-700" />
+                                    {/* MUZIK PROFILE PIC: set to abyss.png as requested */}
+                                    <img src="abyss.png" alt="Abyss Muzik" className="w-full h-full object-contain p-4 grayscale hover:grayscale-0 transition-all duration-700" />
                                 </div>
                                 <div className="flex-1">
                                     <h1 className="header-main text-5xl md:text-8xl mb-4 italic text-white">ABYSS.</h1>
@@ -363,14 +365,14 @@
 
                     <header className="pt-48 md:pt-72 pb-24 px-8 max-w-7xl mx-auto relative z-10">
                         <div className="max-w-5xl">
-                            {/* UNIFIED SCALING & ALIGNMENT LOCK: Perfectly aligned with the Left Grid Line */}
+                            {/* UNIFIED SCALING & ALIGNMENT LOCK: Reduced sizes for better responsive fit */}
                             <h1 className="header-main text-white -ml-2 md:-ml-6">
-                                <span className="text-[12vw] sm:text-7xl md:text-[145px] block mb-2 leading-none">THE</span>
-                                <span className="glass-galaxy text-[12vw] sm:text-7xl md:text-[145px]">
+                                <span className="text-[10.5vw] sm:text-7xl md:text-[125px] block mb-2 leading-none">THE</span>
+                                <span className="glass-galaxy text-[10.5vw] sm:text-7xl md:text-[125px]">
                                     ECOSYSTEM.
                                 </span>
                             </h1>
-                            <p className="text-base md:text-2xl mt-12 mb-16 max-w-[90vw] md:max-w-2xl font-medium tracking-tight text-zinc-400 leading-relaxed -ml-2 md:-ml-6">
+                            <p className="text-base md:text-xl mt-12 mb-16 max-w-[90vw] md:max-w-2xl font-medium tracking-tight text-zinc-400 leading-relaxed -ml-2 md:-ml-6">
                                 A digital repository of the next generation of SaaS, Fintech and high-fidelity media platforms.
                             </p>
                         </div>
@@ -416,3 +418,4 @@
     </script>
 </body>
 </html>
+
