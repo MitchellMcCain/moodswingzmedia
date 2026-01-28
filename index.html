@@ -1,456 +1,343 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Radio, 
-  Wallet, 
-  Cake, 
-  TrendingUp, 
-  Repeat, 
-  Music, 
-  Users, 
-  Share2, 
-  ArrowRight,
-  Code,
-  Mic,
-  Shirt,
-  X,
-  Eye
-} from 'lucide-react';
-
-const projects = [
-  {
-    title: "Stak",
-    url: "https://stak.moodswingzmedia.com",
-    logoUrl: "/stak-logo.PNG", 
-    description: "Your financial companion. Know what's Safe to Spend. See what your money is already doing. No spreadsheets. No shame.",
-    category: "FinTech / SaaS",
-    color: "bg-emerald-400",
-    icon: <Wallet size={32} />
-  },
-  {
-    title: "WhatsNextRadio",
-    url: "https://wnr.moodswingzmedia.com",
-    logoUrl: "/wnr-logo.PNG", 
-    description: "Community-curated music discovery platform connecting artists and listeners while multiplying streaming revenue.",
-    category: "Music / SaaS",
-    color: "bg-sky-500",
-    icon: <Radio size={32} />
-  },
-  {
-    title: "Kake",
-    url: "https://kake.moodswingzmedia.com",
-    logoUrl: "/kake-logo.PNG", 
-    description: "The daily sweepstakes game where your birthday could be your lucky number!",
-    category: "Sweepstakes / SaaS",
-    color: "bg-fuchsia-500",
-    icon: <Cake size={32} />
-  },
-  {
-    title: "Abyss Beats",
-    url: "https://abyssbeats.moodswingzmedia.com",
-    logoUrl: "/abyss-beats-logo.PNG",
-    description: "Premium instrumentals produced by Abyss. A premier audio marketplace for Creators and Brands.",
-    category: "Music / SaaS",
-    color: "bg-indigo-600",
-    icon: <Music size={32} />,
-    isEnlarged: true
-  },
-  {
-    title: "Parallel Exchange",
-    url: "https://parallelexchange.moodswingzmedia.com",
-    logoUrl: "/parallel-exchange-logo.PNG",
-    description: "Give More than Money. Trade locally with people in your area. No cash needed.",
-    category: "FinTech / SaaS",
-    color: "bg-cyan-400",
-    icon: <Repeat size={32} />,
-    isLargeLogo: true
-  },
-  {
-    title: "Artist Connect",
-    url: "https://freshyard.moodswingzmedia.com",
-    logoUrl: "/artist-connect-logo.PNG",
-    description: "The swiss army knife for artists and boutique labels. Direct-to-fan tools to nurture your audience.",
-    category: "Social / SaaS",
-    color: "bg-amber-500",
-    icon: <Users size={32} />
-  },
-  {
-    title: "LVL UP",
-    url: "https://levelup.moodswingzmedia.com",
-    logoUrl: "/levelup-logo.PNG", 
-    description: "Ascend your performance. A customizable fitness tracker designed to optimize your overall health.",
-    category: "Performance / SaaS",
-    color: "bg-blue-400",
-    icon: <TrendingUp size={32} />
-  },
-  {
-    title: "Brotherhood Network",
-    url: "https://brotherhoodnetwork.moodswingzmedia.com",
-    logoUrl: "/brotherhood-network-logo.PNG",
-    description: "A safe, community-driven networking infrastructure for the modern man to collaborate and grow.",
-    category: "Networking / SaaS",
-    color: "bg-purple-800",
-    icon: <Share2 size={32} />,
-    isEnlarged: true
-  },
-  {
-    title: "CEEN Apparel",
-    url: "#", 
-    logoUrl: "/ceen-apparel-logo.PNG", 
-    description: "Modern aesthetics for the digital age. A lifestyle brand focused on the intersection of tech and fashion.",
-    category: "Wearables / SaaS",
-    color: "bg-zinc-100",
-    icon: <Shirt size={32} />,
-    isEnlarged: true
-  }
-];
-
-const interactiveProjects = [
-  {
-    title: "Signature",
-    url: "https://signature.moodswingzmedia.com",
-    logoUrl: "/signature-logo.PNG",
-    description: "Vocal Session Pro - Find Your Key Signature in Real Time. A real-time key finder/tuner for vocalists.",
-    category: "Utility / SaaS",
-    color: "bg-violet-500",
-    icon: <Mic size={32} />,
-    isEnlarged: true
-  },
-  {
-    title: "Retina Reader",
-    url: "https://retinareader.moodswingzmedia.com",
-    logoUrl: "/retina-logo.png",
-    description: "Retina is an RSVP speed-reader that flashes text word-by-word at a fixed focal point to eliminate eye movement and maximize your reading pace.",
-    category: "Productivity / SaaS",
-    color: "bg-red-600",
-    icon: <Eye size={32} />,
-    isStandardLogo: true 
-  },
-  {
-    title: "Math Punk",
-    url: "https://mathpunk.moodswingzmedia.com",
-    logoUrl: "/math-punk-logo.PNG",
-    description: "Cyberpunk-themed mental math challenge. Speed, precision, and high-fidelity aesthetics.",
-    category: "Gaming / SaaS",
-    color: "bg-yellow-400",
-    icon: <Code size={32} />,
-    isReduced: true
-  },
-  {
-    title: "Tic Tac Glow",
-    url: "https://tictacglow.moodswingzmedia.com",
-    logoUrl: "/tic-tac-glow-logo.PNG",
-    description: "A neon-infused, minimalist reimagining of the classic strategy game.",
-    category: "Gaming / SaaS",
-    color: "bg-violet-400",
-    icon: <X size={32} />,
-    isReduced: true
-  }
-];
-
-const Starfield = () => {
-  const canvasRef = useRef(null);
-  
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    let w, h, stars = [];
-    let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-
-    const setCanvasSize = () => {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    };
-
-    const createStars = () => {
-      stars = [];
-      const count = Math.floor((w * h) / 2200);
-      for(let i = 0; i < count; i++) {
-        stars.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          size: Math.random() * 2,
-          depth: Math.random() * 3,
-          opacity: Math.random() * 0.7 + 0.1,
-          vel: (Math.random() * 0.06) + 0.02
-        });
-      }
-    };
-
-    const animate = () => {
-      ctx.clearRect(0, 0, w, h);
-      const centerX = w / 2;
-      const centerY = h / 2;
-      
-      stars.forEach(star => {
-        star.y -= star.vel;
-        if(star.y < 0) star.y = h;
-        
-        // Dynamic parallax based on depth (Works for mouse and touch)
-        const offsetX = (mouse.x - centerX) * (star.depth * 0.012);
-        const offsetY = (mouse.y - centerY) * (star.depth * 0.012);
-        
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-        ctx.beginPath();
-        ctx.arc(star.x + offsetX, star.y + offsetY, star.size, 0, Math.PI * 2);
-        ctx.fill();
-      });
-      requestAnimationFrame(animate);
-    };
-
-    const handleInput = (clientX, clientY) => {
-      mouse.x = clientX;
-      mouse.y = clientY;
-    };
-
-    const handleMouseMove = (e) => handleInput(e.clientX, e.clientY);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Moodswingz Media | The Ecosystem</title>
     
-    // Mobile Touch Parallax Support
-    const handleTouchMove = (e) => {
-      if (e.touches.length > 0) {
-        handleInput(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    };
+    <!-- Hard Canonical & WWW Redirect Logic -->
+    <link rel="canonical" href="https://www.moodswingzmedia.com/">
+    <script type="text/javascript">
+        if (top !== self) { top.location.replace(self.location.href); }
+        if (window.location.hostname === 'moodswingzmedia.com') {
+            window.location.replace('https://www.moodswingzmedia.com' + window.location.pathname);
+        }
+    </script>
 
-    window.addEventListener('resize', () => { setCanvasSize(); createStars(); });
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    <!-- Chrome Stability -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAAAABcl79IAAAAAnElEQVQYV2P4z8DAwMCwHgX8ZwAifgPAnA8Ax9YDAA==">
     
-    setCanvasSize(); createStars(); animate();
+    <!-- Dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     
-    return () => {
-      window.removeEventListener('resize', setCanvasSize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('touchmove', handleTouchMove);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" />;
-};
-
-const ProjectCard = ({ project }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [imgError, setImgError] = useState(false);
-
-  const getScaleClass = () => {
-    if (project.isLargeLogo) return 'scale-[1.15]';
-    if (project.isEnlarged) return 'scale-110';
-    if (project.isStandardLogo) return 'scale-100';
-    if (project.isReduced) return 'scale-75';
-    return 'scale-90';
-  };
-
-  return (
-    <div className="drift-card relative z-10">
-      <a 
-        href={project.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group relative block w-full aspect-square bg-zinc-900/40 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-white/5 transition-all duration-700 hover:shadow-[0_0_80px_-15px_rgba(255,255,255,0.1)] hover:-translate-y-4 hover:bg-white/5 backdrop-blur-md"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div className={`absolute inset-0 blur-[100px] opacity-0 transition-opacity duration-700 group-hover:opacity-30 ${project.color}`} />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Orbitron:wght@400;700;900&family=Syncopate:wght@400;700&display=swap');
         
-        <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center transition-all duration-700 ease-in-out group-hover:scale-90 group-hover:opacity-0 group-hover:blur-3xl">
-          <div className="w-full h-[65%] flex items-center justify-center transition-all duration-700 group-hover:scale-110">
-            {project.logoUrl && !imgError ? (
-              <img 
-                src={project.logoUrl} 
-                alt={project.title} 
-                className={`w-full h-full object-contain pointer-events-none drop-shadow-2xl ${getScaleClass()}`}
-                onError={() => setImgError(true)} 
-              />
-            ) : (
-              <div className="text-white opacity-20">{project.icon}</div>
-            )}
-          </div>
-          <div className="mt-4">
-            <h3 className="text-xl md:text-2xl font-black tracking-tighter text-white uppercase leading-none drop-shadow-lg">
-              {project.title}
-            </h3>
-            <p className="text-[9px] md:text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em] mt-3 opacity-60">
-              {project.category}
-            </p>
-          </div>
-        </div>
+        html, body {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: #000; color: #fff; font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
 
-        <div className={`absolute inset-0 p-8 flex flex-col justify-center items-center text-center transition-all duration-700 ease-in-out ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20 pointer-events-none'}`}>
-          <div className={`w-12 h-12 mb-6 rounded-2xl flex items-center justify-center ${project.color} text-white shadow-lg`}>
-            {project.icon}
-          </div>
-          <h3 className="text-xl md:text-2xl font-black text-white mb-4 uppercase tracking-tighter">{project.title}</h3>
-          <p className="text-xs md:text-sm text-zinc-300 mb-8 leading-relaxed font-medium max-w-xs">
-            {project.description}
-          </p>
-          <div className="flex items-center gap-3 py-3 px-6 bg-white text-black rounded-full text-[10px] font-black uppercase tracking-widest transition-all hover:scale-110 active:scale-95 shadow-xl">
-            Launch App
-            <ArrowRight size={14} />
-          </div>
-        </div>
-      </a>
-    </div>
-  );
-};
+        #starfield {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+        }
 
-export default function App() {
-  return (
-    <div className="min-h-screen bg-black text-zinc-100 font-sans selection:bg-white selection:text-black overflow-x-hidden">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Syncopate:wght@700&display=swap');
-        
         .brand-font {
-          font-family: 'Orbitron', sans-serif;
-          letter-spacing: 0.5em;
-          text-transform: uppercase;
-          background: linear-gradient(180deg, #fff 0%, #666 50%, #fff 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: chrome-shine 10s linear infinite;
+            font-family: 'Orbitron', sans-serif; font-weight: 900; letter-spacing: 0.5em;
+            text-transform: uppercase; background: linear-gradient(180deg, #fff 0%, #666 50%, #fff 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: chrome-shine 10s linear infinite;
         }
 
         @keyframes chrome-shine {
-          0% { filter: hue-rotate(0deg) drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
-          50% { filter: hue-rotate(180deg) drop-shadow(0 0 20px rgba(255,255,255,0.4)); }
-          100% { filter: hue-rotate(360deg) drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
+            0% { filter: hue-rotate(0deg) drop-shadow(0 0 5px rgba(255,255,255,0.1)); }
+            50% { filter: hue-rotate(180deg) drop-shadow(0 0 15px rgba(255,255,255,0.3)); }
+            100% { filter: hue-rotate(300deg) drop-shadow(0 0 5px rgba(255,255,255,0.1)); }
         }
 
         .header-main {
-          font-family: 'Syncopate', sans-serif;
-          font-weight: 700;
-          text-transform: uppercase;
-          line-height: 0.85;
+            font-family: 'Syncopate', sans-serif; font-weight: 700;
+            text-transform: uppercase; letter-spacing: -0.04em; line-height: 0.85;
         }
 
-        /* LATEST LOCKED TYPOGRAPHY LOGIC */
+        /* LATEST ECOSYSTEM TYPOGRAPHY */
         .glass-galaxy {
-          position: relative;
-          display: table; 
-          background: linear-gradient(90deg, #ff00ff, #7000ff, #00d4ff, #7000ff, #ff00ff, #00d4ff);
-          background-size: 400% 100%;
-          -webkit-background-clip: text !important;
-          background-clip: text !important;
-          -webkit-text-fill-color: transparent !important;
-          -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
-          animation: galaxy-move 12s linear infinite;
-          white-space: nowrap;
-          padding-right: 0.6em; 
-          z-index: 10;
+            position: relative; display: table; 
+            background: linear-gradient(90deg, #ff00ff, #7000ff, #00d4ff, #7000ff, #ff00ff, #00d4ff);
+            background-size: 400% 100%; -webkit-background-clip: text !important;
+            background-clip: text !important; -webkit-text-fill-color: transparent !important;
+            color: transparent !important; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            animation: galaxy-move 12s linear infinite; white-space: nowrap;
+            padding-right: 0.6em; z-index: 10;
         }
 
-        /* High-Prominence Wireframe Layer (Latest Depth Spec) */
+        /* Prominent Depth Wireframe Layer */
         .glass-galaxy::before {
-          content: 'ECOSYSTEM.';
-          position: absolute;
-          left: -8px;
-          top: -6px;
-          z-index: -1;
-          -webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.4);
-          -webkit-text-fill-color: transparent;
-          white-space: nowrap;
-          pointer-events: none;
-          opacity: 0.8;
+            content: 'ECOSYSTEM.'; position: absolute; left: -12px; top: -10px; z-index: -1;
+            -webkit-text-stroke: 1.8px rgba(255, 255, 255, 0.5); 
+            -webkit-text-fill-color: transparent; white-space: nowrap; pointer-events: none;
         }
 
-        @media (min-width: 768px) {
-          .glass-galaxy::before {
-            left: -12px;
-            top: -10px;
-            -webkit-text-stroke: 1.8px rgba(255, 255, 255, 0.5);
-          }
+        @media (max-width: 768px) {
+            .glass-galaxy::before { left: -6px; top: -4px; -webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.5); }
         }
 
-        @keyframes galaxy-move {
-          0% { background-position: 0% 50%; }
-          100% { background-position: 400% 50%; }
+        @keyframes galaxy-move { 0% { background-position: 0% 50%; } 100% { background-position: 400% 50%; } }
+        @keyframes drift { 0% { transform: translate(0px, 0px); } 50% { transform: translate(-4px, -10px); } 100% { transform: translate(0px, 0px); } }
+        .drift-card { animation: drift 8s ease-in-out infinite; }
+
+        .ui-label { font-weight: 800; letter-spacing: 0.4em; color: rgba(255, 255, 255, 0.4); text-transform: uppercase; }
+        .glass-nav { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+        .card-container { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
+        .card-container:hover { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 0 40px rgba(255, 255, 255, 0.05); }
+
+        @media (min-width: 1024px) {
+            .music-grid-item { max-width: 540px; width: 100%; margin: 0 auto; }
         }
+    </style>
+</head>
+<body>
+    <canvas id="starfield"></canvas>
+    <div id="root"></div>
 
-        @keyframes drift {
-          0% { transform: translate(0px, 0px); }
-          50% { transform: translate(-4px, -10px); }
-          100% { transform: translate(0px, 0px); }
-        }
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
 
-        .drift-card {
-          animation: drift 8s ease-in-out infinite;
-        }
-      `}</style>
+        const Icon = ({ name, size = 24, className = "" }) => {
+            useEffect(() => { if (window.lucide) window.lucide.createIcons(); }, [name]);
+            return <span data-lucide={name} style={{ width: size, height: size }} className={`flex items-center justify-center shrink-0 ${className}`}></span>;
+        };
 
-      <Starfield />
+        const projects = [
+            {
+                title: "Stak",
+                url: "https://stak.moodswingzmedia.com",
+                logoUrl: "stak-logo.PNG", 
+                description: "Your financial companion. Know what's Safe to Spend. See what your money is already doing. No spreadsheets. No shame.",
+                category: "FinTech / SaaS", color: "bg-emerald-400", iconName: "wallet"
+            },
+            {
+                title: "WhatsNextRadio",
+                url: "https://wnr.moodswingzmedia.com",
+                logoUrl: "wnr-logo.PNG", 
+                description: "Community-curated music discovery platform connecting artists and listeners while multiplying streaming revenue.",
+                category: "Music / SaaS", color: "bg-sky-500", iconName: "radio"
+            },
+            {
+                title: "Kake",
+                url: "https://kake.moodswingzmedia.com",
+                logoUrl: "kake-logo.PNG", 
+                description: "The daily sweepstakes game where your birthday could be your lucky number!",
+                category: "Sweepstakes / SaaS", color: "bg-fuchsia-500", iconName: "cake"
+            },
+            {
+                title: "Abyss Beats",
+                url: "https://abyssbeats.moodswingzmedia.com",
+                logoUrl: "abyss-beats-logo.PNG",
+                description: "Premium instrumentals produced by Abyss. A premier audio marketplace for Creators and Brands.",
+                category: "Music / SaaS", color: "bg-indigo-600", iconName: "music", isEnlarged: true 
+            },
+            {
+                title: "Parallel Exchange",
+                url: "https://parallelexchange.moodswingzmedia.com",
+                logoUrl: "parallel-exchange-logo.PNG",
+                description: "Give More than Money. Trade locally with people in your area. No cash needed.",
+                category: "FinTech / SaaS", color: "bg-cyan-400", iconName: "repeat", isReduced: true 
+            },
+            {
+                title: "Artist Connect",
+                url: "https://freshyard.moodswingzmedia.com",
+                logoUrl: "artist-connect-logo.PNG",
+                description: "The swiss army knife for artists and boutique labels. Direct-to-fan tools to nurture your audience.",
+                category: "Social / SaaS", color: "bg-amber-500", iconName: "users", isReduced: true
+            },
+            {
+                title: "LVL UP",
+                url: "https://levelup.moodswingzmedia.com",
+                logoUrl: "levelup-logo.PNG", 
+                description: "Ascend your performance. A customizable fitness tracker designed to optimize your overall health.",
+                category: "Performance / SaaS", color: "bg-blue-400", iconName: "trending-up"
+            },
+            {
+                title: "Brotherhood Network",
+                url: "https://brotherhoodnetwork.moodswingzmedia.com",
+                logoUrl: "brotherhood-network-logo.PNG",
+                description: "A safe, community-driven networking infrastructure for the modern man to collaborate and grow.",
+                category: "Networking / SaaS", color: "bg-purple-800", iconName: "share-2", isEnlarged: true 
+            },
+            {
+                title: "CEEN Apparel",
+                url: "#",
+                logoUrl: "ceen-apparel-logo.PNG", 
+                description: "Modern aesthetics for the digital age. A lifestyle brand focused on the intersection of tech and fashion.",
+                category: "Wearables / SaaS", color: "bg-zinc-100", iconName: "shirt", isEnlarged: true 
+            }
+        ];
 
-      <nav className="fixed top-0 w-full z-50 border-b border-white/10 bg-black/80 backdrop-blur-3xl">
-        <div className="max-w-7xl mx-auto px-8 h-20 md:h-24 flex items-center justify-between">
-          <span className="brand-font text-sm md:text-xl cursor-default select-none">
-            Moodswingz Media
-          </span>
-          <div className="flex items-center gap-6 md:gap-10">
-            <a href="https://abyssbeats.moodswingzmedia.com" className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.4em] text-zinc-500 hover:text-white transition-all">
-              Muzik
-            </a>
-            <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.4em] text-zinc-500 hover:text-white transition-all">
-              Contact
-            </a>
-          </div>
-        </div>
-      </nav>
+        const interactiveProjects = [
+            {
+                title: "Signature",
+                url: "https://signature.moodswingzmedia.com",
+                logoUrl: "signature-logo.PNG",
+                description: "Vocal Session Pro - Find Your Key Signature in Real Time. A real-time key finder/tuner for vocalists.",
+                category: "Utility / SaaS", color: "bg-violet-500", iconName: "mic", isEnlarged: true
+            },
+            {
+                title: "Retina Reader",
+                url: "https://retinareader.moodswingzmedia.com",
+                logoUrl: "retina-logo.png",
+                description: "Retina is an RSVP speed-reader that flashes text word-by-word at a fixed focal point to eliminate eye movement and maximize your reading pace.",
+                category: "Productivity / SaaS", color: "bg-red-600", iconName: "eye", isStandardLogo: true
+            },
+            {
+                title: "Math Punk",
+                url: "https://mathpunk.moodswingzmedia.com",
+                logoUrl: "math-punk-logo.PNG",
+                description: "Cyberpunk-themed mental math challenge. Speed, precision, and high-fidelity aesthetics.",
+                category: "Gaming / SaaS", color: "bg-yellow-400", iconName: "code", isReduced: true
+            },
+            {
+                title: "Tic Tac Glow",
+                url: "https://tictacglow.moodswingzmedia.com",
+                logoUrl: "tic-tac-glow-logo.PNG",
+                description: "A neon-infused, minimalist reimagining of the classic strategy game.",
+                category: "Gaming / SaaS", color: "bg-violet-400", iconName: "x", isReduced: true
+            }
+        ];
 
-      <header className="pt-48 md:pt-72 pb-24 px-8 max-w-7xl mx-auto relative z-10">
-        <div className="max-w-5xl">
-          <h1 className="header-main text-white">
-            <span className="text-6xl md:text-[120px] block mb-4">THE</span>
-            <span className="glass-galaxy text-7xl md:text-[145px]">
-              ECOSYSTEM.
-            </span>
-          </h1>
-          <p className="text-base md:text-2xl mt-12 mb-16 max-w-2xl font-medium tracking-tight text-zinc-400 leading-relaxed">
-            A digital repository of the next generation of SaaS, Fintech and high-fidelity media platforms.
-          </p>
-        </div>
-      </header>
+        const ProjectCard = ({ project }) => {
+            const [isHovered, setIsHovered] = useState(false);
+            const [imgError, setImgError] = useState(false);
+            const getScaleClass = () => {
+                if (project.isLargeLogo) return 'scale-[1.1]';
+                if (project.isEnlarged) return 'scale-110';
+                if (project.isStandardLogo) return 'scale-100';
+                if (project.isReduced) return 'scale-[0.75]'; 
+                return 'scale-90';
+            };
 
-      <main className="max-w-7xl mx-auto px-8 pb-64 relative z-10">
-        <section className="mb-48">
-          <div className="flex items-center gap-4 mb-20">
-            <div className="h-[1px] w-8 bg-white/20"></div>
-            <h2 className="text-[10px] font-black uppercase tracking-[0.8em] text-zinc-600 italic">Primary Products</h2>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-14">
-            {projects.map((project, index) => (
-              <ProjectCard key={index} project={project} />
-            ))}
-          </div>
-        </section>
+            return (
+                <div className="drift-card relative">
+                    <a 
+                        href={project.url} target="_blank"
+                        className="group relative block w-full aspect-square card-container rounded-[2rem] md:rounded-[3rem] overflow-hidden"
+                        onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
+                    >
+                        <div className={`absolute inset-0 blur-[100px] opacity-0 transition-opacity duration-700 group-hover:opacity-30 ${project.color}`} />
+                        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 md:p-8 text-center transition-all duration-700 ease-in-out group-hover:scale-90 group-hover:opacity-0 group-hover:blur-3xl">
+                            <div className="w-full h-[65%] flex items-center justify-center transition-all duration-700 group-hover:scale-110">
+                                {project.logoUrl && !imgError ? (
+                                    <img src={project.logoUrl} alt={project.title} className={`w-full h-full object-contain drop-shadow-2xl ${getScaleClass()}`} onError={() => setImgError(true)} />
+                                ) : (
+                                    <div className="text-white opacity-20"><Icon name={project.iconName} size={64} /></div>
+                                )}
+                            </div>
+                            <div className="mt-4">
+                                <h3 className="text-lg md:text-2xl font-black tracking-tighter text-white uppercase leading-none">{project.title}</h3>
+                                <p className="text-[8px] md:text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em] mt-2 opacity-60">{project.category}</p>
+                            </div>
+                        </div>
+                        <div className={`absolute inset-0 p-8 flex flex-col justify-center items-center text-center transition-all duration-700 ease-in-out ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12 pointer-events-none'}`}>
+                            <div className={`w-12 h-12 mb-6 rounded-xl flex items-center justify-center ${project.color} border border-white/20 text-white shadow-2xl`}><Icon name={project.iconName} size={24} /></div>
+                            <h3 className="text-lg md:text-xl font-black text-white mb-3 uppercase tracking-tighter">{project.title}</h3>
+                            <p className="text-[10px] md:text-sm text-zinc-300 mb-8 leading-relaxed font-medium max-w-[200px]">{project.description}</p>
+                            <div className="flex items-center gap-2 py-3 px-6 bg-white text-black rounded-full text-[10px] font-black uppercase tracking-widest transition-all hover:scale-110 shadow-xl">Launch <Icon name="arrow-right" size={14} /></div>
+                        </div>
+                    </a>
+                </div>
+            );
+        };
 
-        <section className="mb-48">
-          <div className="flex items-center gap-4 mb-20">
-            <div className="h-[1px] w-8 bg-white/20"></div>
-            <h2 className="text-[10px] font-black uppercase tracking-[0.8em] text-zinc-600 italic">Interactive Labs</h2>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-14">
-            {interactiveProjects.map((project, index) => (
-              <ProjectCard key={index} project={project} />
-            ))}
-            <div className="drift-card w-full aspect-square bg-zinc-900/20 border border-dashed border-zinc-800 rounded-[2.5rem] md:rounded-[3rem] flex flex-col items-center justify-center text-zinc-800 gap-6 transition-all duration-500 hover:border-zinc-700">
-               <Code size={32} className="opacity-20" />
-               <span className="text-[8px] font-black uppercase tracking-[0.5em]">Incubating</span>
-            </div>
-          </div>
-        </section>
-      </main>
+        const App = () => {
+            useEffect(() => {
+                const canvas = document.getElementById('starfield');
+                const ctx = canvas.getContext('2d');
+                let w, h, stars = [];
+                let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
-      <footer className="border-t border-white/5 py-24 bg-black relative z-10 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-16">
-          <div className="flex flex-col items-center md:items-start gap-4">
-            <span className="brand-font text-xs text-white">Moodswingz</span>
-            <p className="text-[8px] font-bold text-zinc-700 uppercase tracking-[0.4em]">
-              &copy; {new Date().getFullYear()} Moodswingz Media & Tech Group.
-            </p>
-          </div>
-          <div className="flex gap-10 md:gap-16 text-[9px] font-black uppercase tracking-[0.4em] text-zinc-600">
-            <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="hover:text-white transition-all">Instagram</a>
-            <a href="https://www.tiktok.com/@moodswingzmedia" target="_blank" className="hover:text-white transition-all">TikTok</a>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
+                const setCanvasSize = () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; };
+                const createStars = () => {
+                    stars = []; const count = Math.floor((w * h) / 2200);
+                    for(let i = 0; i < count; i++) {
+                        stars.push({ x: Math.random() * w, y: Math.random() * h, size: Math.random() * 2, depth: Math.random() * 3, opacity: Math.random() * 0.7 + 0.1, vel: (Math.random() * 0.08) + 0.02 });
+                    }
+                };
+                const animate = () => {
+                    ctx.clearRect(0, 0, w, h);
+                    stars.forEach(star => {
+                        star.y -= star.vel; if(star.y < 0) star.y = h;
+                        const offsetX = (mouse.x - w/2) * (star.depth * 0.012);
+                        const offsetY = (mouse.y - h/2) * (star.depth * 0.012);
+                        ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+                        ctx.beginPath(); ctx.arc(star.x + offsetX, star.y + offsetY, star.size, 0, Math.PI * 2); ctx.fill();
+                    });
+                    requestAnimationFrame(animate);
+                };
+                const handleInput = (x, y) => { mouse.x = x; mouse.y = y; };
+                window.addEventListener('resize', () => { setCanvasSize(); createStars(); });
+                window.addEventListener('mousemove', (e) => handleInput(e.clientX, e.clientY));
+                window.addEventListener('touchmove', (e) => handleInput(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+                setCanvasSize(); createStars(); animate();
+            }, []);
+
+            return (
+                /* bg-transparent is CRITICAL to show the starfield canvas behind this div */
+                <div className="relative min-h-screen w-full flex flex-col bg-transparent overflow-x-hidden">
+                    <nav className="fixed top-0 w-full z-[100] glass-nav">
+                        <div className="max-w-7xl mx-auto px-6 h-20 md:h-24 flex items-center justify-between">
+                            <span className="brand-font text-[10px] sm:text-base md:text-xl">Moodswingz Media</span>
+                            <div className="flex items-center gap-6 md:gap-12">
+                                <a href="https://abyssbeats.moodswingzmedia.com" className="ui-label text-[9px] md:text-[11px] hover:text-white transition-all">Muzik</a>
+                                <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="ui-label text-[9px] md:text-[11px] hover:text-white transition-all">Contact</a>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <header className="pt-40 md:pt-64 pb-12 md:pb-24 px-6 max-w-7xl mx-auto w-full relative z-10">
+                        <div className="max-w-4xl">
+                            <h1 className="header-main text-white mb-8">
+                                <span className="text-[12vw] md:text-[120px] block">THE</span>
+                                <span className="glass-galaxy text-[12vw] md:text-[145px] inline-block">ECOSYSTEM.</span>
+                            </h1>
+                            <p className="text-base md:text-2xl max-w-2xl font-medium text-zinc-400 leading-relaxed">
+                                A digital repository of the next generation of SaaS, Fintech and high-fidelity media platforms.
+                            </p>
+                        </div>
+                    </header>
+
+                    <main className="max-w-7xl mx-auto px-6 pb-40 w-full relative z-10">
+                        <section className="mb-32">
+                            <div className="flex items-center gap-4 mb-16"><div className="h-[1px] w-8 bg-white/20"></div><h2 className="ui-label text-[11px] md:text-sm italic">Primary Products</h2></div>
+                            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10">
+                                {projects.map((p, i) => <ProjectCard key={i} project={p} />)}
+                            </div>
+                        </section>
+                        <section className="mb-32">
+                            <div className="flex items-center gap-4 mb-16"><div className="h-[1px] w-8 bg-white/20"></div><h2 className="ui-label text-[11px] md:text-sm italic">Interactive Labs</h2></div>
+                            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10">
+                                {interactiveProjects.map((p, i) => <ProjectCard key={i} project={p} />)}
+                                <div className="drift-card w-full aspect-square card-container border border-dashed border-zinc-700 rounded-[2rem] flex flex-col items-center justify-center text-zinc-800 gap-4 transition-all hover:border-zinc-500">
+                                    <Icon name="code" size={32} className="opacity-20"/><span className="ui-label text-[8px]">Incubating</span>
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+
+                    <footer className="mt-auto border-t border-white/5 py-16 bg-black/50 backdrop-blur-xl relative z-10">
+                        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12 text-center md:text-left">
+                            <div><span className="brand-font text-xs text-white">Moodswingz</span><p className="ui-label text-[8px] mt-2">&copy; 2026 Moodswingz Media & Tech Group.</p></div>
+                            <div className="flex gap-8 text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">
+                                <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="hover:text-white transition-all">Instagram</a>
+                                <a href="https://www.tiktok.com/@moodswingzmedia" target="_blank" className="hover:text-white transition-all">TikTok</a>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
