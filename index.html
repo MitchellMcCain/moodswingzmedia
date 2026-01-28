@@ -76,13 +76,12 @@
             background-clip: text !important; -webkit-text-fill-color: transparent !important;
             color: transparent !important; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
             animation: galaxy-move 12s linear infinite; white-space: nowrap;
-            /* ALIGNMENT LOCK: Snaps the text precisely to the left grid boundary */
+            /* ALIGNMENT LOCK: Prevents end-word clipping and snaps to left grid boundary */
             padding-right: 0.3em; 
             margin-left: -0.15em; 
             z-index: 10;
         }
 
-        /* 1.8px wireframe depth offset */
         .glass-galaxy::before {
             content: 'ECOSYSTEM.'; position: absolute; left: -12px; top: -10px; z-index: -1;
             -webkit-text-stroke: 1.8px rgba(255, 255, 255, 0.5); 
@@ -117,14 +116,13 @@
             justify-content: center;
         }
 
-        /* Differentiated Width Logic */
         @media (min-width: 1024px) {
             .apple-grid-item { 
                 width: 100%;
                 max-width: 480px; 
             }
             .audius-grid-item {
-                /* FULLY UNLOCKED: Responsive stretch for Audius cards per request */
+                /* NO MAX WIDTH: Fully responsive for Audius vertical stack */
                 width: 100%; 
             }
         }
@@ -264,16 +262,16 @@
 
             if (currentView === 'music') {
                 const audiusPlayers = [
-                    { title: "Tough Love", url: "https://audius.co/embed/album/nd4AP?flavor=card" },
-                    { title: "Royalty & Loyalty", url: "https://audius.co/embed/album/BybN7WP?flavor=card" },
+                    { title: "Action Packed", url: "https://audius.co/embed/album/7AV2lqr?flavor=card" },
                     { title: "Genesis Block", url: "https://audius.co/embed/album/D9gW2?flavor=card" },
-                    { title: "From Now On", url: "https://audius.co/embed/album/rb54Paz?flavor=card" },
-                    { title: "The Brain Storm", url: "https://audius.co/embed/album/v7OAp?flavor=card" },
-                    { title: "Singles & Features", url: "https://audius.co/embed/playlist/lWod82w?flavor=card" },
+                    { title: "Abyss Singles & Features", url: "https://audius.co/embed/playlist/lWod82w?flavor=card" },
                     { title: "Produced by Abyss", url: "https://audius.co/embed/playlist/1B4zbRW?flavor=card" },
+                    { title: "Royalty & Loyalty", url: "https://audius.co/embed/album/BybN7WP?flavor=card" },
+                    { title: "Tough Love", url: "https://audius.co/embed/album/nd4AP?flavor=card" },
+                    { title: "The Brain Storm", url: "https://audius.co/embed/album/v7OAp?flavor=card" },
+                    { title: "Palm Trees", url: "https://audius.co/embed/album/Lw8Y5?flavor=card" },
                     { title: "Westbound", url: "https://audius.co/embed/album/Lwxp5?flavor=card" },
-                    { title: "Vault Sessions", url: "https://audius.co/embed/album/7AV2lqr?flavor=card" },
-                    { title: "Digital Drift", url: "https://audius.co/embed/album/Lw8Y5?flavor=card" }
+                    { title: "From Now On", url: "https://audius.co/embed/album/rb54Paz?flavor=card" }
                 ];
 
                 const applePlayers = [
@@ -365,7 +363,7 @@
 
                     <header className="pt-48 md:pt-72 pb-24 px-8 max-w-7xl mx-auto relative z-10">
                         <div className="max-w-5xl">
-                            {/* UNIFIED SCALING: "THE" and "ECOSYSTEM" now share exact font size logic */}
+                            {/* UNIFIED SCALING & ALIGNMENT LOCK: "THE" and "ECOSYSTEM" sharing identical logic and margins */}
                             <h1 className="header-main text-white -ml-2 md:-ml-6">
                                 <span className="text-[12vw] sm:text-7xl md:text-[145px] block mb-2 leading-none">THE</span>
                                 <span className="glass-galaxy text-[12vw] sm:text-7xl md:text-[145px]">
