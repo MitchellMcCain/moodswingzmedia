@@ -37,6 +37,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Fixed Starfield Canvas Layer */
         #starfield {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0; pointer-events: none;
@@ -60,7 +61,7 @@
             text-transform: uppercase; letter-spacing: -0.04em; line-height: 0.85;
         }
 
-        /* LATEST ECOSYSTEM TYPOGRAPHY */
+        /* LATEST ECOSYSTEM TYPOGRAPHY SPEC */
         .glass-galaxy {
             position: relative; display: table; 
             background: linear-gradient(90deg, #ff00ff, #7000ff, #00d4ff, #7000ff, #ff00ff, #00d4ff);
@@ -71,7 +72,7 @@
             padding-right: 0.6em; z-index: 10;
         }
 
-        /* Prominent Depth Wireframe Layer */
+        /* Prominent Depth Wireframe Layer (1.8px) */
         .glass-galaxy::before {
             content: 'ECOSYSTEM.'; position: absolute; left: -12px; top: -10px; z-index: -1;
             -webkit-text-stroke: 1.8px rgba(255, 255, 255, 0.5); 
@@ -180,7 +181,7 @@
                 url: "https://signature.moodswingzmedia.com",
                 logoUrl: "signature-logo.PNG",
                 description: "Vocal Session Pro - Find Your Key Signature in Real Time. A real-time key finder/tuner for vocalists.",
-                category: "Utility / SaaS", color: "bg-violet-500", iconName: "mic", isEnlarged: true
+                category: "Utility / SaaS", color: "bg-blue-900", iconName: "mic", isEnlarged: true // Updated to Navy Blue
             },
             {
                 title: "Retina Reader",
@@ -194,7 +195,7 @@
                 url: "https://mathpunk.moodswingzmedia.com",
                 logoUrl: "math-punk-logo.PNG",
                 description: "Cyberpunk-themed mental math challenge. Speed, precision, and high-fidelity aesthetics.",
-                category: "Gaming / SaaS", color: "bg-yellow-400", iconName: "code", isReduced: true
+                category: "Gaming / SaaS", color: "bg-pink-500", iconName: "code", isReduced: true // Updated to Pink
             },
             {
                 title: "Tic Tac Glow",
@@ -233,7 +234,7 @@
                                 )}
                             </div>
                             <div className="mt-4">
-                                <h3 className="text-lg md:text-2xl font-black tracking-tighter text-white uppercase leading-none">{project.title}</h3>
+                                <h3 className="text-lg md:text-2xl font-black tracking-tighter text-white uppercase leading-none drop-shadow-md">{project.title}</h3>
                                 <p className="text-[8px] md:text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em] mt-2 opacity-60">{project.category}</p>
                             </div>
                         </div>
@@ -259,7 +260,7 @@
                 const createStars = () => {
                     stars = []; const count = Math.floor((w * h) / 2200);
                     for(let i = 0; i < count; i++) {
-                        stars.push({ x: Math.random() * w, y: Math.random() * h, size: Math.random() * 2, depth: Math.random() * 3, opacity: Math.random() * 0.7 + 0.1, vel: (Math.random() * 0.08) + 0.02 });
+                        stars.push({ x: Math.random() * w, y: Math.random() * h, size: Math.random() * 2, depth: Math.random() * 3, opacity: Math.random() * 0.7 + 0.1, vel: (Math.random() * 0.06) + 0.02 });
                     }
                 };
                 const animate = () => {
@@ -276,12 +277,14 @@
                 const handleInput = (x, y) => { mouse.x = x; mouse.y = y; };
                 window.addEventListener('resize', () => { setCanvasSize(); createStars(); });
                 window.addEventListener('mousemove', (e) => handleInput(e.clientX, e.clientY));
-                window.addEventListener('touchmove', (e) => handleInput(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+                window.addEventListener('touchmove', (e) => {
+                    if(e.touches.length > 0) handleInput(e.touches[0].clientX, e.touches[0].clientY);
+                }, { passive: true });
                 setCanvasSize(); createStars(); animate();
             }, []);
 
             return (
-                /* bg-transparent is CRITICAL to show the starfield canvas behind this div */
+                /* bg-transparent is MANDATORY so fixed starfield shows through */
                 <div className="relative min-h-screen w-full flex flex-col bg-transparent overflow-x-hidden">
                     <nav className="fixed top-0 w-full z-[100] glass-nav">
                         <div className="max-w-7xl mx-auto px-6 h-20 md:h-24 flex items-center justify-between">
