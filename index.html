@@ -60,7 +60,7 @@
             text-transform: uppercase; letter-spacing: -0.04em; line-height: 0.85;
         }
 
-        /* ECOSYSTEM DESIGN LOCKED */
+        /* LATEST LOCKED TYPOGRAPHY DESIGN */
         .glass-galaxy {
             position: relative; display: table; 
             background: linear-gradient(90deg, #ff00ff, #7000ff, #00d4ff, #7000ff, #ff00ff, #00d4ff);
@@ -95,6 +95,7 @@
             background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 1.5rem; overflow: hidden; line-height: 0;
         }
+        /* Fix for desktop stretching and shifting */
         @media (min-width: 1024px) {
             .music-grid-item { max-width: 540px; width: 100%; margin: 0 auto; }
         }
@@ -202,7 +203,7 @@
             }, []);
 
             const projects = [
-                { title: "Stak", url: "https://stak.moodswingzmedia.com", logoUrl: "stak-logo.PNG", description: "Financial companion for the next generation.", category: "FinTech / SaaS", color: "bg-emerald-400", iconName: "wallet" },
+                { title: "Stak", url: "https://stak.money", logoUrl: "stak-logo.PNG", description: "Financial companion for the next generation.", category: "FinTech / SaaS", color: "bg-emerald-400", iconName: "wallet" },
                 { title: "WhatsNextRadio", url: "https://wnr.moodswingzmedia.com", logoUrl: "wnr-logo.PNG", description: "Community-curated music discovery.", category: "Music / SaaS", color: "bg-sky-500", iconName: "radio" },
                 { title: "Kake", url: "https://kake.moodswingzmedia.com", logoUrl: "kake-logo.PNG", description: "The daily sweepstakes birthday game.", category: "Sweepstakes / SaaS", color: "bg-fuchsia-500", iconName: "cake" },
                 { title: "Abyss Beats", url: "https://abyssbeats.moodswingzmedia.com", isInternal: false, logoUrl: "abyss-beats-logo.PNG", description: "Premium instrumentals and audio marketplace.", category: "Music / SaaS", color: "bg-indigo-600", iconName: "music", isEnlarged: true },
@@ -239,13 +240,18 @@
                     "https://audius.co/embed/playlist/lWod82w?flavor=card",
                     "https://audius.co/embed/album/v7OAp?flavor=card",
                     "https://audius.co/embed/album/Lwxp5?flavor=card",
-                    "https://audius.co/embed/album/7AV2lqr?flavor=card"
+                    "https://audius.co/embed/album/7AV2lqr?flavor=card",
+                    "https://audius.co/embed/album/D9gW2?flavor=card",
+                    "https://audius.co/embed/album/Lw8Y5?flavor=card",
+                    "https://audius.co/embed/album/nd4AP?flavor=card",
+                    "https://audius.co/embed/album/BybN7WP?flavor=card"
                 ];
 
                 const applePlayers = [
                     "https://embed.music.apple.com/us/song/good-enough-feat-the-ancient-future/1867178218?theme=dark",
                     "https://embed.music.apple.com/us/song/you-are-enough/1825737777?theme=dark",
-                    "https://embed.music.apple.com/us/song/u-a-god-feat-dap-daniel-mikey-mo-the-mc/1790414314?theme=dark"
+                    "https://embed.music.apple.com/us/song/u-a-god-feat-dap-daniel-mikey-mo-the-mc/1790414314?theme=dark",
+                    "https://embed.music.apple.com/us/song/metaverse-maneuvers-feat-mikey-mo-the-mc/1789936966?theme=dark"
                 ];
 
                 return (
@@ -253,25 +259,25 @@
                         <nav className="fixed top-0 w-full z-[100] glass-nav">
                             <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                                 <span className="brand-font text-sm">Abyss / Muzik</span>
-                                <button onClick={() => setCurrentView('ecosystem')} className="ui-label text-[10px] hover:text-white">[ Return ]</button>
+                                <button onClick={() => setCurrentView('ecosystem')} className="ui-label text-[10px] hover:text-white transition-all">[ Return ]</button>
                             </div>
                         </nav>
                         <div className="pt-32 px-6 max-w-5xl mx-auto">
-                            <div className="flex flex-col md:flex-row items-center gap-12 mb-24">
-                                <div className="w-48 h-48 md:w-64 bg-zinc-900 rounded-[2rem] overflow-hidden border border-white/5">
+                            <div className="flex flex-col md:flex-row items-center gap-12 mb-24 text-center md:text-left">
+                                <div className="w-48 h-48 md:w-64 bg-zinc-900 rounded-[2rem] overflow-hidden border border-white/5 flex-shrink-0">
                                     <img src="abyss-beats-logo.PNG" className="w-full h-full object-contain p-4 grayscale hover:grayscale-0 transition-all duration-700" />
                                 </div>
-                                <div className="text-center md:text-left flex-1">
+                                <div className="flex-1">
                                     <h1 className="header-main text-5xl md:text-8xl mb-4">ABYSS.</h1>
                                     <p className="ui-label text-indigo-400 mb-6">Mitchell “Abyss” McCain</p>
-                                    <p className="text-zinc-400 text-sm leading-relaxed mb-8">Pioneering the integration of Hip Hop culture with high-fidelity digital ecosystems.</p>
+                                    <p className="text-zinc-400 text-sm leading-relaxed mb-8 max-w-xl mx-auto md:mx-0">Pioneering the integration of Hip Hop culture with high-fidelity digital ecosystems.</p>
                                     <div className="flex gap-4 justify-center md:justify-start">
-                                        <a href="https://www.instagram.com/officialabyssbeats" target="_blank" className="px-6 py-2 bg-white text-black text-[9px] font-black uppercase rounded-full">Instagram</a>
+                                        <a href="https://www.instagram.com/officialabyssbeats" target="_blank" className="px-6 py-2 bg-white text-black text-[9px] font-black uppercase rounded-full hover:scale-105 transition-transform">Instagram</a>
                                     </div>
                                 </div>
                             </div>
 
-                            <section className="mb-20">
+                            <section className="mb-24">
                                 <h2 className="ui-label text-[11px] mb-12 italic border-l border-indigo-500 pl-4">Now Streaming</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     {applePlayers.map((url, i) => (
@@ -286,11 +292,11 @@
 
                             <section>
                                 <h2 className="ui-label text-[11px] mb-12 italic border-l border-indigo-500 pl-4">Audius Catalog</h2>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
                                     {audiusPlayers.map((url, i) => (
                                         <div key={i} className="music-grid-item">
                                             <div className="player-embed-wrapper shadow-2xl">
-                                                <iframe src={url} width="100%" height="480" frameBorder="0" allow="autoplay; encrypted-media" style={{ display: 'block' }} />
+                                                <iframe src={url} width="100%" height="480" frameBorder="0" allow="autoplay; encrypted-media" style={{ display: 'block' }} loading="lazy" />
                                             </div>
                                         </div>
                                     ))}
@@ -316,7 +322,7 @@
                     <header className="pt-40 md:pt-64 pb-12 md:pb-24 px-6 max-w-7xl mx-auto w-full relative z-10">
                         <div className="max-w-4xl">
                             <h1 className="header-main text-white mb-8">
-                                <span className="text-[12vw] md:text-[120px] block">THE</span>
+                                <span className="text-[12vw] md:text-[120px] block mb-2">THE</span>
                                 <span className="glass-galaxy text-[12vw] md:text-[145px] inline-block">ECOSYSTEM.</span>
                             </h1>
                             <p className="text-base md:text-2xl max-w-2xl font-medium text-zinc-400 leading-relaxed">
