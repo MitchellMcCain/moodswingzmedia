@@ -76,8 +76,8 @@
             background-clip: text !important; -webkit-text-fill-color: transparent !important;
             color: transparent !important; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
             animation: galaxy-move 12s linear infinite; white-space: nowrap;
-            /* FIX: Snaps "E" to left content edge and provides right padding to prevent "EM" cutoff */
-            padding-right: 0.2em; 
+            /* ALIGNMENT LOCK: Snaps the text precisely to the left grid boundary */
+            padding-right: 0.3em; 
             margin-left: -0.15em; 
             z-index: 10;
         }
@@ -117,12 +117,14 @@
             justify-content: center;
         }
 
+        /* Differentiated Width Logic */
         @media (min-width: 1024px) {
             .apple-grid-item { 
                 width: 100%;
                 max-width: 480px; 
             }
             .audius-grid-item {
+                /* FULLY UNLOCKED: Responsive stretch for Audius cards per request */
                 width: 100%; 
             }
         }
@@ -230,22 +232,22 @@
             }, []);
 
             const projects = [
-                { title: "Stak", url: "https://stak.moodswingzmedia.com", logoUrl: "stak-logo.PNG", description: "Financial companion for the next generation.", category: "FinTech / SaaS", color: "bg-emerald-400", iconName: "wallet" },
-                { title: "WhatsNextRadio", url: "https://wnr.moodswingzmedia.com", logoUrl: "wnr-logo.PNG", description: "Community-curated music discovery.", category: "Music / SaaS", color: "bg-sky-500", iconName: "radio" },
-                { title: "Kake", url: "https://kake.moodswingzmedia.com", logoUrl: "kake-logo.PNG", description: "The daily sweepstakes birthday game.", category: "Sweepstakes / SaaS", color: "bg-fuchsia-500", iconName: "cake" },
-                { title: "Abyss Beats", url: "https://abyssbeats.moodswingzmedia.com", isInternal: false, logoUrl: "abyss-beats-logo.PNG", description: "Premium instrumentals produced by Abyss.", category: "Music / SaaS", color: "bg-indigo-600", iconName: "music", isEnlarged: true },
-                { title: "Parallel Exchange", url: "https://parallelexchange.moodswingzmedia.com", logoUrl: "parallel-exchange-logo.PNG", description: "Trade locally. No cash needed.", category: "FinTech / SaaS", color: "bg-cyan-400", iconName: "repeat", isReduced: true },
-                { title: "Artist Connect", url: "https://freshyard.moodswingzmedia.com", logoUrl: "artist-connect-logo.PNG", description: "Direct-to-fan tools for boutique labels.", category: "Social / SaaS", color: "bg-amber-500", iconName: "users", isReduced: true },
-                { title: "LVL UP", url: "https://levelup.moodswingzmedia.com", logoUrl: "levelup-logo.PNG", description: "Fitness tracker optimized for performance.", category: "Performance / SaaS", color: "bg-blue-400", iconName: "trending-up" },
-                { title: "Brotherhood Network", url: "https://brotherhoodnetwork.moodswingzmedia.com", logoUrl: "brotherhood-network-logo.PNG", description: "Safe community for collaboration.", category: "Networking / SaaS", color: "bg-purple-800", iconName: "share-2", isEnlarged: true },
-                { title: "CEEN Apparel", url: "#", isInternal: true, internalId: "ceen", logoUrl: "ceen-apparel-logo.PNG", description: "Modern intersection of tech and fashion.", category: "Wearables / SaaS", color: "bg-zinc-100", iconName: "shirt", isEnlarged: true }
+                { title: "Stak", url: "https://stak.moodswingzmedia.com", logoUrl: "stak-logo.PNG", description: "Financial companion for the next generation. Know what's Safe to Spend.", category: "FinTech / SaaS", color: "bg-emerald-400", iconName: "wallet" },
+                { title: "WhatsNextRadio", url: "https://wnr.moodswingzmedia.com", logoUrl: "wnr-logo.PNG", description: "Community-curated music discovery connecting artists and listeners.", category: "Music / SaaS", color: "bg-sky-500", iconName: "radio" },
+                { title: "Kake", url: "https://kake.moodswingzmedia.com", logoUrl: "kake-logo.PNG", description: "The daily sweepstakes game where your birthday could be your lucky number!", category: "Sweepstakes / SaaS", color: "bg-fuchsia-500", iconName: "cake" },
+                { title: "Abyss Beats", url: "https://abyssbeats.moodswingzmedia.com", isInternal: false, logoUrl: "abyss-beats-logo.PNG", description: "Premium instrumentals produced by Abyss. Premier audio marketplace.", category: "Music / SaaS", color: "bg-indigo-600", iconName: "music", isEnlarged: true },
+                { title: "Parallel Exchange", url: "https://parallelexchange.moodswingzmedia.com", logoUrl: "parallel-exchange-logo.PNG", description: "Trade locally with people in your area. No cash needed.", category: "FinTech / SaaS", color: "bg-cyan-400", iconName: "repeat", isReduced: true },
+                { title: "Artist Connect", url: "https://freshyard.moodswingzmedia.com", logoUrl: "artist-connect-logo.PNG", description: "The swiss army knife for artists and boutique labels.", category: "Social / SaaS", color: "bg-amber-500", iconName: "users", isReduced: true },
+                { title: "LVL UP", url: "https://levelup.moodswingzmedia.com", logoUrl: "levelup-logo.PNG", description: "Customizable fitness tracker designed to optimize your overall health.", category: "Performance / SaaS", color: "bg-blue-400", iconName: "trending-up" },
+                { title: "Brotherhood Network", url: "https://brotherhoodnetwork.moodswingzmedia.com", logoUrl: "brotherhood-network-logo.PNG", description: "Infrastructure for the modern man to collaborate and grow.", category: "Networking / SaaS", color: "bg-purple-800", iconName: "share-2", isEnlarged: true },
+                { title: "CEEN Apparel", url: "#", isInternal: true, internalId: "ceen", logoUrl: "ceen-apparel-logo.PNG", description: "Modern aesthetics at the intersection of tech and fashion.", category: "Wearables / SaaS", color: "bg-zinc-100", iconName: "shirt", isEnlarged: true }
             ];
 
             const interactiveProjects = [
-                { title: "Signature", url: "https://signature.moodswingzmedia.com", logoUrl: "signature-logo.PNG", description: "Real-time key finder for vocalists.", category: "Utility / SaaS", color: "bg-blue-900", iconName: "mic", isEnlarged: true },
-                { title: "Retina Reader", url: "https://retinareader.moodswingzmedia.com", logoUrl: "retina-logo.png", description: "Speed-reader Pace.", category: "Productivity / SaaS", color: "bg-red-600", iconName: "eye", isStandardLogo: true },
-                { title: "Math Punk", url: "https://mathpunk.moodswingzmedia.com", logoUrl: "math-punk-logo.PNG", description: "Cyberpunk mental math challenge.", category: "Gaming / SaaS", color: "bg-pink-500", iconName: "code", isReduced: true },
-                { title: "Tic Tac Glow", url: "https://tictacglow.moodswingzmedia.com", logoUrl: "tic-tac-glow-logo.PNG", description: "Neon strategy classic.", category: "Gaming / SaaS", color: "bg-violet-400", iconName: "x", isReduced: true }
+                { title: "Signature", url: "https://signature.moodswingzmedia.com", logoUrl: "signature-logo.PNG", description: "Vocal Session Pro - Find Your Key Signature in Real Time.", category: "Utility / SaaS", color: "bg-blue-900", iconName: "mic", isEnlarged: true },
+                { title: "Retina Reader", url: "https://retinareader.moodswingzmedia.com", logoUrl: "retina-logo.png", description: "RSVP speed-reader that maximizes your reading pace.", category: "Productivity / SaaS", color: "bg-red-600", iconName: "eye", isStandardLogo: true },
+                { title: "Math Punk", url: "https://mathpunk.moodswingzmedia.com", logoUrl: "math-punk-logo.PNG", description: "High-fidelity cyberpunk mental math challenge.", category: "Gaming / SaaS", color: "bg-pink-500", iconName: "code", isReduced: true },
+                { title: "Tic Tac Glow", url: "https://tictacglow.moodswingzmedia.com", logoUrl: "tic-tac-glow-logo.PNG", description: "A neon-infused reimagining of the classic strategy game.", category: "Gaming / SaaS", color: "bg-violet-400", iconName: "x", isReduced: true }
             ];
 
             if (currentView === 'ceen') {
@@ -363,14 +365,14 @@
 
                     <header className="pt-48 md:pt-72 pb-24 px-8 max-w-7xl mx-auto relative z-10">
                         <div className="max-w-5xl">
-                            {/* RESPONSIVE ALIGNMENT FIX: Snapped to the red margin line with responsive negative margin */}
+                            {/* ALIGNMENT FIX: Snapped content left and stabilized font sizing for late loading */}
                             <h1 className="header-main text-white -ml-2 md:-ml-6">
                                 <span className="text-6xl md:text-[120px] block mb-4">THE</span>
-                                <span className="glass-galaxy text-[15vw] sm:text-7xl md:text-[145px]">
+                                <span className="glass-galaxy text-[12vw] sm:text-7xl md:text-[145px]">
                                     ECOSYSTEM.
                                 </span>
                             </h1>
-                            <p className="text-base md:text-2xl mt-12 mb-16 max-w-2xl font-medium tracking-tight text-zinc-400 leading-relaxed -ml-1">
+                            <p className="text-base md:text-2xl mt-12 mb-16 max-w-[90vw] md:max-w-2xl font-medium tracking-tight text-zinc-400 leading-relaxed -ml-2 md:-ml-6">
                                 A digital repository of the next generation of SaaS, Fintech and high-fidelity media platforms.
                             </p>
                         </div>
@@ -403,6 +405,7 @@
                             </div>
                             <div className="flex gap-10 md:gap-16 text-[9px] font-black uppercase tracking-[0.4em] text-zinc-600">
                                 <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="hover:text-white transition-all">Instagram</a>
+                                <a href="https://www.tiktok.com/@moodswingzmedia" target="_blank" className="hover:text-white transition-all">TikTok</a>
                             </div>
                         </div>
                     </footer>
