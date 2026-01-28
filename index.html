@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Moodswingz Media | The Ecosystem</title>
     
-    <!-- Hard Canonical & WWW Redirect Logic -->
     <link rel="canonical" href="https://www.moodswingzmedia.com/">
     <script type="text/javascript">
         try {
@@ -17,7 +16,6 @@
         } catch (e) {
             console.warn("Cross-origin navigation restricted; operating in sandbox mode.");
         }
-
         if (window.location.hostname === 'moodswingzmedia.com') {
             window.location.replace('https://www.moodswingzmedia.com' + window.location.pathname);
         }
@@ -27,7 +25,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAAAABcl79IAAAAAnElEQVQYV2P4z8DAwMCwHgX8ZwAifgPAnA8Ax9YDAA==">
     
-    <!-- Dependencies -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -75,8 +72,7 @@
             background-clip: text !important; -webkit-text-fill-color: transparent !important;
             color: transparent !important; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
             animation: galaxy-move 12s linear infinite; white-space: nowrap;
-            /* ALIGNMENT LOCK: Snaps text to left grid boundary */
-            padding-right: 0.4em; 
+            padding-right: 0.45em; 
             margin-left: -0.15em; 
             z-index: 10;
         }
@@ -100,29 +96,12 @@
         .card-container { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
         .card-container:hover { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 0 40px rgba(255, 255, 255, 0.05); }
 
-        .player-embed-wrapper {
-            border-radius: 1.5rem; 
-            overflow: hidden; 
-            line-height: 0; 
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        .music-grid-item {
-            width: 100%;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-        }
+        .player-embed-wrapper { border-radius: 1.5rem; overflow: hidden; line-height: 0; width: 100%; margin: 0 auto; }
+        .music-grid-item { width: 100%; margin: 0 auto; display: flex; justify-content: center; }
 
         @media (min-width: 1024px) {
-            .apple-grid-item { 
-                width: 100%;
-                max-width: 480px; 
-            }
-            .audius-grid-item {
-                width: 100%; 
-            }
+            .apple-grid-item { width: 100%; max-width: 480px; }
+            .audius-grid-item { width: 100%; }
         }
     </style>
 </head>
@@ -161,12 +140,13 @@
                     <a 
                         href={project.url} target={project.isInternal ? "_self" : "_blank"}
                         onClick={handleClick}
-                        className="group relative block w-full aspect-square card-container rounded-[2rem] md:rounded-[3rem] overflow-hidden"
+                        /* UPDATED: Increased min-h to 380px on mobile to ensure all expanded text fits perfectly */
+                        className="group relative block w-full min-h-[380px] md:aspect-square card-container rounded-[2rem] md:rounded-[3rem] overflow-hidden"
                         onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
                     >
                         <div className={`absolute inset-0 blur-[100px] opacity-0 transition-opacity duration-700 group-hover:opacity-30 ${project.color}`} />
                         <div className="absolute inset-0 flex flex-col items-center justify-center p-6 md:p-8 text-center transition-all duration-700 ease-in-out group-hover:scale-90 group-hover:opacity-0 group-hover:blur-3xl">
-                            <div className="w-full h-[65%] flex items-center justify-center transition-all duration-700 group-hover:scale-110">
+                            <div className="w-full h-[60%] flex items-center justify-center transition-all duration-700 group-hover:scale-110">
                                 {project.logoUrl && !imgError ? (
                                     <img src={project.logoUrl} alt={project.title} className={`w-full h-full object-contain drop-shadow-2xl ${getScaleClass()}`} onError={() => setImgError(true)} />
                                 ) : (
@@ -178,10 +158,10 @@
                                 <p className="text-[8px] md:text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em] mt-2 opacity-60">{project.category}</p>
                             </div>
                         </div>
-                        <div className={`absolute inset-0 p-8 flex flex-col justify-center items-center text-center transition-all duration-700 ease-in-out ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12 pointer-events-none'}`}>
-                            <div className={`w-12 h-12 mb-6 rounded-xl flex items-center justify-center ${project.color} border border-white/20 text-white shadow-2xl`}><Icon name={project.iconName} size={24} /></div>
-                            <h3 className="text-lg md:text-xl font-black text-white mb-3 uppercase tracking-tighter">{project.title}</h3>
-                            <p className="text-[10px] md:text-sm text-zinc-300 mb-8 leading-relaxed font-medium max-w-[200px]">{project.description}</p>
+                        <div className={`absolute inset-0 p-8 md:p-10 flex flex-col justify-center items-center text-center transition-all duration-700 ease-in-out ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12 pointer-events-none'}`}>
+                            <div className={`w-14 h-14 mb-4 md:mb-6 rounded-xl flex items-center justify-center ${project.color} border border-white/20 text-white shadow-2xl`}><Icon name={project.iconName} size={28} /></div>
+                            <h3 className="text-xl md:text-2xl font-black text-white mb-2 md:mb-3 uppercase tracking-tighter">{project.title}</h3>
+                            <p className="text-xs md:text-sm text-zinc-300 mb-6 md:mb-8 leading-relaxed font-medium max-w-[220px]">{project.description}</p>
                             <div className="flex items-center gap-2 py-3 px-6 bg-white text-black rounded-full text-[10px] font-black uppercase tracking-widest transition-all hover:scale-110 shadow-xl">
                                 {project.isInternal ? '[ View Profile ]' : 'Launch'} <Icon name="arrow-right" size={14} />
                             </div>
@@ -236,7 +216,7 @@
                 { title: "Artist Connect", url: "https://freshyard.moodswingzmedia.com", logoUrl: "artist-connect-logo.PNG", description: "The swiss army knife for artists.", category: "Social", color: "bg-amber-500", iconName: "users", isReduced: true },
                 { title: "LVL UP", url: "https://levelup.moodswingzmedia.com", logoUrl: "levelup-logo.PNG", description: "Fitness tracker for overall health.", category: "Performance", color: "bg-blue-400", iconName: "trending-up" },
                 { title: "Brotherhood Network", url: "https://brotherhoodnetwork.moodswingzmedia.com", logoUrl: "brotherhood-network-logo.PNG", description: "Infrastructure for modern networking.", category: "Networking", color: "bg-purple-800", iconName: "share-2", isEnlarged: true },
-                { title: "CEEN Apparel", url: "#", isInternal: true, internalId: "ceen", logoUrl: "ceen-apparel-logo.PNG", description: " Intersection of tech and fashion.", category: "Wearables", color: "bg-zinc-100", iconName: "shirt", isEnlarged: true }
+                { title: "CEEN Apparel", url: "#", isInternal: true, internalId: "ceen", logoUrl: "ceen-apparel-logo.PNG", description: " Modern intersection of tech and fashion.", category: "Wearables", color: "bg-zinc-100", iconName: "shirt", isEnlarged: true }
             ];
 
             const interactiveProjects = [
@@ -262,6 +242,7 @@
             }
 
             if (currentView === 'music') {
+                /* RE-VERIFIED AUDIUS CATALOG ORDER: Top to Bottom as requested */
                 const audiusPlayers = [
                     { title: "Action Packed", url: "https://audius.co/embed/album/7AV2lqr?flavor=card" },
                     { title: "Genesis Block", url: "https://audius.co/embed/album/D9gW2?flavor=card" },
@@ -324,14 +305,7 @@
                                     {applePlayers.map((url, i) => (
                                         <div key={i} className="music-grid-item apple-grid-item">
                                             <div className="player-embed-wrapper shadow-2xl">
-                                                <iframe 
-                                                    src={url} 
-                                                    width="100%" 
-                                                    height="150" 
-                                                    frameBorder="0" 
-                                                    allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" 
-                                                    style={{ border: 'none', display: 'block', background: 'transparent' }} 
-                                                />
+                                                <iframe src={url} width="100%" height="150" frameBorder="0" allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" style={{ border: 'none', display: 'block', background: 'transparent' }} />
                                             </div>
                                         </div>
                                     ))}
@@ -344,13 +318,7 @@
                                     {audiusPlayers.map((player, i) => (
                                         <div key={i} className="music-grid-item audius-grid-item">
                                             <div className="player-embed-wrapper">
-                                                <iframe 
-                                                    src={player.url} 
-                                                    width="100%" 
-                                                    height="480" 
-                                                    allow="encrypted-media" 
-                                                    style={{ border: 'none', display: 'block' }} 
-                                                />
+                                                <iframe src={player.url} width="100%" height="480" allow="encrypted-media" style={{ border: 'none', display: 'block' }} />
                                             </div>
                                         </div>
                                     ))}
@@ -365,9 +333,7 @@
                 <div className="relative min-h-screen w-full flex flex-col bg-transparent overflow-x-hidden">
                     <nav className="fixed top-0 w-full z-50 border-b border-white/10 bg-black/80 backdrop-blur-3xl glass-nav">
                         <div className="max-w-7xl mx-auto px-8 h-20 md:h-24 flex items-center justify-between">
-                            <span className="brand-font text-sm md:text-xl cursor-default select-none">
-                                Moodswingz Media
-                            </span>
+                            <span className="brand-font text-sm md:text-xl cursor-default select-none">Moodswingz Media</span>
                             <div className="flex items-center gap-6 md:gap-12">
                                 <button onClick={() => setCurrentView('music')} className="ui-label text-[9px] md:text-[11px] hover:text-white transition-all">Muzik</button>
                                 <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="ui-label text-[9px] md:text-[11px] hover:text-white transition-all">Contact</a>
@@ -377,12 +343,9 @@
 
                     <header className="pt-48 md:pt-72 pb-24 px-8 max-w-7xl mx-auto relative z-10">
                         <div className="max-w-5xl">
-                            {/* UNIFIED SCALING & ALIGNMENT LOCK: "THE" and "ECOSYSTEM" sharing identical logic and margins */}
                             <h1 className="header-main text-white -ml-2 md:-ml-6">
-                                <span className="text-[9.5vw] sm:text-7xl md:text-[115px] block mb-2 leading-none">THE</span>
-                                <span className="glass-galaxy text-[9.5vw] sm:text-7xl md:text-[115px]">
-                                    ECOSYSTEM.
-                                </span>
+                                <span className="text-[10.5vw] sm:text-7xl md:text-[125px] block mb-2 leading-none">THE</span>
+                                <span className="glass-galaxy text-[10.5vw] sm:text-7xl md:text-[125px]">ECOSYSTEM.</span>
                             </h1>
                             <p className="text-base md:text-xl mt-12 mb-16 max-w-[90vw] md:max-w-2xl font-medium tracking-tight text-zinc-400 leading-relaxed -ml-2 md:-ml-6">
                                 A digital repository of the next generation of SaaS, Fintech and high-fidelity media platforms.
@@ -419,7 +382,7 @@
 
                     <footer className="mt-auto border-t border-white/5 py-24 bg-black relative z-10 backdrop-blur-xl">
                         <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-12 text-center md:text-left">
-                            <div className="flex flex-col items-center md:items-start gap-4">
+                            <div className="flex items-center md:items-start gap-4">
                                 <span className="brand-font text-xs text-white">Moodswingz</span>
                                 <p className="text-[8px] font-bold text-zinc-700 uppercase tracking-[0.4em] mt-2">&copy; 2026 Moodswingz Media & Tech Group.</p>
                             </div>
