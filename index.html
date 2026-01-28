@@ -77,6 +77,7 @@
             padding-right: 0.6em; z-index: 10;
         }
 
+        /* 1.8px wireframe depth offset */
         .glass-galaxy::before {
             content: 'ECOSYSTEM.'; position: absolute; left: -12px; top: -10px; z-index: -1;
             -webkit-text-stroke: 1.8px rgba(255, 255, 255, 0.5); 
@@ -96,13 +97,14 @@
         .card-container { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
         .card-container:hover { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 0 40px rgba(255, 255, 255, 0.05); }
 
-        /* PRODUCTION STABILITY FIX: Unified Music Width */
         .player-embed-wrapper {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 1.5rem; overflow: hidden; line-height: 0; width: 100%;
+            border-radius: 1.5rem; 
+            overflow: hidden; 
+            line-height: 0; 
+            width: 100%;
             margin: 0 auto;
         }
-        
+
         .music-grid-item {
             width: 100%;
             margin: 0 auto;
@@ -110,9 +112,15 @@
             justify-content: center;
         }
 
+        /* STABLE PRODUCTION WIDTH LOCKS */
         @media (min-width: 1024px) {
-            .music-grid-item, .player-embed-wrapper { 
-                max-width: 540px; /* Locked to consistent Action Packed width */
+            .apple-grid-item { 
+                max-width: 480px; 
+                width: 100%;
+            }
+            .audius-grid-item {
+                /* NO MAX WIDTH - Fills grid column for perfect symmetry across playists/albums */
+                width: 100%; 
             }
         }
     </style>
@@ -219,10 +227,10 @@
             }, []);
 
             const projects = [
-                { title: "Stak", url: "https://stak.money", logoUrl: "stak-logo.PNG", description: "Financial companion for the next generation.", category: "FinTech / SaaS", color: "bg-emerald-400", iconName: "wallet" },
+                { title: "Stak", url: "https://stak.moodswingzmedia.com", logoUrl: "stak-logo.PNG", description: "Financial companion for the next generation.", category: "FinTech / SaaS", color: "bg-emerald-400", iconName: "wallet" },
                 { title: "WhatsNextRadio", url: "https://wnr.moodswingzmedia.com", logoUrl: "wnr-logo.PNG", description: "Community-curated music discovery.", category: "Music / SaaS", color: "bg-sky-500", iconName: "radio" },
                 { title: "Kake", url: "https://kake.moodswingzmedia.com", logoUrl: "kake-logo.PNG", description: "The daily sweepstakes birthday game.", category: "Sweepstakes / SaaS", color: "bg-fuchsia-500", iconName: "cake" },
-                { title: "Abyss Beats", url: "https://abyssbeats.moodswingzmedia.com", isInternal: false, logoUrl: "abyss-beats-logo.PNG", description: "Premium instrumentals and audio marketplace.", category: "Music / SaaS", color: "bg-indigo-600", iconName: "music", isEnlarged: true },
+                { title: "Abyss Beats", url: "https://abyssbeats.moodswingzmedia.com", isInternal: false, logoUrl: "abyss-beats-logo.PNG", description: "Premium instrumentals produced by Abyss.", category: "Music / SaaS", color: "bg-indigo-600", iconName: "music", isEnlarged: true },
                 { title: "Parallel Exchange", url: "https://parallelexchange.moodswingzmedia.com", logoUrl: "parallel-exchange-logo.PNG", description: "Trade locally. No cash needed.", category: "FinTech / SaaS", color: "bg-cyan-400", iconName: "repeat", isReduced: true },
                 { title: "Artist Connect", url: "https://freshyard.moodswingzmedia.com", logoUrl: "artist-connect-logo.PNG", description: "Direct-to-fan tools for boutique labels.", category: "Social / SaaS", color: "bg-amber-500", iconName: "users", isReduced: true },
                 { title: "LVL UP", url: "https://levelup.moodswingzmedia.com", logoUrl: "levelup-logo.PNG", description: "Fitness tracker optimized for performance.", category: "Performance / SaaS", color: "bg-blue-400", iconName: "trending-up" },
@@ -232,9 +240,9 @@
 
             const interactiveProjects = [
                 { title: "Signature", url: "https://signature.moodswingzmedia.com", logoUrl: "signature-logo.PNG", description: "Real-time key finder for vocalists.", category: "Utility / SaaS", color: "bg-blue-900", iconName: "mic", isEnlarged: true },
-                { title: "Retina Reader", url: "https://retinareader.moodswingzmedia.com", logoUrl: "retina-logo.png", description: "Speed-reader fixed focal point Pace.", category: "Productivity / SaaS", color: "bg-red-600", iconName: "eye", isStandardLogo: true },
-                { title: "Math Punk", url: "https://mathpunk.moodswingzmedia.com", logoUrl: "math-punk-logo.PNG", description: "High-fidelity mental math challenge.", category: "Gaming / SaaS", color: "bg-pink-500", iconName: "code", isReduced: true },
-                { title: "Tic Tac Glow", url: "https://tictacglow.moodswingzmedia.com", logoUrl: "tic-tac-glow-logo.PNG", description: "Neon-infused reimagining of strategy.", category: "Gaming / SaaS", color: "bg-violet-400", iconName: "x", isReduced: true }
+                { title: "Retina Reader", url: "https://retinareader.moodswingzmedia.com", logoUrl: "retina-logo.png", description: "Speed-reader Pace.", category: "Productivity / SaaS", color: "bg-red-600", iconName: "eye", isStandardLogo: true },
+                { title: "Math Punk", url: "https://mathpunk.moodswingzmedia.com", logoUrl: "math-punk-logo.PNG", description: "Cyberpunk mental math challenge.", category: "Gaming / SaaS", color: "bg-pink-500", iconName: "code", isReduced: true },
+                { title: "Tic Tac Glow", url: "https://tictacglow.moodswingzmedia.com", logoUrl: "tic-tac-glow-logo.PNG", description: "Neon strategy classic.", category: "Gaming / SaaS", color: "bg-violet-400", iconName: "x", isReduced: true }
             ];
 
             if (currentView === 'ceen') {
@@ -251,16 +259,16 @@
 
             if (currentView === 'music') {
                 const audiusPlayers = [
-                    { title: "Produced by Abyss", url: "https://audius.co/embed/playlist/1B4zbRW?flavor=card" },
-                    { title: "Singles and Features", url: "https://audius.co/embed/playlist/lWod82w?flavor=card" },
+                    { title: "Tough Love", url: "https://audius.co/embed/album/nd4AP?flavor=card" },
+                    { title: "Royalty & Loyalty", url: "https://audius.co/embed/album/BybN7WP?flavor=card" },
+                    { title: "Genesis Block", url: "https://audius.co/embed/album/D9gW2?flavor=card" },
+                    { title: "From Now On", url: "https://audius.co/embed/album/rb54Paz?flavor=card" },
                     { title: "The Brain Storm", url: "https://audius.co/embed/album/v7OAp?flavor=card" },
+                    { title: "Singles & Features", url: "https://audius.co/embed/playlist/lWod82w?flavor=card" },
+                    { title: "Produced by Abyss", url: "https://audius.co/embed/playlist/1B4zbRW?flavor=card" },
                     { title: "Westbound", url: "https://audius.co/embed/album/Lwxp5?flavor=card" },
-                    { title: "From now on and we're done", url: "https://audius.co/embed/album/rb54Paz?flavor=card" },
                     { title: "Vault Sessions", url: "https://audius.co/embed/album/7AV2lqr?flavor=card" },
-                    { title: "Instrumentals Vol. 1", url: "https://audius.co/embed/album/D9gW2?flavor=card" },
-                    { title: "Sonic Architecture", url: "https://audius.co/embed/album/Lw8Y5?flavor=card" },
-                    { title: "Digital Drift", url: "https://audius.co/embed/album/nd4AP?flavor=card" },
-                    { title: "Ecosystem Audio", url: "https://audius.co/embed/album/BybN7WP?flavor=card" }
+                    { title: "Digital Drift", url: "https://audius.co/embed/album/Lw8Y5?flavor=card" }
                 ];
 
                 const applePlayers = [
@@ -278,13 +286,13 @@
                                 <button onClick={() => setCurrentView('ecosystem')} className="ui-label text-[10px] hover:text-white transition-all">[ Return ]</button>
                             </div>
                         </nav>
-                        <div className="pt-32 px-6 max-w-6xl mx-auto">
+                        <div className="pt-32 px-6 max-w-7xl mx-auto">
                             <div className="flex flex-col md:flex-row items-center gap-12 mb-24 text-center md:text-left">
                                 <div className="w-48 h-48 md:w-64 bg-zinc-900 rounded-[2rem] overflow-hidden border border-white/5 flex-shrink-0">
-                                    <img src="abyss-beats-logo.PNG" className="w-full h-full object-contain p-4 grayscale hover:grayscale-0 transition-all duration-700" />
+                                    <img src="abyss-beats-logo.PNG" alt="Abyss Beats" className="w-full h-full object-contain p-4 grayscale hover:grayscale-0 transition-all duration-700" />
                                 </div>
                                 <div className="flex-1">
-                                    <h1 className="header-main text-5xl md:text-8xl mb-4 italic">ABYSS.</h1>
+                                    <h1 className="header-main text-5xl md:text-8xl mb-4 italic text-white">ABYSS.</h1>
                                     <p className="ui-label text-indigo-400 mb-6">Mitchell “Abyss” McCain</p>
                                     <p className="text-zinc-400 text-sm leading-relaxed mb-8 max-w-xl mx-auto md:mx-0">Pioneering the integration of Hip Hop culture with high-fidelity digital ecosystems. Northern California native dedicated to the intersection of sound and technology.</p>
                                     <div className="flex gap-4 justify-center md:justify-start">
@@ -295,9 +303,9 @@
 
                             <section className="mb-24">
                                 <h2 className="ui-label text-[11px] mb-12 italic border-l border-indigo-500 pl-4">Now Streaming</h2>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
                                     {applePlayers.map((url, i) => (
-                                        <div key={i} className="music-grid-item">
+                                        <div key={i} className="music-grid-item apple-grid-item">
                                             <div className="player-embed-wrapper shadow-2xl">
                                                 <iframe 
                                                     src={url} 
@@ -315,9 +323,9 @@
 
                             <section>
                                 <h2 className="ui-label text-[11px] mb-12 italic border-l border-indigo-500 pl-4">Audius Catalog</h2>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14">
                                     {audiusPlayers.map((player, i) => (
-                                        <div key={i} className="music-grid-item">
+                                        <div key={i} className="music-grid-item audius-grid-item">
                                             <div className="player-embed-wrapper shadow-2xl">
                                                 <iframe 
                                                     src={player.url} 
@@ -325,7 +333,6 @@
                                                     height="480" 
                                                     allow="encrypted-media" 
                                                     style={{ border: 'none', display: 'block' }} 
-                                                    loading="lazy" 
                                                 />
                                             </div>
                                         </div>
@@ -339,9 +346,11 @@
 
             return (
                 <div className="relative min-h-screen w-full flex flex-col bg-transparent overflow-x-hidden">
-                    <nav className="fixed top-0 w-full z-[100] glass-nav">
-                        <div className="max-w-7xl mx-auto px-6 h-20 md:h-24 flex items-center justify-between">
-                            <span className="brand-font text-[10px] sm:text-base md:text-xl">Moodswingz Media</span>
+                    <nav className="fixed top-0 w-full z-50 border-b border-white/10 bg-black/80 backdrop-blur-3xl glass-nav">
+                        <div className="max-w-7xl mx-auto px-8 h-20 md:h-24 flex items-center justify-between">
+                            <span className="brand-font text-sm md:text-xl cursor-default select-none">
+                                Moodswingz Media
+                            </span>
                             <div className="flex items-center gap-6 md:gap-12">
                                 <button onClick={() => setCurrentView('music')} className="ui-label text-[9px] md:text-[11px] hover:text-white transition-all">Muzik</button>
                                 <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="ui-label text-[9px] md:text-[11px] hover:text-white transition-all">Contact</a>
@@ -349,40 +358,46 @@
                         </div>
                     </nav>
 
-                    <header className="pt-40 md:pt-64 pb-12 md:pb-24 px-6 max-w-7xl mx-auto w-full relative z-10">
-                        <div className="max-w-4xl">
-                            <h1 className="header-main text-white mb-8">
-                                <span className="text-[12vw] md:text-[120px] block mb-2">THE</span>
-                                <span className="glass-galaxy text-[12vw] md:text-[145px] inline-block">ECOSYSTEM.</span>
+                    <header className="pt-48 md:pt-72 pb-24 px-8 max-w-7xl mx-auto relative z-10">
+                        <div className="max-w-5xl">
+                            <h1 className="header-main text-white">
+                                <span className="text-6xl md:text-[120px] block mb-4">THE</span>
+                                <span className="glass-galaxy text-7xl md:text-[145px]">
+                                    ECOSYSTEM.
+                                </span>
                             </h1>
-                            <p className="text-base md:text-2xl max-w-2xl font-medium text-zinc-400 leading-relaxed">
+                            <p className="text-base md:text-2xl mt-12 mb-16 max-w-2xl font-medium tracking-tight text-zinc-400 leading-relaxed">
                                 A digital repository of the next generation of SaaS, Fintech and high-fidelity media platforms.
                             </p>
                         </div>
                     </header>
 
-                    <main className="max-w-7xl mx-auto px-6 pb-40 w-full relative z-10">
+                    <main className="max-w-7xl mx-auto px-8 pb-40 w-full relative z-10">
                         <section className="mb-32">
-                            <div className="flex items-center gap-4 mb-16"><div className="h-[1px] w-8 bg-white/20"></div><h2 className="ui-label text-[11px] md:text-sm italic">Primary Products</h2></div>
+                            <div className="flex items-center gap-4 mb-16"><div className="h-[1px] w-8 bg-white/20"></div><h2 className="ui-label text-[11px] md:text-sm italic text-zinc-600">Primary Products</h2></div>
                             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10">
                                 {projects.map((p, i) => <ProjectCard key={i} project={p} onNavigate={setCurrentView} />)}
                             </div>
                         </section>
                         <section className="mb-32">
-                            <div className="flex items-center gap-4 mb-16"><div className="h-[1px] w-8 bg-white/20"></div><h2 className="ui-label text-[11px] md:text-sm italic">Interactive Labs</h2></div>
+                            <div className="flex items-center gap-4 mb-16"><div className="h-[1px] w-8 bg-white/20"></div><h2 className="ui-label text-[11px] md:text-sm italic text-zinc-600">Interactive Labs</h2></div>
                             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10">
                                 {interactiveProjects.map((p, i) => <ProjectCard key={i} project={p} onNavigate={setCurrentView} />)}
-                                <div className="drift-card w-full aspect-square card-container border border-dashed border-zinc-700 rounded-[2rem] flex flex-col items-center justify-center text-zinc-800 gap-4 transition-all hover:border-zinc-500">
-                                    <Icon name="code" size={32} className="opacity-20"/><span className="ui-label text-[8px]">Incubating</span>
+                                <div className="drift-card w-full aspect-square bg-zinc-900/20 border border-dashed border-zinc-800 rounded-[2.5rem] md:rounded-[3rem] flex flex-col items-center justify-center text-zinc-800 gap-6 transition-all duration-500 hover:border-zinc-700">
+                                   <Icon name="code" size={32} className="opacity-20" />
+                                   <span className="text-[8px] font-black uppercase tracking-[0.5em]">Incubating</span>
                                 </div>
                             </div>
                         </section>
                     </main>
 
-                    <footer className="mt-auto border-t border-white/5 py-16 bg-black/50 backdrop-blur-xl relative z-10">
-                        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12 text-center md:text-left">
-                            <div><span className="brand-font text-xs text-white">Moodswingz</span><p className="ui-label text-[8px] mt-2">&copy; 2026 Moodswingz Media & Tech Group.</p></div>
-                            <div className="flex gap-8 text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">
+                    <footer className="mt-auto border-t border-white/5 py-24 bg-black relative z-10 backdrop-blur-xl">
+                        <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-12 text-center md:text-left">
+                            <div className="flex flex-col items-center md:items-start gap-4">
+                                <span className="brand-font text-xs text-white">Moodswingz</span>
+                                <p className="text-[8px] font-bold text-zinc-700 uppercase tracking-[0.4em] mt-2">&copy; 2026 Moodswingz Media & Tech Group.</p>
+                            </div>
+                            <div className="flex gap-10 md:gap-16 text-[9px] font-black uppercase tracking-[0.4em] text-zinc-600">
                                 <a href="https://www.instagram.com/moodswingzmedia" target="_blank" className="hover:text-white transition-all">Instagram</a>
                             </div>
                         </div>
