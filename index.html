@@ -76,8 +76,8 @@
             background-clip: text !important; -webkit-text-fill-color: transparent !important;
             color: transparent !important; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
             animation: galaxy-move 12s linear infinite; white-space: nowrap;
-            /* ALIGNMENT FIX: Snaps "E" to the left content edge */
-            padding-right: 0; 
+            /* FIX: Snaps "E" to left content edge and provides right padding to prevent "EM" cutoff */
+            padding-right: 0.2em; 
             margin-left: -0.15em; 
             z-index: 10;
         }
@@ -102,7 +102,6 @@
         .card-container { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
         .card-container:hover { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 0 40px rgba(255, 255, 255, 0.05); }
 
-        /* NAKED PLAYER WRAPPER - Minimalist integration */
         .player-embed-wrapper {
             border-radius: 1.5rem; 
             overflow: hidden; 
@@ -118,14 +117,12 @@
             justify-content: center;
         }
 
-        /* Responsive Grid Spacing */
         @media (min-width: 1024px) {
             .apple-grid-item { 
                 width: 100%;
-                max-width: 480px; /* Action Packed width standard */
+                max-width: 480px; 
             }
             .audius-grid-item {
-                /* NO MAX WIDTH: Fully responsive/filling container */
                 width: 100%; 
             }
         }
@@ -366,10 +363,10 @@
 
                     <header className="pt-48 md:pt-72 pb-24 px-8 max-w-7xl mx-auto relative z-10">
                         <div className="max-w-5xl">
-                            {/* ALIGNMENT FIX: Snapped content to the left margin to match Navbar grid */}
-                            <h1 className="header-main text-white -ml-2 md:-ml-5">
+                            {/* RESPONSIVE ALIGNMENT FIX: Snapped to the red margin line with responsive negative margin */}
+                            <h1 className="header-main text-white -ml-2 md:-ml-6">
                                 <span className="text-6xl md:text-[120px] block mb-4">THE</span>
-                                <span className="glass-galaxy text-7xl md:text-[145px]">
+                                <span className="glass-galaxy text-[15vw] sm:text-7xl md:text-[145px]">
                                     ECOSYSTEM.
                                 </span>
                             </h1>
