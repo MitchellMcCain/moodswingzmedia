@@ -108,7 +108,7 @@
             .audius-grid-item { width: 100%; }
         }
 
-        /* Dropdown Fix: bridged pt-4 prevents closing before clicking */
+        /* Nav Dropdown Stability Fix */
         .nav-dropdown-container {
             opacity: 0; transform: translateY(10px); pointer-events: none;
             transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
@@ -190,21 +190,23 @@
         };
 
         const App = () => {
-            const [currentView, setCurrentView] = useState('ecosystem');
+            const [currentView, setCurrentView] = useState(() => {
+                const hash = window.location.hash.replace('#', '');
+                if (hash === 'abyss') return 'music';
+                if (hash === 'ceen') return 'ceen';
+                return 'ecosystem';
+            });
 
-            /* ROUTING & SCROLL LOGIC */
             useEffect(() => {
                 const handleHash = () => {
                     const hash = window.location.hash.replace('#', '');
                     if (hash === 'abyss') setCurrentView('music');
                     else if (hash === 'ceen') setCurrentView('ceen');
                     else setCurrentView('ecosystem');
-                    
                     window.scrollTo(0, 0);
                 };
 
                 window.addEventListener('hashchange', handleHash);
-                handleHash(); 
                 
                 const canvas = document.getElementById('starfield');
                 const ctx = canvas.getContext('2d');
@@ -234,7 +236,6 @@
                 return () => window.removeEventListener('hashchange', handleHash);
             }, []);
 
-            /* URL SUITE MAINTAINED */
             const projects = [
                 { title: "Stak", url: "https://www.stak.money", logoUrl: "stak-logo.PNG", description: "Financial companion for the next generation. Know what's Safe to Spend.", category: "FinTech", color: "bg-emerald-400", iconName: "wallet" },
                 { title: "WhatsNextRadio", url: "https://www.whatsnextradio.com", logoUrl: "wnr-logo.PNG", description: "Community-curated music discovery connecting artists and listeners.", category: "Music", color: "bg-sky-500", iconName: "radio" },
@@ -298,7 +299,6 @@
                             </div>
                         </nav>
                         <div className="pt-32 px-6 max-w-7xl mx-auto">
-                            {/* CENTERED SIDE-BY-SIDE BLOCK FOR DESKTOP */}
                             <div className="flex flex-col md:flex-row items-center justify-center gap-12 mb-24 max-w-5xl mx-auto">
                                 <div className="w-48 h-48 md:w-64 bg-white rounded-[2rem] overflow-hidden shadow-2xl flex-shrink-0">
                                     <img src="abyss.png" alt="Abyss Muzik" className="w-full h-full object-cover transition-all duration-700" onError={(e) => { e.target.src = e.target.src.includes('.png') ? "abyss.PNG" : "abyss.jpg"; }} />
@@ -310,7 +310,11 @@
                                     <div className="flex flex-wrap gap-4 justify-center md:justify-start">
                                         <a href="https://www.instagram.com/officialabyssbeats" target="_blank" className="w-12 h-12 flex items-center justify-center bg-white text-black rounded-xl hover:scale-110 active:scale-95 transition-all shadow-lg"><Icon name="instagram" size={24} /></a>
                                         <a href="https://open.spotify.com/artist/6zK92olKppt0kz0WbUsG2H" target="_blank" className="w-12 h-12 flex items-center justify-center bg-white text-black rounded-xl hover:scale-110 active:scale-95 transition-all shadow-lg p-3"><svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.508 17.302c-.216.354-.675.467-1.028.249-2.815-1.721-6.357-2.109-10.531-1.154-.403.092-.81-.161-.902-.564-.092-.403.161-.81.564-.902 4.567-1.044 8.468-.598 11.648 1.347.353.217.466.677.249 1.024zm1.472-3.259c-.272.441-.849.581-1.288.31-3.224-1.98-8.136-2.556-11.948-1.398-.498.151-1.03-.129-1.181-.627-.151-.498.129-1.03.627-1.181 4.364-1.325 9.771-.678 13.483 1.599.44.271.58.847.309 1.297zm.126-3.39c-3.865-2.295-10.245-2.507-13.914-1.393-.593.18-1.222-.163-1.402-.754-.18-.592.163-1.222.754-1.402 4.221-1.281 11.272-1.034 15.719 1.605.534.317.708 1.005.392 1.538-.316.533-1.004.707-1.538.391l-.011.009z"/></svg></a>
-                                        <a href="https://music.apple.com/us/artist/abyss/978414937" target="_blank" className="w-12 h-12 flex items-center justify-center bg-white text-black rounded-xl hover:scale-110 active:scale-95 transition-all shadow-lg p-3"><svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full"><path d="M19.002 5.043l-9.002 1.341v10.116c-.538-.309-1.24-.5-2-.5-2.209 0-4 1.343-4 3s1.791 3 4 3 4-1.343 4-3v-8.859l7.001-1.042v5.401c-.538-.309-1.24-.5-2-.5-2.209 0-4 1.343-4 3s1.791 3 4 3 4-1.343 4-3v-10.957z"/></svg></a>
+                                        <a href="https://music.apple.com/us/artist/abyss/978414937" target="_blank" className="w-12 h-12 flex items-center justify-center bg-white text-black rounded-xl hover:scale-110 active:scale-95 transition-all shadow-lg p-3">
+                                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
+                                                <path d="M19.002 5.043l-9.002 1.341v10.116c-.538-.309-1.24-.5-2-.5-2.209 0-4 1.343-4 3s1.791 3 4 3 4-1.343 4-3v-8.859l7.001-1.042v5.401c-.538-.309-1.24-.5-2-.5-2.209 0-4 1.343-4 3s1.791 3 4 3 4-1.343 4-3v-10.957z"/>
+                                            </svg>
+                                        </a>
                                         <a href="https://abyssbeats.bandcamp.com/" target="_blank" className="w-12 h-12 flex items-center justify-center bg-white text-black rounded-xl hover:scale-110 active:scale-95 transition-all shadow-lg p-2.5"><svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full"><path d="M0 18.97L9.28 5.03H24L14.72 18.97H0z"/></svg></a>
                                     </div>
                                 </div>
@@ -347,9 +351,10 @@
 
                     <header className="pt-48 md:pt-72 pb-24 px-8 max-w-7xl mx-auto relative z-10">
                         <div className="max-w-5xl">
+                            {/* BREAKPOINT ADJUSTMENT FOR IPAD PORTRAIT: Refined scaling to text-8xl before full desktop size */}
                             <h1 className="header-main text-white -ml-2 md:-ml-6">
-                                <span className="text-[10.5vw] sm:text-7xl md:text-[125px] block mb-2 leading-none">THE</span>
-                                <span className="glass-galaxy text-[10.5vw] sm:text-7xl md:text-[125px]">ECOSYSTEM.</span>
+                                <span className="text-[10.5vw] sm:text-7xl md:text-8xl lg:text-[125px] block mb-2 leading-none">THE</span>
+                                <span className="glass-galaxy text-[10.5vw] sm:text-7xl md:text-8xl lg:text-[125px]">ECOSYSTEM.</span>
                             </h1>
                             <p className="text-base md:text-xl mt-12 mb-16 max-w-[90vw] md:max-w-2xl font-medium tracking-tight text-zinc-400 leading-relaxed -ml-2 md:-ml-6">
                                 A digital repository of the next generation of SaaS, Fintech and high-fidelity media platforms.
@@ -400,3 +405,4 @@
     </script>
 </body>
 </html>
+
