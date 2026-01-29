@@ -75,6 +75,7 @@
             background-clip: text !important; -webkit-text-fill-color: transparent !important;
             color: transparent !important; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
             animation: galaxy-move 12s linear infinite; white-space: nowrap;
+            /* ALIGNMENT LOCK: Snaps text to left grid boundary */
             padding-right: 0.4em; 
             margin-left: -0.15em; 
             z-index: 10;
@@ -107,7 +108,7 @@
             .audius-grid-item { width: 100%; }
         }
 
-        /* Nav Dropdown Stability Fix */
+        /* Nav Dropdown Stability Fix: pt-4 bridges the gap between button and menu */
         .nav-dropdown-container {
             opacity: 0; transform: translateY(10px); pointer-events: none;
             transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
@@ -152,11 +153,13 @@
                     <a 
                         href={project.url} target={project.isInternal ? "_self" : "_blank"}
                         onClick={handleClick}
+                        /* DYNAMIC EXPANSION */
                         className="group relative block w-full aspect-square hover:aspect-auto hover:min-h-[420px] card-container rounded-[2rem] md:rounded-[3rem] overflow-hidden transition-all duration-700 ease-in-out"
                         onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
                     >
                         <div className={`absolute inset-0 blur-[100px] opacity-0 transition-opacity duration-700 group-hover:opacity-30 ${project.color}`} />
                         
+                        {/* Front Face */}
                         <div className={`absolute inset-0 flex flex-col items-center justify-center p-6 md:p-8 text-center transition-all duration-700 ease-in-out ${isHovered ? 'scale-90 opacity-0 blur-3xl' : 'opacity-100'}`}>
                             <div className="w-full h-[60%] flex items-center justify-center transition-all duration-700 group-hover:scale-110">
                                 {project.logoUrl && !imgError ? (
@@ -171,6 +174,7 @@
                             </div>
                         </div>
 
+                        {/* Back Face */}
                         <div className={`absolute inset-0 p-8 md:p-12 flex flex-col items-center justify-between text-center transition-all duration-700 ease-in-out ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12 pointer-events-none'}`}>
                             <div className="flex flex-col items-center w-full">
                                 <div className={`w-14 h-14 mb-4 md:mb-6 rounded-xl flex items-center justify-center ${project.color} border border-white/20 text-white shadow-2xl shrink-0`}><Icon name={project.iconName} size={28} /></div>
@@ -293,11 +297,11 @@
                     <div className="relative min-h-screen w-full bg-transparent z-[100] pb-40">
                         <nav className="fixed top-0 w-full z-[100] glass-nav">
                             <div className="max-w-7xl mx-auto px-6 h-20 md:h-24 flex items-center justify-between">
-                                {/* ASSET UPDATE: TEXT LOGO REPLACED WITH logo.png */}
+                                {/* ASSET LOGO: Scaled to be more prominent */}
                                 <img 
                                     src="logo.png" 
                                     alt="Moodswingz Logo" 
-                                    className="h-8 md:h-12 w-auto object-contain cursor-pointer hover:scale-105 transition-transform" 
+                                    className="h-12 md:h-20 w-auto object-contain cursor-pointer hover:scale-105 transition-transform" 
                                     onClick={() => window.location.hash = ''} 
                                 />
                                 <button onClick={() => window.location.hash = ''} className="ui-label text-[10px] hover:text-white transition-all">[ Return ]</button>
@@ -335,11 +339,11 @@
                 <div className="relative min-h-screen w-full flex flex-col bg-transparent overflow-x-hidden">
                     <nav className="fixed top-0 w-full z-50 border-b border-white/10 bg-black/80 backdrop-blur-3xl glass-nav">
                         <div className="max-w-7xl mx-auto px-8 h-20 md:h-24 flex items-center justify-between">
-                            {/* ASSET UPDATE: TEXT LOGO REPLACED WITH logo.png */}
+                            {/* ASSET LOGO: Scaled to be more prominent */}
                             <img 
                                 src="logo.png" 
                                 alt="Moodswingz Logo" 
-                                className="h-8 md:h-12 w-auto object-contain cursor-pointer hover:scale-105 transition-transform" 
+                                className="h-12 md:h-20 w-auto object-contain cursor-pointer hover:scale-105 transition-transform" 
                                 onClick={() => window.location.hash = ''} 
                             />
                             <div className="flex items-center gap-6 md:gap-12">
@@ -362,6 +366,7 @@
 
                     <header className="pt-48 md:pt-72 pb-24 px-8 max-w-7xl mx-auto relative z-10">
                         <div className="max-w-5xl">
+                            {/* ALIGNMENT LOCK: iPhone 16 Pro Max */}
                             <h1 className="header-main text-white -ml-2 md:-ml-6">
                                 <span className="text-[10.5vw] sm:text-7xl md:text-8xl lg:text-[125px] block mb-2 leading-none">THE</span>
                                 <span className="glass-galaxy text-[10.5vw] sm:text-7xl md:text-8xl lg:text-[125px]">ECOSYSTEM.</span>
